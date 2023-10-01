@@ -1,18 +1,45 @@
 <!DOCTYPE html>
 <html lang="pt_BR">
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
+<style>
+    label {
+        display: inline-block;
+        width: 50px;
+    }
+
+    div.erro {
+        display: inline;
+        color: red;
+    }
+</style>
 <body>
-    <h1>Login</h1>
-    {% if test_bool %}
-    <ul>
-    {% for item in test_list %}
-        <li>{{ item }}</li>    
-    {% endfor %}
-    </ul>
-    {% endif %}
+    <header>
+        <h1>Login</h1>
+    </header>
+    <main>
+        <!-- img -->
+        <form action={% url "logar"  %} method="get">
+            <div>
+                <label for="id">ID/RA</label>
+                <input type="text" name="id" id="login-id" placeholder="seu id/ra">
+                {% if "id" in erros.vazio %} <div class="erro">Id é obrigatório</div> {% endif %}
+            </div>
+            <div>
+                <label for="senha">Senha</label>
+                <input type="text" name="senha" id="login-senha" placeholder="sua senha">
+                {% if "senha" in erros.vazio %} <div class="erro">Senha é obrigatório</div> {% endif %}
+            </div>
+            <input type="submit" value="Entrar">
+        </form>
+    </main>
+    <footer></footer>
 </body>
+<script>
+   
+</script>
 </html>

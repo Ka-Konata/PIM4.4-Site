@@ -1,4 +1,6 @@
 class Pessoa:
+    """Model para a entidade herda Pessoa."""
+
     def __init__(self, 
                  nome: str, 
                  cpf: int, 
@@ -17,6 +19,7 @@ class Pessoa:
         self.__telefone = telefone
         self.__email = email
         self.__cargo = cargo
+        """Construtor da classe."""
 
     def entrar(id: int, senha: str):
         pass # Ainda para implementar

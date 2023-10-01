@@ -32,8 +32,6 @@ class Connection:
         self.__empty = None,
         self.__base_url = base_url
         self.__base_headers = {'Content-type': 'application/json', 'Accept': '*/*'}
-        self.__token = None
-        self.__refresh_token = None
         self.procurar = Procurar(self.__base_url)
 
     def startup(self, u: AnalistaRH) -> requests.Response:
