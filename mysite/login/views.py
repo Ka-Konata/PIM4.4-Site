@@ -1,15 +1,22 @@
 import os
 import sys
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from api_integration import api, utils
 
+# Fazendo conexão com o banco de dados.
 conn = api.Connection(os.environ["API_URL"])
 
 # Create your views here.
 
 def index(request):
     """Retorna a página padrão para o usuário realizar o login."""
+    # Verificando se o usuário já está conectado, e redirecionando caso a resposta for sim.
+    print(f"is logged? {is_logged(request)}")
+    if is_logged(request):
+        return get_cargo_redirect(request, True)
+    
+    # Retornando a página de login.
     context = {
         "erros": {"vazio":[]}
     }
@@ -35,11 +42,12 @@ def connect(request: HttpRequest) -> HttpResponse:
 
         # Validando o resultado.
         if response.status_code == 200: # OK
-            login = utils.Login(response)
+            login = utils.Login()
+            login.set_values_with_response(response)
 
             # Verificando o tipo de conta
-            if login.cargo == "AnalistaRH":
-                r = redirect("area_do_analistarh:index")
+            if login.cargo in utils.Cargo.TODOS:
+                r = get_cargo_redirect(login.cargo)
             else:
                 r = HttpResponse(f"id: {login.id}<br>token: {login.token}<br>refresh_token: {login.refresh_token}")
 
@@ -121,3 +129,46 @@ def sair(request):
     r.set_cookie(os.environ["API_USER_CARGO"], "")
     r.set_cookie(os.environ["API_USER_ID"], "")
     return r
+
+
+def get_cargo_redirect(request_or_str, is_request: bool = False) -> HttpResponseRedirect:
+    if is_request:
+        cargo = request_or_str.COOKIES[os.environ['API_USER_CARGO']]
+    else:
+        cargo = request_or_str
+    return redirect(f"area_do_{cargo.lower()}:index")
+
+
+def is_logged(request: HttpRequest) -> bool:
+    """Verifique se um usuário está logado ou não.
+    \nCaso esteja logado, retorna um HttpResponseRedirect para a sua respectiva área.
+    \nCaso contrário, retorna None."""
+    # Tentando instanciar um objeto do tipo Login.
+    try:
+        login = api.Login(
+            token=request.COOKIES[os.environ['API_TOKEN']],
+            refresh_token=request.COOKIES[os.environ['API_REFRESH_TOKEN']],
+            cargo=request.COOKIES[os.environ['API_USER_CARGO']],
+            id=int(request.COOKIES[os.environ['API_USER_ID']])
+        )
+    except Exception as e:
+        return False
+    
+    # Verificando o cargo do usuário em questão.
+    if login.cargo == utils.Cargo.ANALISTARH:
+        response, analistarh = conn.consultar.analistarh(login.id, login.token)
+    elif login.cargo == utils.Cargo.SECRETARIO:
+        return False # AINDA PARA IMPLEMENTAR
+    elif login.cargo == utils.Cargo.PROFESSOR:
+        return False # AINDA PARA IMPLEMENTAR
+    elif login.cargo == utils.Cargo.ALUNO:
+        return False # AINDA PARA IMPLEMENTAR
+    else:
+        return False
+    
+    # Resultado da requisição.
+    if response.status_code != 200:
+        return False
+    
+    # Caso tenha passado por todas as validações.
+    return True

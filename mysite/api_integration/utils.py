@@ -12,8 +12,31 @@ def dict_to_josn(dict: dict) -> str:
     return dumps(dict, indent=4) #
 
 
+class Cargo:
+    ANALISTARH = "AnalistaRH"
+    SECRETARIO = "Secretario"
+    PROFESSOR = "Professor"
+    ALUNO = "Aluno"
+    TODOS = [ANALISTARH, SECRETARIO, PROFESSOR, ALUNO]
+
+
 class Login:
-    def __init__(self, r: Response) -> None:
+    def __init__(
+            self, 
+            token: str = None, 
+            refresh_token: str = None, 
+            cargo: str = None, 
+            id: int = None,
+            email: str = None
+            ) -> None:
+        """Uma classe para guardar algumas informações básicas de login."""
+        self.token = token
+        self.refresh_token = refresh_token
+        self.cargo = cargo
+        self.id = id
+        self.email = email
+
+    def set_values_with_response(self, r: Response) -> None:
         """Uma classe para guardar algumas informações básicas de login."""
         res = bytes_to_dict(r.content)
         self.token = res["token"]
