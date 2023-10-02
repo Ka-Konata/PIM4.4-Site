@@ -16,8 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from dotenv import load_dotenv
+import os
+
+# Setando as minhas próprias variáveis de ambiente
+load_dotenv()
+print(os.environ["API_URL"])
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("login/", include("login.urls"))
+    path("login/", include("login.urls")),
+    path("area_do_analistarh/", include("area_do_analistarh.urls"))
 ]

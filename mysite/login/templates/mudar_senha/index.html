@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mudar Senha</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/mudar_senha.css' %}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/geral.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Mudar Senha</h1>
+    </header>
+    <main>
+        <!-- img -->
+        <form action={% url "login:mudar_senha"  %} method="get">
+            {% if erros.401 == True %} <div class="block-erro">ID/RA ou senha incorreto.</div> {% endif %}
+            {% if erros.400 == True %} <div class="block-erro">A nova senha não pode ser igual a anterior.</div> {% endif %}
+            <div>
+                <label for="id">ID/RA</label>
+                <input type="text" name="id" id="login-id" placeholder="seu id/ra">
+                {% if "id" in erros.vazio %} <div class="text-erro">Campo obrigatório.</div> {% endif %}
+            </div>
+            <div>
+                <label for="senha_antiga">Senha atual</label>
+                <input type="text" name="senha_antiga" id="senha-antiga" placeholder="sua senha">
+                {% if "senha_antiga" in erros.vazio %} <div class="text-erro">Campo obrigatório.</div> {% endif %}
+            </div>
+            <div>
+                <label for="senha_nova">Nova senha</label>
+                <input type="text" name="senha_nova" id="senha-nova" placeholder="sua senha">
+                {% if "senha_nova" in erros.vazio %} <div class="text-erro">Campo obrigatório.</div> {% endif %}
+            </div>
+            <input type="submit" value="Entrar">
+        </form>
+    </main>
+    <footer></footer>
+</body>
+</html>

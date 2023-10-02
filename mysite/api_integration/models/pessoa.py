@@ -13,7 +13,7 @@ class Pessoa:
                  ) -> None:
         self.__id = id
         self.__senha = senha
-        self.__nome = nome
+        self.nome = nome
         self.__cpf = cpf
         self.__rg = rg
         self.__telefone = telefone
@@ -31,7 +31,7 @@ class Pessoa:
         return self.__senha
 
     def get_nome(self):
-        return self.__nome
+        return self.nome
 
     def get_cpf(self):
         return self.__cpf

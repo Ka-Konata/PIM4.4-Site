@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área do Analista de RH</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/geral.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Área do Analista de RH</h1>
+        <p>Olá, {{ analistarh.nome }}</p>
+        <a href="{% url 'login:sair' %}">sair</a>
+    </header>
+    <main>
+        <section>
+            <div class="area-opcao">
+                <a href="#" target="_self">
+                    <p>Manter Professor(a)</p>
+                </a>
+            </div>
+            <div class="area-opcao">
+                <a href="#" target="_self">
+                    <p>Manter Secretario(a)</p>
+                </a>
+            </div>
+            <div class="area-opcao">
+                <a href="#" target="_self">
+                    <p>Manter Analista de RH</p>
+                </a>
+            </div>
+        </section>
+    </main>
+    <footer></footer>
+</body>
+</html>

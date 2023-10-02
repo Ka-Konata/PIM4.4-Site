@@ -1,29 +1,9 @@
 import requests
 import json
-from ast import literal_eval
-from procurar import Procurar
-from models.analistarh import AnalistaRH
-
-
-def bytes_to_dict(bytes: bytes):
-    """Converte uma variável em bytes para dict."""
-    return literal_eval(bytes.decode("UTF-8"))
-
-
-def dict_to_josn(dict: dict) -> str:
-    """Converte uma variável em dict para json (string)."""
-    return json.dumps(dict, indent=4) #
-
-
-class Login:
-    def __init__(self, r: requests.Response) -> None:
-        """Uma classe para guardar algumas informações básicas de login."""
-        res = bytes_to_dict(r.content)
-        self.token = res["token"]
-        self.refresh_token = res["refreshToken"]
-        self.cargo = res["cargo"]
-        self.id = res["id"]
-        self.email = res["email"]
+from . procurar import Procurar
+from . consultar import Consultar
+from . models.analistarh import AnalistaRH
+from . utils import *
 
 
 class Connection:
@@ -32,7 +12,8 @@ class Connection:
         self.__empty = None,
         self.__base_url = base_url
         self.__base_headers = {'Content-type': 'application/json', 'Accept': '*/*'}
-        self.procurar = Procurar(self.__base_url)
+        self.procurar = Procurar(self.__base_url, self.__base_headers)
+        self.consultar = Consultar(self.__base_url, self.__base_headers)
 
     def startup(self, u: AnalistaRH) -> requests.Response:
         """Cadastre a conta inicial do banco de dados\n

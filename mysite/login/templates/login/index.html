@@ -1,45 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt_BR">
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-</head>
-<style>
-    label {
-        display: inline-block;
-        width: 50px;
-    }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    div.erro {
-        display: inline;
-        color: red;
-    }
-</style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/geral.css' %}">
+</head>
 <body>
     <header>
         <h1>Login</h1>
     </header>
     <main>
         <!-- img -->
-        <form action={% url "logar"  %} method="get">
+        <form action={% url "login:connect"  %} method="get">
+            {% if erros.401 == True %} <div class="block-erro">ID/RA ou senha incorreto.</div> {% endif %}
+            {% if erros.426 == True %} <div class="block-erro">Necessário trocar a senha.</div> {% endif %}
             <div>
                 <label for="id">ID/RA</label>
                 <input type="text" name="id" id="login-id" placeholder="seu id/ra">
-                {% if "id" in erros.vazio %} <div class="erro">Id é obrigatório</div> {% endif %}
+                {% if "id" in erros.vazio %} <div class="text-erro">Campo obrigatório.</div> {% endif %}
             </div>
             <div>
                 <label for="senha">Senha</label>
                 <input type="text" name="senha" id="login-senha" placeholder="sua senha">
-                {% if "senha" in erros.vazio %} <div class="erro">Senha é obrigatório</div> {% endif %}
+                {% if "senha" in erros.vazio %} <div class="text-erro">Campo obrigatório.</div> {% endif %}
             </div>
             <input type="submit" value="Entrar">
         </form>
+        <a href="{% url 'login:mudar_senha_pag' %}">trocar a senha</a>
     </main>
     <footer></footer>
+    <script>
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        console.log("ACCESS-TOKEN: " + getCookie("PIM4.4-API-ACCESS-TOKEN"));
+        console.log("REFRESH-TOKEN: " + getCookie("PIM4.4-API-REFRESH-TOKEN"));
+    </script>
 </body>
-<script>
-   
-</script>
 </html>
