@@ -26,5 +26,6 @@ print(os.environ["API_URL"])
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("login/", include("login.urls")),
-    path("area_do_analistarh/", include("area_do_analistarh.urls"))
+    path("analistarh/", include("analistarh.urls")),
+    path("secretario/", include("secretario.urls"))
 ]

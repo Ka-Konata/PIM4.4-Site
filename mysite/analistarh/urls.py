@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-app_name = "area_do_analistarh"
+app_name = "analistarh"
 
 """Configurando as urls para a página de login"""
 urlpatterns = [

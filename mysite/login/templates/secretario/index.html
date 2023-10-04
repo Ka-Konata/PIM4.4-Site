@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área do Secretario</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/geral.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Área do Secretario</h1>
+        <p>Olá, {{ secretario.nome }}</p>
+        <a href="{% url 'login:sair' %}">sair</a>
+    </header>
+    <main>
+        <section>
+            <div class="area-opcao">
+                <a href="#" target="_self">
+                    <p>Manter Aluno(a)</p>
+                </a>
+            </div>
+            <div class="area-opcao">
+                <a href="#" target="_self">
+                    <p>Manter Curso</p>
+                </a>
+            </div>
+            <div class="area-opcao">
+                <a href="#" target="_self">
+                    <p>Manter Turma</p>
+                </a>
+            </div>
+            <div class="area-opcao">
+                <a href="#" target="_self">
+                    <p>Manter Disciplina</p>
+                </a>
+            </div>
+        </section>
+    </main>
+    <footer></footer>
+</body>
+</html>

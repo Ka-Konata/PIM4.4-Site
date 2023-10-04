@@ -1,6 +1,7 @@
 import requests
 import json
 from . models.analistarh import AnalistaRH
+from . models.secretario import Secretario
 from . utils import *
 from django.http import HttpResponse
 
@@ -34,3 +35,27 @@ class Consultar:
                 cargo=r["cargo"]
             )
         return [response, analistarh]
+
+    def secretario(self, id: int, token: str) -> list[HttpResponse, Secretario]:
+        """Retorna um objeto Secretario.
+        Return: list() [django.http.HttpResponse, Secretario]"""
+        # Preparando e efetuando o request na API.
+        url = self.__base_url + f"/secretario/{id}"
+        headers = self.__base_headers
+        headers["Authorization"] = f"Bearer {token}"
+        response = requests.get(url, headers=headers)
+
+        # Instanciando o objeto da classe Secretario.
+        secretario = None
+        if response.status_code == 200:
+            r = bytes_to_dict(response.content)
+            secretario = Secretario(
+                id=r["id"],
+                nome=r["nome"],
+                cpf=r["cpf"],
+                rg=r["rg"],
+                telefone=r["telefone"],
+                email=r["email"],
+                cargo=r["cargo"]
+            )
+        return [response, secretario]

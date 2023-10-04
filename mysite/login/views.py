@@ -1,5 +1,6 @@
 import os
 import sys
+from datetime import datetime, timedelta
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from api_integration import api, utils
@@ -52,10 +53,11 @@ def connect(request: HttpRequest) -> HttpResponse:
                 r = HttpResponse(f"id: {login.id}<br>token: {login.token}<br>refresh_token: {login.refresh_token}")
 
             # Montando o HttpResponse. (MUDAR PARA PÁGINS DPS)
-            r.set_cookie(os.environ["API_TOKEN"], login.token)
-            r.set_cookie(os.environ["API_REFRESH_TOKEN"], login.refresh_token)
-            r.set_cookie(os.environ["API_USER_CARGO"], login.cargo)
-            r.set_cookie(os.environ["API_USER_ID"], login.id)
+            expires = datetime.utcnow() + timedelta(days=7)
+            r.set_cookie(os.environ["API_TOKEN"], login.token, expires=expires)
+            r.set_cookie(os.environ["API_REFRESH_TOKEN"], login.refresh_token, expires=expires)
+            r.set_cookie(os.environ["API_USER_CARGO"], login.cargo, expires=expires)
+            r.set_cookie(os.environ["API_USER_ID"], login.id, expires=expires)
             return r
         
         elif response.status_code == 401: # Unauthorized
@@ -123,11 +125,12 @@ def refresh_token(request, id, senha):
 
 def sair(request):
     # Montando o HttpResponse. (MUDAR PARA PÁGINS DPS)
+    expires = datetime.utcnow() + timedelta(days=7)
     r = redirect("login:index")
-    r.set_cookie(os.environ["API_TOKEN"], "")
-    r.set_cookie(os.environ["API_REFRESH_TOKEN"], "")
-    r.set_cookie(os.environ["API_USER_CARGO"], "")
-    r.set_cookie(os.environ["API_USER_ID"], "")
+    r.set_cookie(os.environ["API_TOKEN"], "", expires=expires)
+    r.set_cookie(os.environ["API_REFRESH_TOKEN"], "", expires=expires)
+    r.set_cookie(os.environ["API_USER_CARGO"], "", expires=expires)
+    r.set_cookie(os.environ["API_USER_ID"], "", expires=expires)
     return r
 
 
@@ -136,7 +139,7 @@ def get_cargo_redirect(request_or_str, is_request: bool = False) -> HttpResponse
         cargo = request_or_str.COOKIES[os.environ['API_USER_CARGO']]
     else:
         cargo = request_or_str
-    return redirect(f"area_do_{cargo.lower()}:index")
+    return redirect(f"{cargo.lower()}:index")
 
 
 def is_logged(request: HttpRequest) -> bool:

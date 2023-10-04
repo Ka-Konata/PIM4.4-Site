@@ -2,12 +2,17 @@ import os, json
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest
 from api_integration import api, utils
+from login.views import is_logged
 
 conn = api.Connection(os.environ["API_URL"])
 
 # Create your views here.
 def index(request: HttpRequest):
-    """Página inicial da área do Analista de RH"""
+    """Página inicial da área do Secretario"""
+    # Verificando se o usuário está logado.
+    if not is_logged:
+        return redirect("login:index")
+    
     # Tentando pegar os cookies.
     try:
         token = request.COOKIES[os.environ['API_TOKEN']]
@@ -17,7 +22,7 @@ def index(request: HttpRequest):
         return redirect("login:index")
 
     # Fazendo o request na API
-    response, analistarh = conn.consultar.analistarh(id, token)
+    response, secretario = conn.consultar.secretario(id, token)
     context = {
         "erros":[]
     }
@@ -33,5 +38,5 @@ def index(request: HttpRequest):
         return render(request, "erros/403.html", context)
 
     # Adicionando o obj ao contexto e respondendo o request.
-    context["analistarh"] = analistarh
-    return render(request, "area_do_analistarh/index.html", context)
+    context["secretario"] = secretario
+    return render(request, "secretario/index.html", context)
