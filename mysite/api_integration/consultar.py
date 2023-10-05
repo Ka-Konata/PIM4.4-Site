@@ -2,6 +2,8 @@ import requests
 import json
 from . models.analistarh import AnalistaRH
 from . models.secretario import Secretario
+from . models.professor import Professor
+from . models.aluno import Aluno
 from . utils import *
 from django.http import HttpResponse
 
@@ -59,3 +61,52 @@ class Consultar:
                 cargo=r["cargo"]
             )
         return [response, secretario]
+
+    def professor(self, id: int, token: str) -> list[HttpResponse, Professor]:
+        """Retorna um objeto Professor.
+        Return: list() [django.http.HttpResponse, Professor]"""
+        # Preparando e efetuando o request na API.
+        url = self.__base_url + f"/professor/{id}"
+        headers = self.__base_headers
+        headers["Authorization"] = f"Bearer {token}"
+        response = requests.get(url, headers=headers)
+
+        # Instanciando o objeto da classe Professor.
+        professor = None
+        if response.status_code == 200:
+            r = bytes_to_dict(response.content)
+            professor = Professor(
+                id=r["id"],
+                nome=r["nome"],
+                cpf=r["cpf"],
+                rg=r["rg"],
+                telefone=r["telefone"],
+                email=r["email"],
+                cargo=r["cargo"]
+            )
+        return [response, professor]
+
+    def aluno(self, id: int, token: str) -> list[HttpResponse, Aluno]:
+        """Retorna um objeto Aluno.
+        Return: list() [django.http.HttpResponse, Aluno]"""
+        # Preparando e efetuando o request na API.
+        url = self.__base_url + f"/aluno/{id}"
+        headers = self.__base_headers
+        headers["Authorization"] = f"Bearer {token}"
+        response = requests.get(url, headers=headers)
+
+        # Instanciando o objeto da classe Aluno.
+        aluno = None
+        if response.status_code == 200:
+            r = bytes_to_dict(response.content)
+            aluno = Aluno(
+                id=r["id"],
+                nome=r["nome"],
+                cpf=r["cpf"],
+                rg=r["rg"],
+                telefone=r["telefone"],
+                email=r["email"],
+                cargo=r["cargo"]
+            )
+        return [response, aluno]
+

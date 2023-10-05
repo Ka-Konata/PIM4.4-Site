@@ -8,7 +8,7 @@ conn = api.Connection(os.environ["API_URL"])
 
 # Create your views here.
 def index(request: HttpRequest):
-    """Página inicial da área do Analista de RH"""
+    """Página inicial da área do Aluno"""
     # Verificando se o usuário está logado.
     if not is_logged:
         return redirect("login:index")
@@ -23,11 +23,12 @@ def index(request: HttpRequest):
         return redirect("login:index")
 
     # Fazendo o request na API
-    response, analistarh = conn.consultar.analistarh(id, token)
+    response, aluno = conn.consultar.aluno(id, token)
     context = {
         "erros":[]
     }
 
+    print(cargo, utils.Cargo.ALUNO)
     # Caso o token esteja expirado.
     if response.status_code == 401:
         # Caso o refresh_token também seja inválido.
@@ -35,17 +36,9 @@ def index(request: HttpRequest):
             return redirect("login:index")
 
     # Caso o token seja válido, mas o usuário não tenha permissão para usar o endpoint.
-    elif response.status_code == 403 or cargo != utils.Cargo.ANALISTARH:
+    elif response.status_code == 403 or cargo != utils.Cargo.ALUNO:
         return render(request, "erros/403.html", context)
 
     # Adicionando o obj ao contexto e respondendo o request.
-    context["analistarh"] = analistarh
-    return render(request, "analistarh/index.html", context)
-
-
-def manter_professor(request):
-    """Página para gerenciar as contas do tipo Professor"""
-    # Verificando se o usuário está logado.
-    if not is_logged:
-        return redirect("login:index")
-    
+    context["aluno"] = aluno
+    return render(request, "aluno/index.html", context)

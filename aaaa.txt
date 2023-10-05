@@ -1,0 +1,35 @@
+*login/*
+    *login/mudarsenha*
+
+*analistarh/* (botões: manter_professor, manter_secretario, manter_analistarh)
+    *analistarh/professor/procurar* (tabela de professores cadastrados, ao clicar em um acessa a página editar)
+    *analistarh/professor/editar* (editar, excluir ou cadastrar professor)
+    *analistarh/secretario/procurar*
+    *analistarh/secretario/editar*
+    *analistarh/analistarh/procurar*
+    *analistarh/analistarh/editar*
+
+*secretario/*  (botões: manter_aluno, manter_curso, manter_turma, manter_disciplina)
+    *secretario/aluno/procurar* (tabela de alunos cadastrados, ao clicar em um acessa a página editar)
+    *secretario/aluno/editar* (editar, excluir ou cadastrar aluno) (botões: editar_cursos)
+    *secretario/aluno/editar/cursos* (adicionar ou remover aluno, automaticamente add/remove em turma e disciplinas)
+    *secretario/curso/procurar*
+    *secretario/curso/editar* (botões: editar_disciplinas)
+    *secretario/curso/editar/disciplinas* (definir as disciplinas dos)
+    *secretario/turma/procurar*
+    *secretario/turma/editar* (botões: editar_professores)
+    *secretario/turma/editar/professores* (adicionar ou remover professor, definir como coordenador)
+    *secretario/disciplina/procurar*
+    *secretario/disciplina/editar*
+
+*professor/* (botões: disciplinas_ministradas)
+    *professor/disciplinas* (botões: emitir_mapa_de_notas, ver_alunos, manter_conteudo_programático)
+    *professor/disciplinas/alunos* (tabela de alunos da disciplina, botão para ver aluno)
+    *professor/disciplinas/alunos/editar* (campos: definir_notas, definir_frequencia) (botões: verificar_situação)
+    *professor/disciplinas/conteudos* (campo: enviar arquivo pdf)
+
+*aluno* (botões: ver_cursos, emitir_declaração, emitir_historico_escolar, emitir_relatorio_de_matricula, emitir_boletim)
+    *aluno/cursos/* (tabela de cursos matriculados, ao clicar em um vai para a página de disciplinas)
+    *aluno/cursos/disciplinas*
+    *aluno/cursos/disciplinas/situação* (mostra notas, frequência e mais)
+ 
