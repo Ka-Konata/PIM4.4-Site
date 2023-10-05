@@ -12,13 +12,13 @@ class Connection:
         self.__empty = None,
         self.__base_url = base_url
         self.__base_headers = {'Content-type': 'application/json', 'Accept': '*/*'}
-        self.procurar = Procurar(self.__base_url, self.__base_headers)
-        self.consultar = Consultar(self.__base_url, self.__base_headers)
+        self.procurar = Procurar(self.base_url, self.base_headers)
+        self.consultar = Consultar(self.base_url, self.base_headers)
 
     def startup(self, u: AnalistaRH) -> requests.Response:
         """Cadastre a conta inicial do banco de dados\n
         Não funciona caso qualquer outra tabela do tipo pessoa já esteja cadastrada no banco de dados."""
-        url = self.__base_url + "/login/startup"
+        url = self.base_url + "/login/startup"
         data = {
             "nome": u.get_nome(),
             "cpf": u.get_cpf(),
@@ -26,35 +26,42 @@ class Connection:
             "email": u.get_email(),
             "telefone": u.get_telefone()
         }
-        response = requests.post(url, dict_to_josn(data), headers=self.__base_headers)
+        response = requests.post(url, dict_to_josn(data), headers=self.base_headers)
         return response
 
     def login(self, id: int, senha: str) -> requests.Response:
         """Pegue um token e um refresh_token referente a alguma conta."""
-        url = self.__base_url + f"/login?id={id}&senha={senha}"
+        url = self.base_url + f"/login?id={id}&senha={senha}"
         headers = {'Accept': '*/*'}
         response = requests.get(url,  headers=headers)
         return response
 
     def refresh(self, id: int, token: str, refresh_token: str):
         """Pegue um novo token através do refresh_token caso o mesmo ainda não esteja vencido."""
-        url = self.__base_url + "/login/refresh"
+        url = self.base_url + "/login/refresh"
         data = {
             "token": token,
             "refreshToken": refresh_token,
             "id": id
         }
-        response = requests.post(url, dict_to_josn(data), headers=self.__base_headers)
+        response = requests.post(url, dict_to_josn(data), headers=self.base_headers)
         return response
 
     def mudar_senha(self, id: int, senha_antiga: str, senha_nova: str):
         """Mude a senha de uma conta, enviando apenas o id e as senhas novas e velhas."""
-        url = self.__base_url + "/login/mudarsenha"
+        url = self.base_url + "/login/mudarsenha"
         data = {
             "id": id,
             "senhaAntiga": senha_antiga,
             "senhaNova": senha_nova
         }
-        response = requests.put(url, dict_to_josn(data), headers=self.__base_headers)
+        response = requests.put(url, dict_to_josn(data), headers=self.base_headers)
         return response
     
+    @property # Retorna o valor encapsulado
+    def base_url(self):
+        return self.__base_url
+    
+    @property
+    def base_headers(self):
+        return self.__base_headers

@@ -11,40 +11,26 @@ class Pessoa:
                  id: int = None,  
                  senha: str = None
                  ) -> None:
+        """Construtor da classe."""
         self.__id = id
         self.__senha = senha
-        self.nome = nome
-        self.__cpf = cpf
-        self.__rg = rg
-        self.__telefone = telefone
-        self.__email = email
         self.__cargo = cargo
-        """Construtor da classe."""
+        self.nome = nome
+        self.cpf = cpf
+        self.rg = rg
+        self.telefone = telefone
+        self.email = email
 
-    def entrar(id: int, senha: str):
-        pass # Ainda para implementar
-
-    def get_id(self):
+    @property # Retorna o valor encapsulado
+    def id(self) -> int:
         return self.__id
 
-    def get_senha(self):
+    @property
+    def senha(self) -> str:
         return self.__senha
 
-    def get_nome(self):
-        return self.nome
-
-    def get_cpf(self):
-        return self.__cpf
-
-    def get_rg(self):
-        return self.__rg
-
-    def get_telefone(self):
-        return self.__telefone
-
-    def get_email(self):
-        return self.__email
-
-    def get_cargo(self):
+    @property
+    def cargo(self) -> str:
         return self.__cargo
+
     
