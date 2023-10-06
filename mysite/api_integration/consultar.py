@@ -1,11 +1,18 @@
 import requests
 import json
+from django.http import HttpResponse
 from . models.analistarh import AnalistaRH
 from . models.secretario import Secretario
 from . models.professor import Professor
 from . models.aluno import Aluno
+from . models.conteudo import Conteudo
+from . models.curso_matriculado import Curso_Matriculado
+from . models.curso import Curso
+from . models.disciplina_cursada import Disciplina_Cursada
+from . models.disciplina_ministrada import Disciplina_Ministrada
+from . models.disciplina import Disciplina
+from . models.turma import Turma
 from . utils import *
-from django.http import HttpResponse
 
 class Consultar:
     """Classe para realizar pesquisas na API."""
@@ -78,3 +85,18 @@ class Consultar:
             aluno = Aluno.by_dict(r)
         return [response, aluno]
 
+    def conteudo(self, id: int, token: str) -> list[HttpResponse, Conteudo]:
+        """Retorna um objeto Conteudo.
+        Return: list() [django.http.HttpResponse, Conteudo]"""
+        # Preparando e efetuando o request na API.
+        url = self.__base_url + f"/conteudo/{id}"
+        headers = self.__base_headers
+        headers["Authorization"] = f"Bearer {token}"
+        response = requests.get(url, headers=headers)
+
+        # Instanciando o objeto da classe Conteudo.
+        conteudo = None
+        if response.status_code == 200:
+            r = bytes_to_dict(response.content)
+            conteudo = Conteudo.by_dict(r)
+        return [response, conteudo]
