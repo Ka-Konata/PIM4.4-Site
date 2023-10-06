@@ -161,11 +161,11 @@ def is_logged(request: HttpRequest) -> bool:
     if login.cargo == utils.Cargo.ANALISTARH:
         response, analistarh = conn.consultar.analistarh(login.token, login.id)
     elif login.cargo == utils.Cargo.SECRETARIO:
-        return False # AINDA PARA IMPLEMENTAR
+        response, secretario = conn.consultar.secretario(login.token, login.id)
     elif login.cargo == utils.Cargo.PROFESSOR:
-        return False # AINDA PARA IMPLEMENTAR
+        response, professor = conn.consultar.professor(login.token, login.id)
     elif login.cargo == utils.Cargo.ALUNO:
-        return False # AINDA PARA IMPLEMENTAR
+        response, aluno = conn.consultar.aluno(login.token, login.id)
     else:
         return False
     

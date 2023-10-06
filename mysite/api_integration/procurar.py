@@ -19,18 +19,70 @@ class Procurar:
         self.__base_url = base_url
         self.__base_headers = base_headers
 
-    def analistarh(self, id: int, token: str) -> list[requests.Response, AnalistaRH]:
-        """Retorna um objeto AnalistaRH.
-        Return: list() [requests.Response, AnalistaRH]"""
+    def analistarh(self, token: str, nome: str) -> list[requests.Response, list[AnalistaRH]]:
+        """Retorna umã lista de objetos do tipo AnalistaRH.
+        Return: list() [requests.Response, list() [AnalistaRH]]"""
         # Preparando e efetuando o request na API.
-        url = self.__base_url + f"/analistarh/{id}"
+        url = self.__base_url + f"/analistarh?nome={nome}"
         headers = self.__base_headers
         headers["Authorization"] = f"Bearer {token}"
         response = requests.get(url, headers=headers)
 
         # Instanciando o objeto da classe AnalistaRH.
-        analistarh = None
+        analistarhs = []
         if response.status_code == 200:
             r = bytes_to_dict(response.content)
-            analistarh = AnalistaRH.by_dict(r)
-        return [response, analistarh]
+            for analistarh in r:
+                analistarhs.append(AnalistaRH.by_dict(analistarh))
+        return [response, analistarhs]
+
+    def secretario(self, token: str, nome: str) -> list[requests.Response, list[Secretario]]:
+        """Retorna umã lista de objetos do tipo Secretario.
+        Return: list() [requests.Response, list() [Secretario]]"""
+        # Preparando e efetuando o request na API.
+        url = self.__base_url + f"/secretario?nome={nome}"
+        headers = self.__base_headers
+        headers["Authorization"] = f"Bearer {token}"
+        response = requests.get(url, headers=headers)
+
+        # Instanciando o objeto da classe Secretario.
+        secretarios = []
+        if response.status_code == 200:
+            r = bytes_to_dict(response.content)
+            for secretario in r:
+                secretarios.append(Secretario.by_dict(secretario))
+        return [response, secretarios]
+
+    def professor(self, token: str, nome: str) -> list[requests.Response, list[Professor]]:
+        """Retorna umã lista de objetos do tipo Professor.
+        Return: list() [requests.Response, list() [Professor]]"""
+        # Preparando e efetuando o request na API.
+        url = self.__base_url + f"/professor?nome={nome}"
+        headers = self.__base_headers
+        headers["Authorization"] = f"Bearer {token}"
+        response = requests.get(url, headers=headers)
+
+        # Instanciando o objeto da classe Professor.
+        professores = []
+        if response.status_code == 200:
+            r = bytes_to_dict(response.content)
+            for professor in r:
+                professores.append(Professor.by_dict(professor))
+        return [response, professores]
+
+    def aluno(self, token: str, nome: str) -> list[requests.Response, list[Aluno]]:
+        """Retorna umã lista de objetos do tipo Aluno.
+        Return: list() [requests.Response, list() [Aluno]]"""
+        # Preparando e efetuando o request na API.
+        url = self.__base_url + f"/aluno?nome={nome}"
+        headers = self.__base_headers
+        headers["Authorization"] = f"Bearer {token}"
+        response = requests.get(url, headers=headers)
+
+        # Instanciando o objeto da classe Aluno.
+        alunos = []
+        if response.status_code == 200:
+            r = bytes_to_dict(response.content)
+            for aluno in r:
+                alunos.append(Aluno.by_dict(aluno))
+        return [response, alunos]

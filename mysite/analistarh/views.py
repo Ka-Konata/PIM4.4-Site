@@ -28,6 +28,9 @@ def index(request: HttpRequest):
         "erros":[]
     }
 
+    response, analistarhs = conn.procurar.analistarh(token, "Admin")
+    print(analistarhs)
+
     # Caso o token esteja expirado.
     if response.status_code == 401:
         # Caso o refresh_token também seja inválido.

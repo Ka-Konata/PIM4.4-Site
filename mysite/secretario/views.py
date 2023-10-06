@@ -23,7 +23,7 @@ def index(request: HttpRequest):
         return redirect("login:index")
 
     # Fazendo o request na API
-    response, secretario = conn.consultar.secretario(id, token)
+    response, secretario = conn.consultar.secretario(token, id)
     context = {
         "erros":[]
     }
