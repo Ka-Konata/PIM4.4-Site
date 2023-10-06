@@ -1,5 +1,16 @@
 import requests
-import json
+from . models.analistarh import AnalistaRH
+from . models.secretario import Secretario
+from . models.professor import Professor
+from . models.aluno import Aluno
+from . models.conteudo import Conteudo
+from . models.curso_matriculado import Curso_Matriculado
+from . models.curso import Curso
+from . models.disciplina_cursada import Disciplina_Cursada
+from . models.disciplina_ministrada import Disciplina_Ministrada
+from . models.disciplina import Disciplina
+from . models.turma import Turma
+from . utils import *
 
 class Apagar:
     """Classe para realizar exclusões na API."""

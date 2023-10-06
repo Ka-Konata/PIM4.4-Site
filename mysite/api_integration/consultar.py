@@ -1,6 +1,4 @@
 import requests
-import json
-from django.http import HttpResponse
 from . models.analistarh import AnalistaRH
 from . models.secretario import Secretario
 from . models.professor import Professor
@@ -21,9 +19,9 @@ class Consultar:
         self.__base_url = base_url
         self.__base_headers = base_headers
 
-    def analistarh(self, id: int, token: str) -> list[HttpResponse, AnalistaRH]:
+    def analistarh(self, id: int, token: str) -> list[requests.Response, AnalistaRH]:
         """Retorna um objeto AnalistaRH.
-        Return: list() [django.http.HttpResponse, AnalistaRH]"""
+        Return: list() [requests.Response, AnalistaRH]"""
         # Preparando e efetuando o request na API.
         url = self.__base_url + f"/analistarh/{id}"
         headers = self.__base_headers
@@ -37,9 +35,9 @@ class Consultar:
             analistarh = AnalistaRH.by_dict(r)
         return [response, analistarh]
 
-    def secretario(self, id: int, token: str) -> list[HttpResponse, Secretario]:
+    def secretario(self, id: int, token: str) -> list[requests.Response, Secretario]:
         """Retorna um objeto Secretario.
-        Return: list() [django.http.HttpResponse, Secretario]"""
+        Return: list() [requests.Response, Secretario]"""
         # Preparando e efetuando o request na API.
         url = self.__base_url + f"/secretario/{id}"
         headers = self.__base_headers
@@ -53,9 +51,9 @@ class Consultar:
             secretario = Secretario.by_dict(r)
         return [response, secretario]
 
-    def professor(self, id: int, token: str) -> list[HttpResponse, Professor]:
+    def professor(self, id: int, token: str) -> list[requests.Response, Professor]:
         """Retorna um objeto Professor.
-        Return: list() [django.http.HttpResponse, Professor]"""
+        Return: list() [requests.Response, Professor]"""
         # Preparando e efetuando o request na API.
         url = self.__base_url + f"/professor/{id}"
         headers = self.__base_headers
@@ -69,9 +67,9 @@ class Consultar:
             professor = Professor.by_dict(r)
         return [response, professor]
 
-    def aluno(self, id: int, token: str) -> list[HttpResponse, Aluno]:
+    def aluno(self, id: int, token: str) -> list[requests.Response, Aluno]:
         """Retorna um objeto Aluno.
-        Return: list() [django.http.HttpResponse, Aluno]"""
+        Return: list() [requests.Response, Aluno]"""
         # Preparando e efetuando o request na API.
         url = self.__base_url + f"/aluno/{id}"
         headers = self.__base_headers
@@ -85,9 +83,9 @@ class Consultar:
             aluno = Aluno.by_dict(r)
         return [response, aluno]
 
-    def conteudo(self, id: int, token: str) -> list[HttpResponse, Conteudo]:
+    def conteudo(self, id: int, token: str) -> list[requests.Response, Conteudo]:
         """Retorna um objeto Conteudo.
-        Return: list() [django.http.HttpResponse, Conteudo]"""
+        Return: list() [requests.Response, Conteudo]"""
         # Preparando e efetuando o request na API.
         url = self.__base_url + f"/conteudo/{id}"
         headers = self.__base_headers
@@ -101,9 +99,9 @@ class Consultar:
             conteudo = Conteudo.by_dict(r)
         return [response, conteudo]
 
-    def curso_matriculado(self, id: int, token: str) -> list[HttpResponse, Curso_Matriculado]:
+    def curso_matriculado(self, id: int, token: str) -> list[requests.Response, Curso_Matriculado]:
         """Retorna um objeto Curso_Matriculado.
-        Return: list() [django.http.HttpResponse, Curso_Matriculado]"""
+        Return: list() [requests.Response, Curso_Matriculado]"""
         # Preparando e efetuando o request na API.
         url = self.__base_url + f"/cursoMatriculado/{id}"
         headers = self.__base_headers
@@ -117,9 +115,9 @@ class Consultar:
             curso_matriculado = Curso_Matriculado.by_dict(r)
         return [response, curso_matriculado]
 
-    def curso(self, id: int, token: str) -> list[HttpResponse, Curso]:
+    def curso(self, id: int, token: str) -> list[requests.Response, Curso]:
         """Retorna um objeto Curso.
-        Return: list() [django.http.HttpResponse, Curso]"""
+        Return: list() [requests.Response, Curso]"""
         # Preparando e efetuando o request na API.
         url = self.__base_url + f"/curso/{id}"
         headers = self.__base_headers
@@ -133,9 +131,9 @@ class Consultar:
             curso = Curso.by_dict(r)
         return [response, curso]
 
-    def disciplina_cursada(self, id: int, token: str) -> list[HttpResponse, Disciplina_Cursada]:
+    def disciplina_cursada(self, id: int, token: str) -> list[requests.Response, Disciplina_Cursada]:
         """Retorna um objeto Disciplina_Cursada.
-        Return: list() [django.http.HttpResponse, Disciplina_Cursada]"""
+        Return: list() [requests.Response, Disciplina_Cursada]"""
         # Preparando e efetuando o request na API.
         url = self.__base_url + f"/disciplinaCursada/{id}"
         headers = self.__base_headers
@@ -149,9 +147,9 @@ class Consultar:
             disciplina_cursada = Disciplina_Cursada.by_dict(r)
         return [response, disciplina_cursada]
 
-    def disciplina_ministrada(self, id: int, token: str) -> list[HttpResponse, Disciplina_Ministrada]:
+    def disciplina_ministrada(self, id: int, token: str) -> list[requests.Response, Disciplina_Ministrada]:
         """Retorna um objeto Disciplina_Ministrada.
-        Return: list() [django.http.HttpResponse, Disciplina_Ministrada]"""
+        Return: list() [requests.Response, Disciplina_Ministrada]"""
         # Preparando e efetuando o request na API.
         url = self.__base_url + f"/disciplinaMinistrada/{id}"
         headers = self.__base_headers
@@ -165,9 +163,9 @@ class Consultar:
             disciplina_ministrada = Disciplina_Ministrada.by_dict(r)
         return [response, disciplina_ministrada]
 
-    def disciplina(self, id: int, token: str) -> list[HttpResponse, Disciplina]:
+    def disciplina(self, id: int, token: str) -> list[requests.Response, Disciplina]:
         """Retorna um objeto Disciplina.
-        Return: list() [django.http.HttpResponse, Disciplina]"""
+        Return: list() [requests.Response, Disciplina]"""
         # Preparando e efetuando o request na API.
         url = self.__base_url + f"/disciplina/{id}"
         headers = self.__base_headers
@@ -181,9 +179,9 @@ class Consultar:
             disciplina = Disciplina.by_dict(r)
         return [response, disciplina]
 
-    def turma(self, id: int, token: str) -> list[HttpResponse, Turma]:
+    def turma(self, id: int, token: str) -> list[requests.Response, Turma]:
         """Retorna um objeto Turma.
-        Return: list() [django.http.HttpResponse, Turma]"""
+        Return: list() [requests.Response, Turma]"""
         # Preparando e efetuando o request na API.
         url = self.__base_url + f"/turma/{id}"
         headers = self.__base_headers
