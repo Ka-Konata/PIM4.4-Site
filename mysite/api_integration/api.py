@@ -2,6 +2,8 @@ import requests
 import json
 from . procurar import Procurar
 from . consultar import Consultar
+from . editar import Editar
+from . apagar import Apagar
 from . models.analistarh import AnalistaRH
 from . utils import *
 
@@ -14,6 +16,8 @@ class Connection:
         self.__base_headers = {'Content-type': 'application/json', 'Accept': '*/*'}
         self.procurar = Procurar(self.base_url, self.base_headers)
         self.consultar = Consultar(self.base_url, self.base_headers)
+        self.editar = Editar(self.base_url, self.base_headers)
+        self.apagar = Apagar(self.base_url, self.base_headers)
 
     def startup(self, u: AnalistaRH) -> requests.Response:
         """Cadastre a conta inicial do banco de dados\n
