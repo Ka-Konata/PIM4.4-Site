@@ -27,15 +27,7 @@ class Consultar:
         analistarh = None
         if response.status_code == 200:
             r = bytes_to_dict(response.content)
-            analistarh = AnalistaRH(
-                id=r["id"],
-                nome=r["nome"],
-                cpf=r["cpf"],
-                rg=r["rg"],
-                telefone=r["telefone"],
-                email=r["email"],
-                cargo=r["cargo"]
-            )
+            analistarh = AnalistaRH.by_dict(r)
         return [response, analistarh]
 
     def secretario(self, id: int, token: str) -> list[HttpResponse, Secretario]:
@@ -51,15 +43,7 @@ class Consultar:
         secretario = None
         if response.status_code == 200:
             r = bytes_to_dict(response.content)
-            secretario = Secretario(
-                id=r["id"],
-                nome=r["nome"],
-                cpf=r["cpf"],
-                rg=r["rg"],
-                telefone=r["telefone"],
-                email=r["email"],
-                cargo=r["cargo"]
-            )
+            secretario = Secretario.by_dict(r)
         return [response, secretario]
 
     def professor(self, id: int, token: str) -> list[HttpResponse, Professor]:
@@ -75,15 +59,7 @@ class Consultar:
         professor = None
         if response.status_code == 200:
             r = bytes_to_dict(response.content)
-            professor = Professor(
-                id=r["id"],
-                nome=r["nome"],
-                cpf=r["cpf"],
-                rg=r["rg"],
-                telefone=r["telefone"],
-                email=r["email"],
-                cargo=r["cargo"]
-            )
+            professor = Professor.by_dict(r)
         return [response, professor]
 
     def aluno(self, id: int, token: str) -> list[HttpResponse, Aluno]:
@@ -99,14 +75,6 @@ class Consultar:
         aluno = None
         if response.status_code == 200:
             r = bytes_to_dict(response.content)
-            aluno = Aluno(
-                id=r["id"],
-                nome=r["nome"],
-                cpf=r["cpf"],
-                rg=r["rg"],
-                telefone=r["telefone"],
-                email=r["email"],
-                cargo=r["cargo"]
-            )
+            aluno = Aluno.by_dict(r)
         return [response, aluno]
 

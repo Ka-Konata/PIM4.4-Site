@@ -1,5 +1,6 @@
 from . disciplina import Disciplina
 from . curso_matriculado import Curso_Matriculado
+from api_integration.utils import get_value
 
 class Disciplina_Cursada:
     """Model para a entidade Disciplina_Cursada."""
@@ -26,6 +27,36 @@ class Disciplina_Cursada:
         self.prova2 = prova2
         self.trabalho = trabalho
         self.faltas = faltas
+
+    def by_dict(content: dict) -> object:
+        """Instancia a classe a partir de um dicionário."""
+        return Disciplina_Cursada(
+            id=get_value(content, "id"),
+            disciplina=Disciplina.by_dict(get_value(content, "disciplina")),
+            curso_matriculado=Curso_Matriculado.by_dict(get_value(content, "cursoMatriculado")),
+            prova1=get_value(content, "prova1"),
+            prova2=get_value(content, "prova2"),
+            trabalho=get_value(content, "trabalho"),
+            media=get_value(content, "media"),
+            faltas=get_value(content, "faltas"),
+            frequencia=get_value(content, "frequencia"),
+            situacao=get_value(content, "situacao")
+        )
+    
+    def to_dict(self) -> dict:
+        """Converte o objeto atual em um discionário."""
+        return {
+            "id": self.id,
+            "disciplina": self.disciplina.to_dict(),
+            "curso_matriculado": self.curso_matriculado.to_dict(),
+            "prova1": self.prova1,
+            "prova2": self.prova2,
+            "trabalho": self.trabalho,
+            "media": self.media,
+            "faltas": self.faltas,
+            "frequencia": self.frequencia,
+            "situacao": self.situacao
+        }
 
     @property # retorna o valor encapsulado
     def id(self) -> int:

@@ -1,6 +1,7 @@
 from . professor import Professor
 from . turma import Turma
 from . disciplina import Disciplina
+from api_integration.utils import get_value
 
 class Disciplina_Ministrada:
     """Model para a entidade Disciplina_Ministrada."""
@@ -20,6 +21,28 @@ class Disciplina_Ministrada:
         self.encerrada = encerrada
         self.coordenador = coordenador
 
+    def by_dict(content: dict) -> object:
+        """Instancia a classe a partir de um dicionário."""
+        return Disciplina_Ministrada(
+            id=get_value(content, "id"),
+            disciplina=Disciplina.by_dict(get_value(content, "disciplina")),
+            turma=Turma.by_dict(get_value(content, "turma")),
+            professor=get_value(content, "professor"),
+            encerrada=get_value(content, "encerrada"),
+            coordenador=get_value(content, "coordenador")
+        )
+    
+    def to_dict(self) -> dict:
+        """Converte o objeto atual em um discionário."""
+        return {
+            "id": self.id,
+            "disciplina": self.disciplina.to_dict(),
+            "turma": self.turma.to_dict(),
+            "professor": self.professor.to_dict(),
+            "encerrada": self.encerrada,
+            "coordenador": self.coordenador
+        }
+
     @property # retorna o valor encapsulado
     def id(self) -> int:
         return self.__id
@@ -34,7 +57,7 @@ class Disciplina_Ministrada:
     
     @property
     def professor(self) -> Professor:
-        return self.professor
+        return self.__professor
     
     @disciplina.setter # Altera o valor encapsulado
     def disciplina(self) -> None:

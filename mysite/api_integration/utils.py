@@ -2,6 +2,9 @@ from requests import Response
 from ast import literal_eval
 from json import dumps
 
+def get_value(content: dict, key: str):
+    return content[key] if key in content.keys() else None
+
 def bytes_to_dict(bytes: bytes):
     """Converte uma variável em bytes para dict."""
     return literal_eval(bytes.decode("UTF-8"))
