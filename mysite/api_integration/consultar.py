@@ -100,3 +100,99 @@ class Consultar:
             r = bytes_to_dict(response.content)
             conteudo = Conteudo.by_dict(r)
         return [response, conteudo]
+
+    def curso_matriculado(self, id: int, token: str) -> list[HttpResponse, Curso_Matriculado]:
+        """Retorna um objeto Curso_Matriculado.
+        Return: list() [django.http.HttpResponse, Curso_Matriculado]"""
+        # Preparando e efetuando o request na API.
+        url = self.__base_url + f"/cursoMatriculado/{id}"
+        headers = self.__base_headers
+        headers["Authorization"] = f"Bearer {token}"
+        response = requests.get(url, headers=headers)
+
+        # Instanciando o objeto da classe Curso_Matriculado.
+        curso_matriculado = None
+        if response.status_code == 200:
+            r = bytes_to_dict(response.content)
+            curso_matriculado = Curso_Matriculado.by_dict(r)
+        return [response, curso_matriculado]
+
+    def curso(self, id: int, token: str) -> list[HttpResponse, Curso]:
+        """Retorna um objeto Curso.
+        Return: list() [django.http.HttpResponse, Curso]"""
+        # Preparando e efetuando o request na API.
+        url = self.__base_url + f"/curso/{id}"
+        headers = self.__base_headers
+        headers["Authorization"] = f"Bearer {token}"
+        response = requests.get(url, headers=headers)
+
+        # Instanciando o objeto da classe Curso.
+        curso = None
+        if response.status_code == 200:
+            r = bytes_to_dict(response.content)
+            curso = Curso.by_dict(r)
+        return [response, curso]
+
+    def disciplina_cursada(self, id: int, token: str) -> list[HttpResponse, Disciplina_Cursada]:
+        """Retorna um objeto Disciplina_Cursada.
+        Return: list() [django.http.HttpResponse, Disciplina_Cursada]"""
+        # Preparando e efetuando o request na API.
+        url = self.__base_url + f"/disciplinaCursada/{id}"
+        headers = self.__base_headers
+        headers["Authorization"] = f"Bearer {token}"
+        response = requests.get(url, headers=headers)
+
+        # Instanciando o objeto da classe Disciplina_Cursada.
+        disciplina_cursada = None
+        if response.status_code == 200:
+            r = bytes_to_dict(response.content)
+            disciplina_cursada = Disciplina_Cursada.by_dict(r)
+        return [response, disciplina_cursada]
+
+    def disciplina_ministrada(self, id: int, token: str) -> list[HttpResponse, Disciplina_Ministrada]:
+        """Retorna um objeto Disciplina_Ministrada.
+        Return: list() [django.http.HttpResponse, Disciplina_Ministrada]"""
+        # Preparando e efetuando o request na API.
+        url = self.__base_url + f"/disciplinaMinistrada/{id}"
+        headers = self.__base_headers
+        headers["Authorization"] = f"Bearer {token}"
+        response = requests.get(url, headers=headers)
+
+        # Instanciando o objeto da classe Disciplina_Ministrada.
+        disciplina_ministrada = None
+        if response.status_code == 200:
+            r = bytes_to_dict(response.content)
+            disciplina_ministrada = Disciplina_Ministrada.by_dict(r)
+        return [response, disciplina_ministrada]
+
+    def disciplina(self, id: int, token: str) -> list[HttpResponse, Disciplina]:
+        """Retorna um objeto Disciplina.
+        Return: list() [django.http.HttpResponse, Disciplina]"""
+        # Preparando e efetuando o request na API.
+        url = self.__base_url + f"/disciplina/{id}"
+        headers = self.__base_headers
+        headers["Authorization"] = f"Bearer {token}"
+        response = requests.get(url, headers=headers)
+
+        # Instanciando o objeto da classe Disciplina.
+        disciplina = None
+        if response.status_code == 200:
+            r = bytes_to_dict(response.content)
+            disciplina = Disciplina.by_dict(r)
+        return [response, disciplina]
+
+    def turma(self, id: int, token: str) -> list[HttpResponse, Turma]:
+        """Retorna um objeto Turma.
+        Return: list() [django.http.HttpResponse, Turma]"""
+        # Preparando e efetuando o request na API.
+        url = self.__base_url + f"/turma/{id}"
+        headers = self.__base_headers
+        headers["Authorization"] = f"Bearer {token}"
+        response = requests.get(url, headers=headers)
+
+        # Instanciando o objeto da classe Turma.
+        turma = None
+        if response.status_code == 200:
+            r = bytes_to_dict(response.content)
+            turma = Turma.by_dict(r)
+        return [response, turma]
