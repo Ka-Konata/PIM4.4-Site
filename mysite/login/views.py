@@ -159,7 +159,7 @@ def is_logged(request: HttpRequest) -> bool:
     
     # Verificando o cargo do usuário em questão.
     if login.cargo == utils.Cargo.ANALISTARH:
-        response, analistarh = conn.consultar.analistarh(login.id, login.token)
+        response, analistarh = conn.consultar.analistarh(login.token, login.id)
     elif login.cargo == utils.Cargo.SECRETARIO:
         return False # AINDA PARA IMPLEMENTAR
     elif login.cargo == utils.Cargo.PROFESSOR:

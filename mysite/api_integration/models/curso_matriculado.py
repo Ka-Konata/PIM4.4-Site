@@ -15,7 +15,7 @@ class Curso_Matriculado:
                 semestre_atual: int,
                 trancado: bool,
                 finalizado: bool,
-                disciplinas: list(Disciplina)) -> None:
+                disciplinas: list[Disciplina]) -> None:
         """Construtor da classe."""
         self.__id = id
         self.__aluno = aluno
@@ -79,7 +79,7 @@ class Curso_Matriculado:
         return self.__curso
     
     @property
-    def disciplinas(self) -> list(Disciplina):
+    def disciplinas(self) -> list[Disciplina]:
         return self.__disciplinas
     
     @aluno.setter # Altera o valor encapsulado

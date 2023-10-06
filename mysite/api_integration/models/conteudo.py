@@ -1,5 +1,5 @@
 from . disciplina_ministrada import Disciplina_Ministrada
-from api_integration.api import Connection
+from .. import api
 from api_integration.utils import get_value
 
 class Conteudo:
@@ -43,5 +43,5 @@ class Conteudo:
         return self.__disciplina_ministrada
     
     @disciplina_ministrada.setter # Modifica o valor encapsulado
-    def disciplina_ministrada(self, conection: Connection, novo_id: int) -> None:
+    def disciplina_ministrada(self, conection: any, novo_id: int) -> None:
         pass # Ainda para implementar

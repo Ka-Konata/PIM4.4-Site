@@ -10,8 +10,8 @@ class Turma:
                  id: int,
                  nome: str,
                  curso: Curso,
-                 alunos: list(Aluno),
-                 professores: list(Professor),
+                 alunos: list[Aluno],
+                 professores: list[Professor],
                  coordenador: Professor) -> None:
         """Construtor da classe."""
         self.__id = id
@@ -70,11 +70,11 @@ class Turma:
         return self.__curso
 
     @property
-    def alunos(self) -> list(Aluno):
+    def alunos(self) -> list[Aluno]:
         return self.__alunos
 
     @property
-    def profesores(self) -> list(Professor):
+    def profesores(self) -> list[Professor]:
         return self.__professores
     
     @curso.setter

@@ -18,3 +18,19 @@ class Procurar:
         """Construtor da classe."""
         self.__base_url = base_url
         self.__base_headers = base_headers
+
+    def analistarh(self, id: int, token: str) -> list[requests.Response, AnalistaRH]:
+        """Retorna um objeto AnalistaRH.
+        Return: list() [requests.Response, AnalistaRH]"""
+        # Preparando e efetuando o request na API.
+        url = self.__base_url + f"/analistarh/{id}"
+        headers = self.__base_headers
+        headers["Authorization"] = f"Bearer {token}"
+        response = requests.get(url, headers=headers)
+
+        # Instanciando o objeto da classe AnalistaRH.
+        analistarh = None
+        if response.status_code == 200:
+            r = bytes_to_dict(response.content)
+            analistarh = AnalistaRH.by_dict(r)
+        return [response, analistarh]

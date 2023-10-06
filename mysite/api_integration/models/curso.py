@@ -9,7 +9,7 @@ class Curso:
                  nome: str,
                  carga_horaria: int,
                  aulas_totais: int,
-                 disciplinas: list(Disciplina)) -> None:
+                 disciplinas: list[Disciplina]) -> None:
         """Construtor da classe."""
         self.__id = id
         self.__disciplinas = disciplinas
@@ -52,7 +52,7 @@ class Curso:
         return self.__id
     
     @property
-    def disciplinas(self) -> list(Disciplina):
+    def disciplinas(self) -> list[Disciplina]:
         return self.__disciplinas
     
     @disciplinas.setter # Altera o valor encapsulado
