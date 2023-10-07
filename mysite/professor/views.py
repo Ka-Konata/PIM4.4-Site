@@ -10,7 +10,7 @@ conn = api.Connection(os.environ["API_URL"])
 def index(request: HttpRequest):
     """Página inicial da área do Professor"""
     # Verificando se o usuário está logado.
-    if not is_logged:
+    if not is_logged(request):
         return redirect("login:index")
     
     # Tentando pegar os cookies.

@@ -10,7 +10,7 @@ conn = api.Connection(os.environ["API_URL"])
 def index(request: HttpRequest):
     """Página inicial da área do Secretario"""
     # Verificando se o usuário está logado.
-    if not is_logged:
+    if not is_logged(request):
         return redirect("login:index")
     
     # Tentando pegar os cookies.
@@ -27,6 +27,9 @@ def index(request: HttpRequest):
     context = {
         "erros":[]
     }
+    
+    a, b = conn.procurar.curso_matriculado(token)
+    print(a.status_code, b, b[0].trancado)
 
     # Caso o token esteja expirado.
     if response.status_code == 401:

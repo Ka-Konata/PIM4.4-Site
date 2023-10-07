@@ -30,8 +30,9 @@ class Curso_Matriculado:
         """Instancia a classe a partir de um dicionário."""
         # Instanciando cada disciplina para o objeto.
         disciplinas = []
-        for d in get_value(content, "disciplinas"):
-            disciplinas.append(Disciplina.by_dict(d))
+        if get_value(content, "disciplinas") != None:
+            for d in get_value(content, "disciplinas"):
+                disciplinas.append(Disciplina.by_dict(d))
 
         return Curso_Matriculado(
             id=get_value(content, "id"),
@@ -48,8 +49,9 @@ class Curso_Matriculado:
         """Converte o objeto atual em um discionário."""
         # Previamente é necessário converter cada disciplina, aluno, curso e turma em discionarios também.
         disciplinas = []
-        for d in self.disciplinas:
-            disciplinas.append(d.to_dict())
+        if self.disciplinas != None:
+            for d in self.disciplinas:
+                disciplinas.append(d.to_dict())
 
         return {
             "id": self.id,

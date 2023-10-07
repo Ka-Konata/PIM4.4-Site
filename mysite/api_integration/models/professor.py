@@ -1,5 +1,5 @@
 from typing import Any
-from .pessoa import Pessoa
+from . pessoa import Pessoa
 
 class Professor(Pessoa):
     """Model para a entidade Professor, herda Pessoa."""

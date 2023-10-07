@@ -1,23 +1,3 @@
-from typing import Any
-
-
-class A:
-    def __init__(self, x, y) -> None:
-        print(f"x: {x}, y: {y}")
-
-    def by_dict(d) -> None:
-        r = A(
-            x=d["x"] if "x" in d.keys() else None, 
-            y=d["y"] if "y" in d.keys() else None)
-        return r
-
-class B(A):
-    #def __call__(self, *args: Any, **kwds: Any) -> Any:
-        #return super().__call__(*args, **kwds)
-    
-    def __init__(self, x, y) -> None:
-        super().__init__(x, y)
-
-d = {"a": 1, "y": 2}
-a = A.by_dict(d)
-b = B.by_dict(d)
+from ast import literal_eval
+a = '[{"id":10003,"aluno":{"id":10005,"nome":"Exemplo Aluno 1","cpf":33333,"rg":33333,"telefone":33333,"email":"33333@gmail.com","cargo":"Aluno","cursos":None},"curso":{"id":10001,"nome":"Curso Exemplo","cargaHoraria":10,"aulasTotais":10,"disciplinas":None},"turma":{"id":10001,"nome":"Exemplo Turma","curso":{"id":10001,"nome":"Curso Exemplo","cargaHoraria":10,"aulasTotais":10,"disciplinas":None},"alunos":None,"professores":None,"coordenador":None},"semestreAtual":10,"trancado":True,"finalizado":True,"disciplinas":[{"id":10001,"disciplina":None,"cursoMatriculado":None,"prova1":None,"prova2":None,"trabalho":None,"faltas":0,"media":None,"frequencia":None,"situacao":"Cursando"}]}]'
+print(literal_eval(a))

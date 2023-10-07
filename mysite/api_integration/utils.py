@@ -3,11 +3,18 @@ from ast import literal_eval
 from json import dumps
 
 def get_value(content: dict, key: str):
-    return content[key] if key in content.keys() else None
+    if content != None:
+        return content[key] if key in content.keys() else None
+    else:
+        return None
 
 def bytes_to_dict(bytes: bytes):
     """Converte uma variável em bytes para dict."""
-    return literal_eval(bytes.decode("UTF-8"))
+    bytes = bytes.decode("UTF-8")
+    bytes = bytes.replace("null", "None")
+    bytes = bytes.replace("true", "True")
+    bytes = bytes.replace("false", "False")
+    return literal_eval(bytes)
 
 
 def dict_to_josn(dict: dict) -> str:
@@ -43,14 +50,6 @@ def object_to_json(obj: object, tipo_de_objeto: str) -> str:
     return dumps(novo_objeto)
 
 
-class Cargo:
-    ANALISTARH = "AnalistaRH"
-    SECRETARIO = "Secretario"
-    PROFESSOR = "Professor"
-    ALUNO = "Aluno"
-    TODOS = [ANALISTARH, SECRETARIO, PROFESSOR, ALUNO]
-
-
 class Login:
     def __init__(
             self, 
@@ -75,3 +74,11 @@ class Login:
         self.cargo = res["cargo"]
         self.id = res["id"]
         self.email = res["email"]
+
+
+class Cargo:
+    ANALISTARH = "AnalistaRH"
+    SECRETARIO = "Secretario"
+    PROFESSOR = "Professor"
+    ALUNO = "Aluno"
+    TODOS = [ANALISTARH, SECRETARIO, PROFESSOR, ALUNO]

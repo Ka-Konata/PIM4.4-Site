@@ -25,12 +25,14 @@ class Turma:
         """Instancia a classe a partir de um dicionário."""
         # Instanciando cada aluno e professor para o objeto.
         alunos = []
-        for a in get_value(content, "alunos"):
-            alunos.append(Aluno.by_dict(a))
+        if get_value(content, "alunos") != None:
+            for a in get_value(content, "alunos"):
+                alunos.append(Aluno.by_dict(a))
 
         professores = []
-        for p in get_value(content, "professores"):
-            professores.append(Professor.by_dict(p))
+        if get_value(content, "professores") != None:
+            for p in get_value(content, "professores"):
+                professores.append(Professor.by_dict(p))
 
         return Turma(
             id=get_value(content, "id"),
@@ -38,19 +40,21 @@ class Turma:
             curso=Curso.by_dict(get_value(content, "curso")),
             alunos=alunos,
             professores=professores,
-            coordenador=Professor(get_value(content, "coordenador"))
+            coordenador=Professor.by_dict(get_value(content, "coordenador"))
         )
     
     def to_dict(self) -> dict:
         """Converte o objeto atual em um discionário."""
         # Previamente é necessário converter cada disciplina, aluno, curso e turma em discionarios também.
         alunos = []
-        for a in self.alunos:
-            alunos.append(a.to_dict())
+        if self.alunos != None:
+            for a in self.alunos:
+                alunos.append(a.to_dict())
             
         professores = []
-        for p in self.alunos:
-            professores.append(p.to_dict())
+        if self.profesores:
+            for p in self.profesores:
+                professores.append(p.to_dict())
 
         return {
             "id": self.id,

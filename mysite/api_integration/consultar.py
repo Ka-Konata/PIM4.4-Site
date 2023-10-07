@@ -1,29 +1,18 @@
 import requests
-from . models.analistarh import AnalistaRH
-from . models.secretario import Secretario
-from . models.professor import Professor
-from . models.aluno import Aluno
-from . models.conteudo import Conteudo
-from . models.curso_matriculado import Curso_Matriculado
-from . models.curso import Curso
-from . models.disciplina_cursada import Disciplina_Cursada
-from . models.disciplina_ministrada import Disciplina_Ministrada
-from . models.disciplina import Disciplina
-from . models.turma import Turma
 from . utils import *
 
 class Consultar:
     """Classe para realizar pesquisas na API."""
-    def __init__(self, base_url: str, base_headers: dict, url_list: dict, classes_list: dict) -> None:
+    def __init__(self, base_url: str, base_headers: dict, urls, models) -> None:
         """Construtor da classe."""
         self.__base_url = base_url
         self.__base_headers = base_headers
-        self.__url_list = url_list
-        self.__classes_list = classes_list
+        self.__URLs = urls
+        self.__Models = models
 
-    def __do_request(self, token: str, id: int, tipo: str) -> list[requests.Response, any]:
+    def __do_request(self, token: str, id: int, url: str, model: any) -> list[requests.Response, any]:
         # Preparando e efetuando o request na API.
-        url = self.__base_url + f"/{self.__url_list[tipo]}/{id}"
+        url = self.__base_url + f"/{url}/{id}"
         headers = self.__base_headers
         headers["Authorization"] = f"Bearer {token}"
         response = requests.get(url, headers=headers)
@@ -32,71 +21,79 @@ class Consultar:
         obj = None
         if response.status_code == 200:
             r = bytes_to_dict(response.content)
-            obj = self.__classes_list[tipo].by_dict(r)
+            obj = model.by_dict(r)
         return [response, obj]
 
 
-    def analistarh(self, token: str, id: int) -> list[requests.Response, AnalistaRH]:
+    def analistarh(self, token: str, id: int) -> list[requests.Response, object]:
         """Retorna um objeto AnalistaRH.
         Return: list() [requests.Response, AnalistaRH]"""
-        return self.__do_request(token, id, "analistarh")
+        return self.__do_request(token, id, self.URLs.ANALISTARH, self.Models.ANALISTARH)
 
-    def secretario(self, token: str, id: int) -> list[requests.Response, Secretario]:
+    def secretario(self, token: str, id: int) -> list[requests.Response, object]:
         """Retorna um objeto Secretario.
         Return: list() [requests.Response, Secretario]"""
         # Preparando e efetuando o request na API.
-        return self.__do_request(token, id, "secretario")
+        return self.__do_request(token, id, self.URLs.SECRETARIO, self.Models.SECRETARIO)
 
-    def professor(self, token: str, id: int) -> list[requests.Response, Professor]:
+    def professor(self, token: str, id: int) -> list[requests.Response, object]:
         """Retorna um objeto Professor.
         Return: list() [requests.Response, Professor]"""
         # Preparando e efetuando o request na API.
-        return self.__do_request(token, id, "professor")
+        return self.__do_request(token, id, self.URLs.PROFESSOR, self.Models.PROFESSOR)
 
-    def aluno(self, token: str, id: int) -> list[requests.Response, Aluno]:
+    def aluno(self, token: str, id: int) -> list[requests.Response, object]:
         """Retorna um objeto Aluno.
         Return: list() [requests.Response, Aluno]"""
         # Preparando e efetuando o request na API.
-        return self.__do_request(token, id, "aluno")
+        return self.__do_request(token, id, self.URLs.ALUNO, self.Models.ALUNO)
 
-    def conteudo(self, token: str, id: int) -> list[requests.Response, Conteudo]:
+    def conteudo(self, token: str, id: int) -> list[requests.Response, object]:
         """Retorna um objeto Conteudo.
         Return: list() [requests.Response, Conteudo]"""
         # Preparando e efetuando o request na API.
-        return self.__do_request(token, id, "conteudo")
+        return self.__do_request(token, id, self.URLs.CONTEUDO, self.Models.CONTEUDO)
 
-    def curso_matriculado(self, token: str, id: int) -> list[requests.Response, Curso_Matriculado]:
+    def curso_matriculado(self, token: str, id: int) -> list[requests.Response, object]:
         """Retorna um objeto Curso_Matriculado.
         Return: list() [requests.Response, Curso_Matriculado]"""
         # Preparando e efetuando o request na API.
-        return self.__do_request(token, id, "curso_matriculado")
+        return self.__do_request(token, id, self.URLs.CURSO_MATRICULADO, self.Models.CURSO_MATRICULADO)
 
-    def curso(self, token: str, id: int) -> list[requests.Response, Curso]:
+    def curso(self, token: str, id: int) -> list[requests.Response, object]:
         """Retorna um objeto Curso.
         Return: list() [requests.Response, Curso]"""
         # Preparando e efetuando o request na API.
-        return self.__do_request(token, id, "curso")
+        return self.__do_request(token, id, self.URLs.CURSO, self.Models.CURSO)
 
-    def disciplina_cursada(self, token: str, id: int) -> list[requests.Response, Disciplina_Cursada]:
+    def disciplina_cursada(self, token: str, id: int) -> list[requests.Response, object]:
         """Retorna um objeto Disciplina_Cursada.
         Return: list() [requests.Response, Disciplina_Cursada]"""
         # Preparando e efetuando o request na API.
-        return self.__do_request(token, id, "disciplina_cursada")
+        return self.__do_request(token, id, self.URLs.DISCIPLINA_CURSADA, self.Models.DISCIPLINA_CURSADA)
 
-    def disciplina_ministrada(self, token: str, id: int) -> list[requests.Response, Disciplina_Ministrada]:
+    def disciplina_ministrada(self, token: str, id: int) -> list[requests.Response, object]:
         """Retorna um objeto Disciplina_Ministrada.
         Return: list() [requests.Response, Disciplina_Ministrada]"""
         # Preparando e efetuando o request na API.
-        return self.__do_request(token, id, "disciplina_ministrada")
+        return self.__do_request(token, id, self.URLs.DISCIPLINA_MINISTRADA, self.Models.DISCIPLINA_MINISTRADA)
 
-    def disciplina(self, token: str, id: int) -> list[requests.Response, Disciplina]:
+    def disciplina(self, token: str, id: int) -> list[requests.Response, object]:
         """Retorna um objeto Disciplina.
         Return: list() [requests.Response, Disciplina]"""
         # Preparando e efetuando o request na API.
-        return self.__do_request(token, id, "disciplina")
+        return self.__do_request(token, id, self.URLs.DISCIPLINA, self.Models.DISCIPLINA)
 
-    def turma(self, token: str, id: int) -> list[requests.Response, Turma]:
+    def turma(self, token: str, id: int) -> list[requests.Response, object]:
         """Retorna um objeto Turma.
         Return: list() [requests.Response, Turma]"""
         # Preparando e efetuando o request na API.
-        return self.__do_request(token, id, "turma")
+        return self.__do_request(token, id, self.URLs.TURMA, self.Models.TURMA)
+
+    @property
+    def URLs(self):
+        return self.__URLs
+    
+    @property
+    def Models(self):
+        return self.__Models
