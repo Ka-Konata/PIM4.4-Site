@@ -27,7 +27,7 @@ class Disciplina_Ministrada:
             id=get_value(content, "id"),
             disciplina=Disciplina.by_dict(get_value(content, "disciplina")),
             turma=Turma.by_dict(get_value(content, "turma")),
-            professor=get_value(content, "professor"),
+            professor=Professor.by_dict(get_value(content, "professor")),
             encerrada=get_value(content, "encerrada"),
             coordenador=get_value(content, "coordenador")
         )
