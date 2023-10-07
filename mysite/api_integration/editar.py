@@ -14,7 +14,9 @@ from . utils import *
 
 class Editar:
     """Classe para realizar edições na API."""
-    def __init__(self, base_url: str, base_headers: dict) -> None:
+    def __init__(self, base_url: str, base_headers: dict, url_list, classes_list) -> None:
         """Construtor da classe."""
         self.__base_url = base_url
         self.__base_headers = base_headers
+        self.__url_list = url_list
+        self.__classes_list = classes_list
