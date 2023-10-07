@@ -170,7 +170,7 @@ def is_logged(request: HttpRequest) -> bool:
         return False
     
     # Resultado da requisição.
-    print(response.status_code)
+    #print(response.status_code)
     if response.status_code != 200:
         return False
     

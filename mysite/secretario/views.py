@@ -28,8 +28,10 @@ def index(request: HttpRequest):
         "erros":[]
     }
     
-    a, b = conn.procurar.curso_matriculado(token)
-    print(a.status_code, b, b[0].trancado)
+    a, b = conn.consultar.curso_matriculado(token, 10003)
+    print("Consulta:", a.status_code, b, b.trancado)
+    a, b = conn.procurar.curso_matriculado(token, 10005)
+    print("Procura:", a.status_code, len(b), b[0].trancado)
 
     # Caso o token esteja expirado.
     if response.status_code == 401:

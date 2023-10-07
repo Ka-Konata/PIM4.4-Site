@@ -50,17 +50,17 @@ class Procurar:
         # Preparando e efetuando o request na API.
         return self.__do_request(token, self.URLs.ALUNO, self.Models.ALUNO, "nome", nome)
 
-    def conteudo(self, token: str) -> list[requests.Response, list]:
+    def conteudo(self, token: str, id_disciplina_ministrada: int = None) -> list[requests.Response, list]:
         """Retorna umã lista de objetos do tipo Conteudo.
         Return: list() [requests.Response, list() [Conteudo]]"""
         # Preparando e efetuando o request na API.
-        return self.__do_request(token, self.URLs.CONTEUDO, self.Models.CONTEUDO)
+        return self.__do_request(token, self.URLs.CONTEUDO, self.Models.CONTEUDO, "idDisciplinaMinistrada", id_disciplina_ministrada)
 
-    def curso_matriculado(self, token: str, idAluno: int = None) -> list[requests.Response, list]:
+    def curso_matriculado(self, token: str, id_aluno: int = None) -> list[requests.Response, list]:
         """Retorna umã lista de objetos do tipo Curso_Matriculado.
         Return: list() [requests.Response, list() [Curso_Matriculado]]"""
         # Preparando e efetuando o request na API.
-        return self.__do_request(token, self.URLs.CURSO_MATRICULADO, self.Models.CURSO_MATRICULADO, "idAluno", idAluno)
+        return self.__do_request(token, self.URLs.CURSO_MATRICULADO, self.Models.CURSO_MATRICULADO, "idAluno", id_aluno)
 
     def curso(self, token: str) -> list[requests.Response, list]:
         """Retorna umã lista de objetos do tipo Curso.
