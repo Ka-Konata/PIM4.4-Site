@@ -25,7 +25,7 @@ class Connection:
         """Classe para lidar com a integração da API, incluindo conexão, buscas, consultas e modificações."""
         self.__empty = None,
         self.__base_url = base_url
-        self.__base_headers = {'Content-type': 'application/json', 'Accept': '*/*'}
+        self.__base_headers = {'Content-Type': 'application/json', 'Accept': '*/*'}
         self.__procurar = Procurar(self.base_url, self.base_headers, URLs, Models)
         self.__consultar = Consultar(self.base_url, self.base_headers, URLs, Models)
         self.__editar = Editar(self.base_url, self.base_headers, URLs, Models)

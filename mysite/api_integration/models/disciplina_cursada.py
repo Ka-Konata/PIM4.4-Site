@@ -6,16 +6,16 @@ class Disciplina_Cursada:
     """Model para a entidade Disciplina_Cursada."""
 
     def __init__(self, 
-                 id: int,
                  disciplina: Disciplina,
                  curso_matriculado: Curso_Matriculado,
                  prova1: float,
                  prova2: float,
                  trabalho: float,
-                 media: float,
                  faltas: int,
-                 frequencia: int,
-                 situacao: str) -> None:
+                 id: int = None,
+                 media: float = None,
+                 frequencia: int = None,
+                 situacao: str = None) -> None:
         """Construtor da classe."""
         self.__id = id
         self.__disciplina = disciplina
@@ -45,6 +45,17 @@ class Disciplina_Cursada:
     
     def to_dict(self) -> dict:
         """Converte o objeto atual em um discionário."""
+        return {
+            "idDisciplina": self.disciplina.id,
+            "idCursoMatriculado": self.curso_matriculado.id,
+            "prova1": self.prova1,
+            "prova2": self.prova2,
+            "trabalho": self.trabalho,
+            "faltas": self.faltas,
+        }
+    
+    def to_context(self) -> dict:
+        """Converte o objeto atual em um discionário para inserir em um context."""
         return {
             "id": self.id,
             "disciplina": self.disciplina.to_dict(),

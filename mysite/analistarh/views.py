@@ -28,10 +28,6 @@ def index(request: HttpRequest):
         "erros":[]
     }
 
-    obj = api.AnalistaRH(nome="Exemplo Analista", cpf=888, rg=888, telefone=888, email="888@gmail.com")
-    r = conn.cadastrar.analistarh(token, obj)
-    print(r.status_code, r.content)
-
     # Caso o token esteja expirado.
     if response.status_code == 401:
         # Caso o refresh_token também seja inválido.

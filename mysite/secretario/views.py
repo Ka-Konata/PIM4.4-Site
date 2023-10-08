@@ -27,6 +27,15 @@ def index(request: HttpRequest):
     context = {
         "erros":[]
     }
+    
+    #r1, disciplina = conn.consultar.disciplina(token, 10001)
+    #r1, turma = conn.consultar.turma(token, 10001)
+    r1, curso = conn.consultar.curso(token, 10001)
+    turma = api.Turma(
+        nome="EXEMPLO 1",
+        curso=curso)
+    r = conn.cadastrar.turma(token, turma)
+    print(r.status_code, f"content: {r.content}")
 
     # Caso o token esteja expirado.
     if response.status_code == 401:

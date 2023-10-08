@@ -1,6 +1,6 @@
 import os, json
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpRequest
+from django.http import *
 from api_integration import api, utils
 from login.views import is_logged
 
@@ -41,3 +41,14 @@ def index(request: HttpRequest):
     # Adicionando o obj ao contexto e respondendo o request.
     context["professor"] = professor
     return render(request, "professor/index.html", context)
+
+def conteudo(request: HttpRequest):
+    id_dm = request.POST["id"]
+    file = request.FILES["file"]
+    token = request.COOKIES[os.environ['API_TOKEN']]
+    
+    disciplina_ministrada = api.Disciplina_Ministrada(id=id_dm)
+    conteudo = api.Conteudo(disciplina_ministrada=disciplina_ministrada, documento=file)
+    r = conn.cadastrar.conteudo(token, conteudo)
+    print(r.status_code, f"headers: {r.headers}", f"content: {r.content}")
+    return redirect("professor:index")

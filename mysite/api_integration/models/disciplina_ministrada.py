@@ -7,12 +7,12 @@ class Disciplina_Ministrada:
     """Model para a entidade Disciplina_Ministrada."""
 
     def __init__(self, 
-                 id: int,
-                 disciplina: Disciplina,
-                 turma: Turma,
-                 professor: Professor,
-                 encerrada: bool,
-                 coordenador: bool) -> None:
+                 disciplina: Disciplina = None,
+                 turma: Turma = None,
+                 professor: Professor = None,
+                 encerrada: bool = None,
+                 coordenador: bool = None,
+                 id: int = None) -> None:
         """Construtor da classe."""
         self.__id = id
         self.__disciplina = disciplina
@@ -34,6 +34,16 @@ class Disciplina_Ministrada:
     
     def to_dict(self) -> dict:
         """Converte o objeto atual em um discionário."""
+        return {
+            "idDisciplina": self.disciplina.id,
+            "idTurma": self.turma.id,
+            "idProfessor": self.professor.id,
+            "encerrada": self.encerrada,
+            "coordenador": self.coordenador
+        }
+    
+    def to_context(self) -> dict:
+        """Converte o objeto atual em um discionário. para inserir em um context"""
         return {
             "id": self.id,
             "disciplina": self.disciplina.to_dict(),

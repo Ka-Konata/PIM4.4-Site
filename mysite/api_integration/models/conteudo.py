@@ -6,27 +6,37 @@ class Conteudo:
     """Model para a entidade Conteudo."""
 
     def __init__(self, 
-                 id: int,
-                 documento_url: str,
-                 disciplina_ministrada: Disciplina_Ministrada) -> None:
+                 disciplina_ministrada: Disciplina_Ministrada,
+                 id: int = None,
+                 documento_url: str = None,
+                 documento = None) -> None:
         """Construtor da classe."""
         self.__id = id
         self.__documento_url = documento_url
         self.__disciplina_ministrada = disciplina_ministrada
+        self.__documento = documento
 
     def by_dict(content: dict) -> object:
         """Instancia a classe a partir de um dicionário."""
         return Conteudo(
             id=get_value(content, "id"),
             documento_url=get_value(content, "documentoURL"),
-            disciplina_ministrada=Disciplina_Ministrada.by_dict(get_value(content, "disciplinaMinistrada"))
+            disciplina_ministrada=Disciplina_Ministrada.by_dict(get_value(content, "disciplinaMinistrada")),
+            documento=get_value(content, "documento")
         )
 
     def to_dict(self) -> dict:
         """Converte o objeto atual em um discionário."""
         return {
+            "idDisciplinaMinistrada": self.disciplina_ministrada,
+            "documento": self.documento
+        }
+
+    def to_context(self) -> dict:
+        """Converte o objeto atual em um discionário para inserir em um context."""
+        return {
             "id": self.id,
-            "documento_url": self.documento_url,
+            "documentoURL": self.documento_url,
             "disciplina_ministrada": self.disciplina_ministrada
         }
 
@@ -41,6 +51,10 @@ class Conteudo:
     @property
     def disciplina_ministrada(self) -> Disciplina_Ministrada:
         return self.__disciplina_ministrada
+    
+    @property
+    def documento(self):
+        return self.__documento
     
     @disciplina_ministrada.setter # Modifica o valor encapsulado
     def disciplina_ministrada(self, conection: any, novo_id: int) -> None:

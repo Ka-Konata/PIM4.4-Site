@@ -35,6 +35,14 @@ class Curso:
     
     def to_dict(self) -> dict:
         """Converte o objeto atual em um discionário."""
+        return {
+            "nome": self.nome,
+            "cargaHoraria": self.carga_horaria,
+            "aulasTotais": self.aulas_totais
+        }
+    
+    def to_context(self) -> dict:
+        """Converte o objeto atual em um discionário para inserir em um context."""
         # Previamente é necessário converter cada disciplina em discionarios também.
         disciplinas = []
         if self.disciplinas != None:

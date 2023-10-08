@@ -8,14 +8,14 @@ class Curso_Matriculado:
     """Model para a entidade Curso_Matriculado."""
 
     def __init__(self, 
-                id: int,
                 aluno: Aluno,
                 curso: Curso,
                 turma: Turma,
                 semestre_atual: int,
                 trancado: bool,
                 finalizado: bool,
-                disciplinas: list[Disciplina]) -> None:
+                id: int = None,
+                disciplinas: list[Disciplina] = None) -> None:
         """Construtor da classe."""
         self.__id = id
         self.__aluno = aluno
@@ -47,6 +47,17 @@ class Curso_Matriculado:
     
     def to_dict(self) -> dict:
         """Converte o objeto atual em um discionário."""
+        return {
+            "idAluno": self.aluno.id,
+            "idCurso": self.curso.id,
+            "idTurma": self.turma.id,
+            "semestreAtual": self.semestre_atual,
+            "trancado": self.trancado,
+            "finalizado": self.finalizado
+        }
+    
+    def to_context(self) -> dict:
+        """Converte o objeto atual em um discionário para inserir em um context."""
         # Previamente é necessário converter cada disciplina, aluno, curso e turma em discionarios também.
         disciplinas = []
         if self.disciplinas != None:

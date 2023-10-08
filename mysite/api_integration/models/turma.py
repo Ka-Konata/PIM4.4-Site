@@ -7,12 +7,12 @@ class Turma:
     """Model para a entidade Turma."""
 
     def __init__(self, 
-                 id: int,
                  nome: str,
                  curso: Curso,
-                 alunos: list[Aluno],
-                 professores: list[Professor],
-                 coordenador: Professor) -> None:
+                 id: int = None,
+                 alunos: list[Aluno] = None,
+                 professores: list[Professor] = None,
+                 coordenador: Professor = None) -> None:
         """Construtor da classe."""
         self.__id = id
         self.__curso = curso
@@ -45,6 +45,13 @@ class Turma:
     
     def to_dict(self) -> dict:
         """Converte o objeto atual em um discionário."""
+        return {
+            "nome": self.nome,
+            "idCurso": self.curso.id
+        }
+    
+    def to_context(self) -> dict:
+        """Converte o objeto atual em um discionário. para inserir em um context"""
         # Previamente é necessário converter cada disciplina, aluno, curso e turma em discionarios também.
         alunos = []
         if self.alunos != None:

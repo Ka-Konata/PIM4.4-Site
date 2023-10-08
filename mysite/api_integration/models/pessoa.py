@@ -37,6 +37,17 @@ class Pessoa:
     def to_dict(self) -> dict:
         """Converte o objeto atual em um discionário."""
         return {
+            "cargo": self.cargo,
+            "nome": self.nome,
+            "cpf": self.cpf,
+            "rg": self.rg,
+            "telefone": self.telefone,
+            "email": self.email
+        }
+    
+    def to_dict(self) -> dict:
+        """Converte o objeto atual em um discionário. para inserir em um context"""
+        return {
             "id": self.id,
             "senha": self.senha,
             "cargo": self.cargo,
