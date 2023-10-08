@@ -67,4 +67,19 @@ class Curso:
     
     @disciplinas.setter # Altera o valor encapsulado
     def disciplinas(self) -> None:
-        pass # Ainda para implementar
+        pass # Ainda para implementarclass Add_Disciplina_Em_Curso:
+
+    class Disicplina_Em_Curso:
+        """Model para inserir uma disciplina em um curso"""
+        def __init__(self,
+                    id_curso: int,
+                    id_disciplina: int) -> None:
+            """Construtor da classe"""
+            self.id_curso = id_curso
+            self.id_disciplina = id_disciplina
+
+        def to_dict(self) -> dict:
+            return {
+                "idCurso": self.id_curso,
+                "idDisciplina": self.id_disciplina
+            }

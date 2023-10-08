@@ -52,6 +52,20 @@ class Cadastrar:
         files=[('documento', (conteudo.documento.name, conteudo.documento, conteudo.documento.content_type))]
         return requests.post(url, headers=headers, data=data, files=files)
 
+    def curso(self, token: str, curso: object) -> requests.Response:
+        """Realiza um novo cadastro no banco de dados do tipo Curso.
+        param curso: api.Curso
+        Return: requests.Response"""
+        return self.__do_request(token, curso, self.URLs.CURSO)
+    
+    def disciplina_em_curso(self, token: str, id_curso: int, id_disciplina: int) -> requests.Response:
+        """Em um cadastro do tipo Curso, é registrado uma discplina.
+        param id_curso: int
+        param id_disciplina: int
+        Return: requests.Response"""
+        disciplina_em_curso = self.Models.DISCIPLINA_EM_CURSO(id_curso, id_disciplina)
+        return self.__do_request(token, disciplina_em_curso, self.URLs.DISCIPLINA_EM_CURSO)
+
     def curso_matriculado(self, token: str, curso_matriculado: object) -> requests.Response:
         """Realiza um novo cadastro no banco de dados do tipo Curso_Matriculado.
         param curso_matriculado: api.Curso_Matriculado

@@ -108,6 +108,7 @@ class URLs:
     CONTEUDO = "conteudo"
     CURSO_MATRICULADO = "cursoMatriculado"
     CURSO = "curso"
+    DISCIPLINA_EM_CURSO = "curso/disciplina"
     DISCIPLINA_CURSADA = "disciplinaCursada"
     DISCIPLINA_MINISTRADA = "disciplinaMinistrada"
     DISCIPLINA = "disciplina"
@@ -123,6 +124,7 @@ class Models:
     CONTEUDO = Conteudo
     CURSO_MATRICULADO = Curso_Matriculado
     CURSO = Curso
+    DISCIPLINA_EM_CURSO = Curso.Disicplina_Em_Curso
     DISCIPLINA_CURSADA = Disciplina_Cursada
     DISCIPLINA_MINISTRADA = Disciplina_Ministrada
     DISCIPLINA = Disciplina

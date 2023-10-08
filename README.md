@@ -14,8 +14,8 @@ Um site para o PIM com integração na nossa API.
 
 ## API Integration
 Rotas que faltam integrar:
-- [ ] POST /api/Curso/disciplina
-- [ ] DELETE /api/Curso/disciplina
+- [x] POST /api/Curso/disciplina
+- [x] DELETE /api/Curso/disciplina
 - [ ] PUT /api/DisciplinaCursada/media/{id}
 - [ ] PUT /api/DisciplinaCursada/frequencia/{id}
 - [ ] PUT /api/DisciplinaCursada/situacao{id}
