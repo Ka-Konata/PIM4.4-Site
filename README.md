@@ -14,13 +14,13 @@ Um site para o PIM com integração na nossa API.
 
 ## API Integration
 Rotas que faltam integrar:
-- [ ] /api/Curso/disciplina
-- [ ] /api/Curso/disciplina
-- [ ] /api/DisciplinaCursada/media/{id}
-- [ ] /api/DisciplinaCursada/frequencia/{id}
-- [ ] /api/DisciplinaCursada/situacao{id}
-- [ ] /api/File/conteudo/{file}
-- [ ] /api/File/boletim/{id}
-- [ ] /api/File/historico/{id}
-- [ ] /api/File/declaracao/{id}
-- [ ] /api/File/relatorio/{id}
+- [ ] POST /api/Curso/disciplina
+- [ ] DELETE /api/Curso/disciplina
+- [ ] PUT /api/DisciplinaCursada/media/{id}
+- [ ] PUT /api/DisciplinaCursada/frequencia/{id}
+- [ ] PUT /api/DisciplinaCursada/situacao{id}
+- [ ] PUT /api/File/conteudo/{file}
+- [ ] GET /api/File/boletim/{id}
+- [ ] GET /api/File/historico/{id}
+- [ ] GET /api/File/declaracao/{id}
+- [ ] GET /api/File/relatorio/{id}
