@@ -43,15 +43,13 @@ class Connection:
             "email": u.get_email(),
             "telefone": u.get_telefone()
         }
-        response = requests.post(url, dict_to_josn(data), headers=self.base_headers)
-        return response
+        return requests.post(url, dict_to_josn(data), headers=self.base_headers)
 
     def login(self, id: int, senha: str) -> requests.Response:
         """Pegue um token e um refresh_token referente a alguma conta."""
         url = self.base_url + f"/login?id={id}&senha={senha}"
         headers = {'Accept': '*/*'}
-        response = requests.get(url,  headers=headers)
-        return response
+        return requests.get(url,  headers=headers)
 
     def refresh(self, id: int, token: str, refresh_token: str):
         """Pegue um novo token através do refresh_token caso o mesmo ainda não esteja vencido."""
@@ -61,8 +59,7 @@ class Connection:
             "refreshToken": refresh_token,
             "id": id
         }
-        response = requests.post(url, dict_to_josn(data), headers=self.base_headers)
-        return response
+        return requests.post(url, dict_to_josn(data), headers=self.base_headers)
 
     def mudar_senha(self, id: int, senha_antiga: str, senha_nova: str):
         """Mude a senha de uma conta, enviando apenas o id e as senhas novas e velhas."""
@@ -72,8 +69,7 @@ class Connection:
             "senhaAntiga": senha_antiga,
             "senhaNova": senha_nova
         }
-        response = requests.put(url, dict_to_josn(data), headers=self.base_headers)
-        return response
+        return requests.put(url, dict_to_josn(data), headers=self.base_headers)
     
     @property # Retorna o valor encapsulado
     def base_url(self) -> str:

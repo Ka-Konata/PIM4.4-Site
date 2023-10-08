@@ -13,4 +13,14 @@ Um site para o PIM com integração na nossa API.
 8. Para iniciar o servidor, use o seguinte comando "python manage.py runserver".
 
 ## API Integration
-...
+Rotas que faltam integrar:
+- [ ] /api/Curso/disciplina
+- [ ] /api/Curso/disciplina
+- [ ] /api/DisciplinaCursada/media/{id}
+- [ ] /api/DisciplinaCursada/frequencia/{id}
+- [ ] /api/DisciplinaCursada/situacao{id}
+- [ ] /api/File/conteudo/{file}
+- [ ] /api/File/boletim/{id}
+- [ ] /api/File/historico/{id}
+- [ ] /api/File/declaracao/{id}
+- [ ] /api/File/relatorio/{id}
