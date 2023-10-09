@@ -49,6 +49,11 @@ def object_to_json(obj: object, tipo_de_objeto: str) -> str:
     # Convertentdo para json e retornando
     return dumps(novo_objeto)
 
+def get_file_path(documento_url: str) -> str:
+    r = documento_url.replace("/api/file/conteudo/", "")
+    r = r.replace("/api/file/certificado/", "")
+    return  r
+
 
 class Login:
     def __init__(
