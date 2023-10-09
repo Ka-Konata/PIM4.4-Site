@@ -28,14 +28,19 @@ def index(request: HttpRequest):
         "erros":[]
     }
     
-    r1, curso = conn.consultar.curso(token, 10001)
-    r1, disciplina = conn.consultar.disciplina(token, 10001)
+    # r1, curso = conn.consultar.curso(token, 10001)
+    # r1, disciplina = conn.consultar.disciplina(token, 10001)
     
     # r = conn.cadastrar.disciplina_em_curso(token, curso.id, disciplina.id)
     # print(r.status_code, f"content: {r.text}")
     
-    r = conn.apagar.disciplina_em_curso(token, curso.id, disciplina.id)
-    print(f"------- {r.status_code}", f"content: {r.text}")
+    # r = conn.apagar.disciplina_em_curso(token, curso.id, disciplina.id)
+    # print(f"------- {r.status_code}", f"content: {r.text}")
+
+    # aluno = conn.login(10001, "senha da")
+
+    r = conn.refresh(id, token, refresh_token)
+    print(r.status_code, r.content)
 
     # Caso o token esteja expirado.
     if response.status_code == 401:

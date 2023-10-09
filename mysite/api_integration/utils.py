@@ -57,7 +57,8 @@ class Login:
             refresh_token: str = None, 
             cargo: str = None, 
             id: int = None,
-            email: str = None
+            email: str = None,
+            valido: bool = None 
             ) -> None:
         """Uma classe para guardar algumas informações básicas de login."""
         self.token = token
@@ -65,15 +66,23 @@ class Login:
         self.cargo = cargo
         self.id = id
         self.email = email
+        self.valido = valido
 
     def set_values_with_response(self, r: Response) -> None:
-        """Uma classe para guardar algumas informações básicas de login."""
+        """Uma função que pega as informações de uma objeto requests.Response e insere no objeto atual."""
         res = bytes_to_dict(r.content)
-        self.token = res["token"]
-        self.refresh_token = res["refreshToken"]
-        self.cargo = res["cargo"]
-        self.id = res["id"]
-        self.email = res["email"]
+        self.token = get_value(res, "token")
+        self.refresh_token = get_value(res, "refreshToken")
+        self.cargo = get_value(res, "cargo")
+        self.id = get_value(res, "id")
+        self.email = get_value(res, "email")
+
+    def set_refresh(self, r: Response) -> None:
+        """Atualiza as informações do objeto atual ao fazer o refresh to token."""
+        res = bytes_to_dict(r.content)
+        self.token = get_value(res, "token")
+        self.valido = get_value(res, "valido")
+        
 
 
 class Cargo:
