@@ -78,7 +78,7 @@ login.set_values_with_response(response)
 # Exibe o status code do request, o token e o refresh_token
 print(response.status_code, login.token, login.refresh_token)
 ```
-#### Obtendo um novo token com o refresh_token
+#### Obtendo um novo token com o refresh_token:
 ```python
 # id_aluno: um número inteiro maior que 10000
 response = conn.refresh(id_aluno, login.token, login.refresh_token)
@@ -97,7 +97,7 @@ else:
 # id_aluno: um número inteiro maior que 10000
 r, aluno = conn.consultar.aluno(login.token, id_aluno)
 
-# Exibe o status da requisção
+# Exibe o status da requisição
 print(r.status_code)
 ```
 #### Pesquisando por uma lista de cadastros:
@@ -105,7 +105,7 @@ print(r.status_code)
 # nome_aluno: um string qualquer
 r, alunos = conn.procurar.aluno(login.token, nome_aluno)
 
-# Exibe o status da requisção
+# Exibe o status da requisição
 print(r.status_code)
 ```
 #### Postando um novo cadastro:
@@ -120,7 +120,7 @@ turma = api.Turma(
 # Enviando o cadastro
 r = conn.cadastrar.turma(token, turma)
 
-# Exibe o status da requisção
+# Exibe o status da requisição
 print(r.status_code)
 ```
 #### Editando um cadastro já existente:
@@ -134,15 +134,15 @@ turma.nome = "Novo nome"
 # Salvando/enviando as edições feitas
 r = conn.editar.turma(login.token, turma)
 
-# Exibe o status da requisção
+# Exibe o status da requisição
 print(r.status_code)
 ```
-#### Apagando um cadastro
+#### Apagando um cadastro:
 ```python
 # id_aluno: um número inteiro maior que 10000
 r = conn.apagar.aluno(login.token, id_aluno)
 
-# Exibe o status da requisção
+# Exibe o status da requisição
 print(r.status_code)
 ```
 
