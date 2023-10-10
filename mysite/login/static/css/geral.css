@@ -82,7 +82,7 @@ body {
     padding: 60px;
     border: 60px #007bff;
     border-radius: 1px;
-    text-align: center;
+    text-align: justify;
 }
 #loginForm input[type="text"],
 #loginForm input[type="password"] {
@@ -110,13 +110,13 @@ body {
 }
         
 .form-group label {
-    display: flex;
+    display: flexbox;
     font-weight: bold;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
         
 .form-group input {
-    width: 100%;
+    width: 80%;
     padding: 10px;
     margin: 0;
     border: 1px solid #ccc;
@@ -126,7 +126,7 @@ body {
 .btn {
     background-color: #4d559c;
     color: #fff;
-    border: none;
+    border-bottom: none;
     padding: 10px 10px;
     cursor: pointer;
 }

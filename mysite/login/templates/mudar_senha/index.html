@@ -4,7 +4,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mudar Senha</title>
     
     {% load static %}
     <link rel="shortcut icon" href="{% static 'icons/favicon.png' %}" type="image/x-icon">
@@ -18,8 +17,6 @@
 <body>
     <div class="containerMudar">
     <h1 class="align-center">Mudar Senha</h1>
-    <h2>Trocar Senha</h2>
-        <form action="trocar_senha.php" method="post">
             <div class="form-group">
                 <label for="id_ra">ID/RA:</label>
                 <input type="text" id="id_ra" name="id_ra" required>
@@ -32,7 +29,7 @@
                 <label for="nova_senha">Nova Senha:</label>
                 <input type="password" id="nova_senha" name="nova_senha" required>
             </div>
-            <div class="form-group">
+            <div class="align-center">
                 <button type="submit" class="btn">Trocar Senha</button>
             </div>
             </div>
