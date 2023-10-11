@@ -10,33 +10,28 @@
     <link rel="shortcut icon" href="{% static 'icons/favicon.png' %}" type="image/x-icon">
 
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/geral.css' %}">
+    <link rel="stylesheet" href="{% static 'css/analistarh.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 </head>
 <body>
-    <header>
-        <h1>Área do Analista de RH</h1>
-        <p>Olá, {{ analistarh.nome }}</p>
-        <a href="{% url 'login:sair' %}">sair</a>
-    </header>
-    <main>
-        <section>
-            <div class="area-opcao">
-                <a href="#" target="_self">
-                    <p>Manter Professor(a)</p>
-                </a>
-            </div>
-            <div class="area-opcao">
-                <a href="#" target="_self">
-                    <p>Manter Secretario(a)</p>
-                </a>
-            </div>
-            <div class="area-opcao">
-                <a href="#" target="_self">
-                    <p>Manter Analista de RH</p>
+    <div class="container">
+        <img src="{% static 'icons/favicon.png' %}" alt="Imagem de Login">
+        <div class="card great-cards">
+            <i class="fas fa-user"></i> <!-- Ícone do usuário -->
+            <h3>Manter Professor</h3> 
+        </div>
+        <div class="card great-cards">
+            <i class="fas fa-edit" style="line-height: 2; color: rgb(30, 48, 80);"></i> <!-- Ícone de edição -->
+            <h3>Manter Secretário</h3> 
+        </div>
+        <div class="card great-cards">
+            <i class="fas fa-chart-bar" style="line-height: 2; color: rgb(30, 48, 80);"></i> <!-- Ícone de bate-papo -->
+            <h3>Manter Analista</h3> 
                 </a>
             </div>
         </section>
-    </main>
+    </main>     
     <footer></footer>
 </body>
 </html>
