@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="{% static 'css/area.footer.css'%}"> <!-- Editar para funcionar com o Django -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/container_analista.css'%}"> <!-- Editar para funcionar com o Django -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'%}">
 
 </head>
 <body>
@@ -51,7 +53,20 @@
     <!-- Main, onde fica todo o conteúdo principal da página -->
     <main>
         <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
-            <!-- Ex: primeiro botão-->
+            <div class="container">
+                <i class="fas fa-user"></i>
+                <div class="card great-cards">
+                    <i class="fas fa-user"></i>
+                    <h3>Manter Professor</h3>
+                </div>
+                <div class="card great-cards">
+                    <i class="fas fa-user"></i>
+                    <h3>Manter Secretário</h3>
+                </div>
+                <div class="card great-cards">
+                    <i class="fas fa-user"></i>
+                    <h3>Manter Analista</h3>
+                </div>                
         </section>
     </main>
 
