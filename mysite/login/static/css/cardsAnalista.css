@@ -1,3 +1,8 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    width: 450px; /* A largura dos cards */
+}
 .card {
     width: 70px;
     height: 120px;
