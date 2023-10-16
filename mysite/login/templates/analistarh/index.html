@@ -4,11 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Área do Analista de RH</title>
-    <link rel="shortcut icon" href="source/favicon.png" type="image/x-icon"> <!-- Editar para funcionar com o Django-->
-    <link rel="stylesheet" href="css/area.css"> <!-- Editar para funcionar com o Django -->
-    <link rel="stylesheet" href="css/area_header.css"> <!-- Editar para funcionar com o Django -->
-    <link rel="stylesheet" href="css/area_main.css"> <!-- Editar para funcionar com o Django -->
-    <link rel="stylesheet" href="css/area.footer.css"> <!-- Editar para funcionar com o Django -->
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'icons/favicon.png'%}" type="image/x-icon"> <!-- Editar para funcionar com o Django-->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area.css'%}"> <!-- Editar para funcionar com o Django -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area_header.css'%}"> <!-- Editar para funcionar com o Django -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area_main.css'%}"> <!-- Editar para funcionar com o Django -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area.footer.css'%}"> <!-- Editar para funcionar com o Django -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/cardsAnalista.css'%}">
+    
 </head>
 <body>
     <!-- Header, o cabeçalho da página -->
