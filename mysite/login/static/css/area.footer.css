@@ -31,7 +31,7 @@ footer h2 {
 
 
 /* ------------------ Deixando a Página mais responsiva ------------------ */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 500px) {
     /* Tirando o position fixed do footer e outros ajustes */
     footer {
         position: relative;
@@ -41,6 +41,6 @@ footer h2 {
 
     /* Refazendo a margin das sections */
     #footer-section-1, #footer-section-2 {
-        margin: 10px;
+        margin: 20px;
     }
 }

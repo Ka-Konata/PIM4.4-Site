@@ -1,13 +1,13 @@
 .container {
     display: flex;
     justify-content: space-between;
-    width: 450px; /* A largura dos cards */
+    width: 400px; /* A largura dos cards */
 }
 .card {
     width: 70px;
     height: 120px;
-    background-color: #c32323;
-    border: 1px solid #b62b2b;
+    background-color: #faf7f7;
+    border: 1px solid #f7f5f5;
     border-radius: 5px;
     text-align: center;
     padding: 20px;
