@@ -1,0 +1,38 @@
+/* ------------------ CSS padrão para ser aplicado em todas as áreas ------------------ */
+* {
+    /* Zerado alguns atributos padrões */
+    padding: 0;
+    margin: 0;
+    border: 0;
+
+    /* Salvando valores que serão utizados várias vezes em variáveis */
+    --cor-primaria: #5964be;
+    --cor-secundaria: #4f5692;
+    --cor-secundaria-hover: #444975;
+    --cor-terciaria: #ffffff;
+    --font-family-primaria: Arial, Helvetica, sans-serif;
+
+    /* Definindo atributos para todos os elementos do doc */
+    font-family: var(--font-family-primaria);
+}
+
+/* Estiliação básica da tela, preparado o header e o footer */
+header, footer {
+    z-index: 2;
+    background-color: var(--cor-primaria);
+    padding: 20px;
+    width: calc(100% - 40px);
+    height: 100px;
+    position: fixed;
+    color: white;
+}
+
+/* Peculiaridades da tag header */
+header {
+    top: 0px;
+}
+
+/* Limpando os elementos flutuantes*/
+.clear {
+    clear: both;
+}

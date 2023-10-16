@@ -4,7 +4,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mudar Senha</title>
     
     {% load static %}
     <link rel="shortcut icon" href="{% static 'icons/favicon.png' %}" type="image/x-icon">
@@ -16,32 +15,25 @@
     <link rel="stylesheet" href="{% static 'css/geral.css' %}">
 </head>
 <body>
-    <header>
-        <h1>Mudar Senha</h1>
-    </header>
-    <main>
-        <!-- img -->
-        <form action={% url "login:mudar_senha"  %} method="get">
-            {% if erros.401 == True %} <div class="block-erro">ID/RA ou senha incorreto.</div> {% endif %}
-            {% if erros.400 == True %} <div class="block-erro">A nova senha não pode ser igual a anterior.</div> {% endif %}
-            <div>
-                <label for="id">ID/RA</label>
-                <input type="text" name="id" id="login-id" placeholder="seu id/ra">
-                {% if "id" in erros.vazio %} <div class="text-erro">Campo obrigatório.</div> {% endif %}
+    <div class="containerMudar">
+    <h1 class="align-center">Mudar Senha</h1>
+            <div class="form-group">
+                <label for="id_ra">ID/RA:</label>
+                <input type="text" id="id_ra" name="id_ra" required>
             </div>
-            <div>
-                <label for="senha_antiga">Senha atual</label>
-                <input type="text" name="senha_antiga" id="senha-antiga" placeholder="sua senha">
-                {% if "senha_antiga" in erros.vazio %} <div class="text-erro">Campo obrigatório.</div> {% endif %}
+            <div class="form-group">
+                <label for="senha_atual">Senha Atual:</label>
+                <input type="password" id="senha_atual" name="senha_atual" required>
             </div>
-            <div>
-                <label for="senha_nova">Nova senha</label>
-                <input type="text" name="senha_nova" id="senha-nova" placeholder="sua senha">
-                {% if "senha_nova" in erros.vazio %} <div class="text-erro">Campo obrigatório.</div> {% endif %}
+            <div class="form-group">
+                <label for="nova_senha">Nova Senha:</label>
+                <input type="password" id="nova_senha" name="nova_senha" required>
             </div>
-            <input type="submit" value="Entrar">
+            <div class="align-center">
+                <button type="submit" class="btn">Trocar Senha</button>
+            </div>
+            </div>
         </form>
     </main>
-    <footer></footer>
 </body>
 </html>

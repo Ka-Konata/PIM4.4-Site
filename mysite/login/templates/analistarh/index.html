@@ -1,42 +1,75 @@
 <!DOCTYPE html>
-<html lang="pt_BR">
+<html lang="pt-BR">
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Área do Analista de RH</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'icons/favicon.png'%}" type="image/x-icon"> <!-- Editar para funcionar com o Django-->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area.css'%}"> <!-- Editar para funcionar com o Django -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area_header.css'%}"> <!-- Editar para funcionar com o Django -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area_main.css'%}"> <!-- Editar para funcionar com o Django -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area.footer.css'%}"> <!-- Editar para funcionar com o Django -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/cardsAnalista.css'%}">
     
-    {% load static %}
-    <link rel="shortcut icon" href="{% static 'icons/favicon.png' %}" type="image/x-icon">
-
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/geral.css' %}">
 </head>
 <body>
+    <!-- Header, o cabeçalho da página -->
     <header>
-        <h1>Área do Analista de RH</h1>
-        <p>Olá, {{ analistarh.nome }}</p>
-        <a href="{% url 'login:sair' %}">sair</a>
+        <!-- Ícone do sistema-->
+        <div id="header-favicon">
+            <img src="source/favicon.png" alt="Íone da Universidade"> <!-- Editar para funcionar com o Django -->
+        </div>
+
+        <!-- Título (h1) da página -->
+        <div id="header-title">
+            <h1>Área do Analista de RH<span class="subtitle"> / Professor</span></h1>
+            <p>Olá, nome de usuário!</p>
+        </div>
+
+        <!-- Botões do cabeçalho-->
+        <div id="header-buttons">
+            <!-- Botão sair (link para a rota no Back End) -->
+            <div id="sair-button">
+                <a href="#">Sair</a>
+            </div>
+            
+            <!-- Botão trocar de senha (link para a rota no Back End) -->
+            <div id="trocar-de-senha-button">
+                <a href="#">Trocar de Senha</a>
+            </div>
+        </div>
+
+        <div class="clear"></div>
     </header>
+
+    <!-- Main, onde fica todo o conteúdo principal da página -->
     <main>
-        <section>
-            <div class="area-opcao">
-                <a href="#" target="_self">
-                    <p>Manter Professor(a)</p>
-                </a>
-            </div>
-            <div class="area-opcao">
-                <a href="#" target="_self">
-                    <p>Manter Secretario(a)</p>
-                </a>
-            </div>
-            <div class="area-opcao">
-                <a href="#" target="_self">
-                    <p>Manter Analista de RH</p>
-                </a>
-            </div>
+        <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
+            <!-- Ex: primeiro botão-->
         </section>
     </main>
-    <footer></footer>
+
+    <!-- Footer, o rodapé da página -->
+    <footer>
+        <!-- Primeira seção do rodapé -->
+        <section id="footer-section-1">
+            <h2>Mapa do Site</h2>
+            <p><a href="#">Trocar de senha</a></p>
+            <p><a href="#">Sair</a></p>
+        </section>
+
+        <!-- Segunda seção do rodapé -->
+        <section id="footer-section-2">
+            <h2>Atribuições</h2>
+            <p><a href="">site - favicon nome</a></p>
+            <p><a href="">site - menu itens</a></p>
+        </section>
+    </footer>
 </body>
 </html>

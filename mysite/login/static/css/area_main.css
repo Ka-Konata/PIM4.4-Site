@@ -1,0 +1,32 @@
+/* ------------------ Estilizando o Main ------------------ */
+/* Esse é o template, portanto, não há muito a acrescentar */
+
+/* Peculiaridades da tag main */
+main {
+    z-index: 1;
+    position: relative;
+    background-color: var(--cor-terciaria);
+    margin: 140px 0;
+    height: calc(100vh - 280px);
+    text-align: center;
+}
+
+main > section { 
+    display: inline-block;
+    background-color: gray;
+    /* width: 60%;
+    height: 60%; */
+
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+/* ------------------ Deixando a Página mais responsiva ------------------ */
+@media screen and (max-width: 800px) {
+    /* Remvendo a margin da tag main */
+    main {
+        margin: 0;
+    }
+}
