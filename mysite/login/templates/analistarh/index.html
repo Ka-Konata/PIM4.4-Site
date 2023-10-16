@@ -7,16 +7,13 @@
     {% load static %}
     <link rel="shortcut icon" href="{% static 'icons/favicon.png'%}" type="image/x-icon"> <!-- Editar para funcionar com o Django-->
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/area.css'%}"> <!-- Editar para funcionar com o Django -->
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/area_header.css'%}"> <!-- Editar para funcionar com o Django -->
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/area_main.css'%}"> <!-- Editar para funcionar com o Django -->
-    {% load static %}
     <link rel="stylesheet" href="{% static 'css/area.footer.css'%}"> <!-- Editar para funcionar com o Django -->
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/cardsAnalista.css'%}">
-    
+    <link rel="stylesheet" href="{% static 'css/area_hearder.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area_main.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area.css'%}">
 </head>
 <body>
     <!-- Header, o cabeçalho da página -->
@@ -42,22 +39,11 @@
         <div class="clear"></div>
     </header>
     <!-- Main, onde fica todo o conteúdo principal da página -->
-    <head></head>
+    <head>
     
     <main>
         <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
-                <div class="container">
-                <div class="card great-cards">
-                    <i class="fas fa-user"></i> <!-- Ícone do usuário -->
-                    <h3>Manter Professor</h3> <!-- Título -->
-                </div>
-                <div class="card great-cards">
-                    <i class="fas fa-edit" style="line-height: 2; color: rgb(30, 48, 80);"></i> <!-- Ícone de edição -->
-                    <h3>Manter Secretário</h3> <!-- Título -->
-                </div>
-                <div class="card great-cards">
-                    <i class="fas fa-chart-bar" style="line-height: 2; color: rgb(30, 48, 80);"></i> <!-- Ícone de bate-papo -->
-                    <h3>Manter Analista</h3> <!-- Título -->
+      
                 </div>
         </section>
     </main>
@@ -77,6 +63,6 @@
             <p><a href="">site - favicon nome</a></p>
             <p><a href="">site - menu itens</a></p>
         </section>
-    </footer>
+    
 </body>
 </html>
