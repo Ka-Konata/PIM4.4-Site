@@ -4,10 +4,10 @@
     width: 400px; /* A largura dos cards */
 }
 .card {
-    width: 70px;
-    height: 120px;
+    width: 50px;
+    height: 90px;
     background-color: #faf7f7;
-    border: 1px solid #f7f5f5;
+    border: 5px solid #f7f5f5;
     border-radius: 5px;
     text-align: center;
     padding: 20px;
@@ -16,7 +16,7 @@
     font-size: 60px; /* Tamanho do ícone */
     margin-bottom: 10px; /* Espaço entre o ícone e o conteúdo do card */
     color: rgb(40, 58, 90); /* Cor do ícone */
-    line-height: 2; /* Espaçamento entre linhas do ícone */
+    line-height: 1; /* Espaçamento entre linhas do ícone */
 }
 
 .card h3 {
