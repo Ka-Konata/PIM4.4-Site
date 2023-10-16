@@ -1,0 +1,105 @@
+/* ------------------ Estilizando o Header ------------------ */
+header > div {
+    float: left;
+}
+
+/* Div que comporta o ícone no header */
+#header-favicon {
+    width: 100px;
+    height: 100px;
+    /* background-color: var(--cor-terciaria); */
+}
+
+#header-favicon > img {
+    width: 100%;
+}
+
+/* Div que comporta o título da página */
+#header-title {
+    margin-left: 20px;
+
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Sub-título */
+.subtitle {
+    font-size: 20px;
+    color: var(--cor-secundaria);
+    font-style: italic;
+}
+
+/* Botões que ficam localizados no header */
+#header-buttons {
+    float: right;
+    height: 100%;
+}
+
+/* Div do dos botões */
+#sair-button, #trocar-de-senha-button {
+    display: inline-block;
+    position: relative;
+    top: 100%;
+    transform: translateY(-100%);
+    margin-left: 7px;
+}
+
+/* Links dos botões em si */
+#sair-button > a, #trocar-de-senha-button > a {
+    float: right;
+    color: white;
+    text-decoration: none;
+    background-color: var(--cor-secundaria);
+    padding: 10px 20px;
+    transition: all 0.3s;
+}
+
+/* Ao passar o mouse por cima do botão sair */
+#sair-button > a:hover, #trocar-de-senha-button:hover > a {
+    background-color: var(--cor-secundaria-hover);
+}
+
+
+/* ------------------ Deixando a Página mais responsiva ------------------ */
+@media screen and (max-width: 900px) {
+    /* Escondendo o ícone */
+    #header-favicon {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    /* Tirando o position fixed do header */
+    header {
+        position: relative;
+        height: auto;
+    }
+
+    /* Removendo o atributo float das divs do header */
+    #header-buttons, header > div {
+        float: none;
+        position: inherit;
+    }
+
+    /* Reajustando a posição */
+    #sair-button, #trocar-de-senha-button, #header-title {
+        top: unset;
+        transform: unset;
+    }
+
+    #header-title {
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    /* Escondendo o caminho da página*/
+    .subtitle {
+        display: none;
+    }
+
+    #header-title > h1 {
+        font-size: 24px;
+    }
+}
