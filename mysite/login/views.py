@@ -115,6 +115,7 @@ def mudar_senha(request) -> HttpResponse:
     context = {
         "erros": erros
     }
+    print(context)
     return render(request, "mudar_senha/index.html", context)
 
 

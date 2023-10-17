@@ -14,19 +14,19 @@
     <div class="container">
         <img src="{% static 'icons/favicon.png' %}" alt="Imagem de Login">
         <h1 class="align-center">Login</h1>
-        <form id="loginForm" method="POST" action="processar_login.php">
-            <label for="login-id">ID/RA</label>
-            <input type="text" name="ID" id="login-id" placeholder="Seu ID/RA" required>
-            <label for="login-senha">Senha</label>
-            <input type="password" name="Senha" id="login-senha" placeholder="Sua Senha" required>
+
+        {% if erros.401 == True %} <div class="block-erro">ID/RA ou senha incorreto.</div> {% endif %}
+        {% if erros.426 == True %} <div class="block-erro">Necessário trocar a senha.</div> {% endif %}
+        <form id="loginForm" method="GET" action={% url "login:connect"  %}>
+            
+            <label for="login-id">ID/RA</label> <!-- {% if "id" in erros.vazio %}class="text-erro"{% endif %} -->
+            <input type="text" name="id" id="login-id" placeholder="Seu ID/RA" required>
+
+            <label for="login-senha">Senha</label> <!-- {% if "senha" in erros.vazio %}class="text-erro"{% endif %} -->
+            <input type="password" name="senha" id="login-senha" placeholder="Sua Senha" required>
+
             <input type="submit" value="Entrar">
-        </form>
-        <p>Não sabe sua Senha?<a href="{% url 'login:mudar_senha_pag' %}">Recupere seu acesso</a></p>
-        <form action={% url "login:connect"  %} method="get">
-            {% if erros.401 == True %} <div class="block-erro">ID/RA ou senha incorreto.</div> {% endif %}
-            {% if erros.426 == True %} <div class="block-erro">Necessário trocar a senha.</div> {% endif %}
-            {% if "id" in erros.vazio %} <div class="text-erro">Campo obrigatório.</div> {% endif %}
-            {% if "senha" in erros.vazio %} <div class="text-erro">Campo obrigatório.</div> {% endif %}
+            <a href="{% url 'login:mudar_senha_pag' %}">Trocar de Senha.</a>
         </form>
     <script>
         function getCookie(name) {
@@ -35,8 +35,8 @@
             if (parts.length === 2) return parts.pop().split(';').shift();
         }
 
-        console.log("ACCESS-TOKEN: " + getCookie("PIM4.4-API-ACCESS-TOKEN"));
-        console.log("REFRESH-TOKEN: " + getCookie("PIM4.4-API-REFRESH-TOKEN"));
+        // console.log("ACCESS-TOKEN: " + getCookie("PIM4.4-API-ACCESS-TOKEN"));
+        // console.log("REFRESH-TOKEN: " + getCookie("PIM4.4-API-REFRESH-TOKEN"));
     </script>
 </body>
 </html>

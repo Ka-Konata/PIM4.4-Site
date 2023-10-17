@@ -8,32 +8,33 @@
     {% load static %}
     <link rel="shortcut icon" href="{% static 'icons/favicon.png' %}" type="image/x-icon">
 
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/mudar_senha.css' %}">
+    <!-- {% load static %}
+    <link rel="stylesheet" href="{% static 'css/mudar_senha.css' %}"> -->
     
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/geral.css' %}">
 </head>
 <body>
-    <div class="containerMudar">
-    <h1 class="align-center">Mudar Senha</h1>
-            <div class="form-group">
-                <label for="id_ra">ID/RA:</label>
-                <input type="text" id="id_ra" name="id_ra" required>
-            </div>
-            <div class="form-group">
-                <label for="senha_atual">Senha Atual:</label>
-                <input type="password" id="senha_atual" name="senha_atual" required>
-            </div>
-            <div class="form-group">
-                <label for="nova_senha">Nova Senha:</label>
-                <input type="password" id="nova_senha" name="nova_senha" required>
-            </div>
-            <div class="align-center">
-                <button type="submit" class="btn">Trocar Senha</button>
-            </div>
-            </div>
+    <div class="container">
+        <img src="{% static 'icons/favicon.png' %}" alt="Imagem de Login">
+        <h1 class="align-center">Mudar Senha</h1>
+
+        {% if erros.401 == True %} <div class="block-erro">ID/RA ou senha incorreto.</div> {% endif %}
+        {% if erros.400 == True %} <div class="block-erro">A nova senha não pode ser igual a anterior.</div> {% endif %}
+        <form id="loginForm" method="PUT" action={% url "login:mudar"  %}>
+            <label for="id">ID/RA</label>
+            <input type="text" id="id" name="id" placeholder="Seu ID/RA" required>
+
+            <label for="senha_antiga">Atual</label>
+            <input type="password" id="senha_antiga" name="senha_antiga" placeholder="Senha atual" required>
+
+            <label for="senha_nova">Nova</label>
+            <input type="password" id="senha_nova" name="senha_nova" placeholder="Nova senha" required>
+
+            <input type="submit" value="Trocar Senha">
+            <a href="{% url 'login:index' %}">Fazer Login.</a>
         </form>
+    </div>
     </main>
 </body>
 </html>
