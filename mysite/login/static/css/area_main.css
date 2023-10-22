@@ -29,14 +29,26 @@ main > section {
     justify-content: center;
     /* align-items: center; */
     background-color: #ffffff;
+    overflow-y: scroll;
+    max-width: calc(190px * 5);
+}
+
+.container::-webkit-scrollbar {
+    display: none;
+}
+
+.container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Cada opção disponível na página */
-.option-item {
+.option-item a {
     /* border: 1px solid red; */
+    display: inline-block;
     cursor: pointer;
     width: 150px;
-    margin: 10px;
+    margin: 20px;
     text-align: center;
 }
 
@@ -48,7 +60,7 @@ main > section {
     width: 70px;
 }
 
-.option-item > .option-item-icon {
+.option-item .option-item-icon {
     /* display: inline-block; */
     min-width: 70px;
     padding: 15px;
@@ -68,9 +80,14 @@ p {
 }
 
 /* ------------------ Deixando a Página mais responsiva ------------------ */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 450px) {
     /* Remvendo a margin da tag main */
     main {
         padding: 0;
+        /* padding-top: 0; */
+    }
+
+    .option-item a {
+        margin: 10px;
     }
 }

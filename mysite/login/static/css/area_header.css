@@ -76,10 +76,10 @@ header > div {
 
 @media screen and (max-width: 800px) {
     /* Tirando o position fixed do header */
-    header {
+    /* header {
         position: relative;
         height: auto;
-    }
+    } */
 
     /* Removendo o atributo float das divs do header */
     #header-buttons, header > div {
@@ -98,7 +98,7 @@ header > div {
     }
 }
 
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 550px) {
     /* Escondendo o caminho da página*/
     .subtitle {
         display: none;
@@ -106,5 +106,13 @@ header > div {
 
     #header-title > h1 {
         font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    /* Tirando o position fixed do footer e outros ajustes */
+    header {
+        position: relative;
+        height: auto;
     }
 }

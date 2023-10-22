@@ -49,24 +49,30 @@
     <main>
         <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
             <div class="container"> 
-                <a class="option-item" href="{% url 'analistarh:professor'  %}">
-                    <div class="option-item-icon">
-                        <img src="{% static 'icons/favicon.png'%}" alt="">
-                    </div>
-                    <h2>Manter Professor</h2>
-                </a>
-                <a class="option-item" href="{% url 'analistarh:secretario'  %}">
-                    <div class="option-item-icon">
-                        <img src="{% static 'icons/favicon.png'%}" alt="">
-                    </div>
-                    <h2>Manter Secretário</h2>
-                </a>
-                <a class="option-item" href="{% url 'analistarh:analistarh'  %}">
-                    <div class="option-item-icon">
-                        <img src="{% static 'icons/favicon.png'%}" alt="">
-                    </div>
-                    <h2>Manter Analista</h2>
-                </a>           
+                <div class="option-item">
+                    <a href="{% url 'analistarh:professor'  %}">
+                        <div class="option-item-icon">
+                            <img src="{% static 'icons/favicon.png'%}" alt="">
+                        </div>
+                        <h2>Manter Professor</h2>
+                    </a>
+                </div>
+                <div class="option-item">
+                    <a href="{% url 'analistarh:secretario'  %}">
+                        <div class="option-item-icon">
+                            <img src="{% static 'icons/favicon.png'%}" alt="">
+                        </div>
+                        <h2>Manter Secretário</h2>
+                    </a>
+                </div>
+                <div class="option-item">
+                    <a href="{% url 'analistarh:analistarh'  %}">
+                        <div class="option-item-icon">
+                            <img src="{% static 'icons/favicon.png'%}" alt="">
+                        </div>
+                        <h2>Manter Analista</h2>
+                    </a>
+                </div>
         </section>
     </main>
 

@@ -37,8 +37,8 @@ header, footer {
 }
 
 a {
-    color: black;
-    text-decoration: none;
+    color: unset;
+    text-decoration: unset;
 }
 
 a.link {
