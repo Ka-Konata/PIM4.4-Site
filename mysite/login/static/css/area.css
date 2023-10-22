@@ -16,23 +16,32 @@
     font-family: var(--font-family-primaria);
 }
 
+body {
+    height: 100vh;
+    position: relative;
+}
+
 /* Estiliação básica da tela, preparado o header e o footer */
 header, footer {
     z-index: 2;
     background-color: var(--cor-primaria);
     padding: 20px;
     width: calc(100% - 40px);
-    height: 100px;
     position: fixed;
     color: white;
-}
-
-/* Peculiaridades da tag header */
-header {
-    top: 0px;
 }
 
 /* Limpando os elementos flutuantes*/
 .clear {
     clear: both;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a.link {
+    color: var(--cor-secundaria-hover);
+    text-decoration: underline;
 }

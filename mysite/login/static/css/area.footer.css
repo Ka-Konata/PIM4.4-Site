@@ -1,8 +1,9 @@
 /* ------------------ Estilizando o Footer ------------------ */
 /* Peculiaridades da tag footer*/
 footer {
-    bottom: 0px;
+    bottom: 0%;
     text-align: right;
+    height: 70px;
 }
 
 /* Estilizando as sections do rodapé */
@@ -36,6 +37,7 @@ footer h2 {
     /* Tirando o position fixed do footer e outros ajustes */
     footer {
         position: relative;
+        bottom: 0;
         text-align: center;
         height: auto;
     }

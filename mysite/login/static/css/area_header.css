@@ -1,4 +1,9 @@
 /* ------------------ Estilizando o Header ------------------ */
+header {   
+    top: 0%;
+    height: 100px;
+}
+
 header > div {
     float: left;
 }

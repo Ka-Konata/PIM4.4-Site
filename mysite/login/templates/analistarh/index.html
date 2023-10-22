@@ -5,33 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Área do Analista de RH</title>
     {% load static %}
-    <link rel="shortcut icon" href="{% static 'icons/favicon.png'%}" type="image/x-icon"> <!-- Editar para funcionar com o Django-->
+    <link rel="shortcut icon" href="{% static 'icons/favicon.png'%}" type="image/x-icon">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/area.css'%}"> <!-- Editar para funcionar com o Django -->
+    <link rel="stylesheet" href="{% static 'css/area.css'%}">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/area_header.css'%}"> <!-- Editar para funcionar com o Django -->
+    <link rel="stylesheet" href="{% static 'css/area_header.css'%}">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/area_main.css'%}"> <!-- Editar para funcionar com o Django -->
+    <link rel="stylesheet" href="{% static 'css/area_main.css'%}">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/area.footer.css'%}"> <!-- Editar para funcionar com o Django -->
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/container_analista.css'%}"> <!-- Editar para funcionar com o Django -->
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'%}">
-
+    <link rel="stylesheet" href="{% static 'css/area.footer.css'%}">
 </head>
 <body>
     <!-- Header, o cabeçalho da página -->
     <header>
         <!-- Ícone do sistema-->
         <div id="header-favicon">
-            <img src="{% static 'icons/favicon.png'%}" alt="Íone da Universidade"> <!-- Editar para funcionar com o Django -->
+            <img src="{% static 'icons/favicon.png'%}" alt="Íone da Universidade">
         </div>
 
         <!-- Título (h1) da página -->
         <div id="header-title">
             <h1>Área do Analista de RH<span class="subtitle"> / Professor</span></h1>
-            <p>Olá, nome de usuário!</p>
+            <p>Olá, {{analistarh.nome}}!</p>
         </div>
 
         <!-- Botões do cabeçalho-->
@@ -53,19 +48,25 @@
     <!-- Main, onde fica todo o conteúdo principal da página -->
     <main>
         <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
-            <div class="container">
-                <div class="card great-cards">
-                    <i class="fas fa-user" style="line-height: ; color: rgb(30, 48, 80);"></i>
+            <div class="container"> 
+                <a class="option-item" href="{% url 'analistarh:professor'  %}">
+                    <div class="option-item-icon">
+                        <img src="{% static 'icons/favicon.png'%}" alt="">
+                    </div>
                     <h2>Manter Professor</h2>
-                </div>
-                <div class="card great-cards">
-                    <i class="fas fa-user" style="line-height: 2; color: rgb(30, 48, 80);"></i>
+                </a>
+                <a class="option-item" href="{% url 'analistarh:secretario'  %}">
+                    <div class="option-item-icon">
+                        <img src="{% static 'icons/favicon.png'%}" alt="">
+                    </div>
                     <h2>Manter Secretário</h2>
-                </div>
-                <div class="card great-cards">
-                    <i class="fas fa-user" style="line-height: 2; color: rgb(30, 48, 80);"></i>
+                </a>
+                <a class="option-item" href="{% url 'analistarh:analistarh'  %}">
+                    <div class="option-item-icon">
+                        <img src="{% static 'icons/favicon.png'%}" alt="">
+                    </div>
                     <h2>Manter Analista</h2>
-                </div>                
+                </a>           
         </section>
     </main>
 
@@ -74,15 +75,15 @@
         <!-- Primeira seção do rodapé -->
         <section id="footer-section-1">
             <h2>Mapa do Site</h2>
-            <p><a href="#">Trocar de senha</a></p>
-            <p><a href="#">Sair</a></p>
+            <p><a href="#" class="link">Trocar de senha</a></p>
+            <p><a href="#" class="link">Sair</a></p>
         </section>
 
         <!-- Segunda seção do rodapé -->
         <section id="footer-section-2">
             <h2>Atribuições</h2>
-            <p><a href="">site - favicon nome</a></p>
-            <p><a href="">site - menu itens</a></p>
+            <p><a href="#" class="link">site - favicon nome</a></p>
+            <p><a href="#" class="link">site - menu itens</a></p>
         </section>
     </footer>
 </body>

@@ -40,12 +40,30 @@ def index(request: HttpRequest):
 
     # Adicionando o obj ao contexto e respondendo o request.
     context["analistarh"] = analistarh
+    print("context: ", context)
     return render(request, "analistarh/index.html", context)
 
-
-def manter_professor(request):
-    """Página para gerenciar as contas do tipo Professor"""
-    # Verificando se o usuário está logado.
-    if not is_logged:
+def manter_analista(request: HttpRequest):
+    # Tentando pegar os cookies.
+    try:
+        token = request.COOKIES[os.environ['API_TOKEN']]
+        refresh_token = request.COOKIES[os.environ['API_REFRESH_TOKEN']]
+        id = int(request.COOKIES[os.environ['API_USER_ID']])
+        cargo = request.COOKIES[os.environ['API_USER_CARGO']]
+    except:
         return redirect("login:index")
+    
+    # Adicionando o obj ao contexto e respondendo o request.
+    context = {}
+    context["analistarh"] = "analistarh"
+    return render(request, "analistarh/manter_analista.html", context)
+
+def procurar_analista(request: HttpRequest):
+    # Adicionando o obj ao contexto e respondendo o request.
+    context = {}
+    context["analistarh"] = "analistarh"
+    return render(request, "analistarh/manter_analista.html", context)
+
+def editar_analista(request: HttpRequest):
+    pass
     
