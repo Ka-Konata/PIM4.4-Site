@@ -1,0 +1,53 @@
+section {
+    width: 80%;
+}
+
+container, form {
+    display: block;
+    width: 100%;
+    text-align: justify;
+}
+
+form {
+    text-align: justify;
+}
+
+form input[type="text"] {
+    width: calc(100% - 110px - 90px - 50px);
+    padding: 10px;
+    background-color: rgb(233, 233, 233);
+    float: left;
+    font-size: 14.5px;
+}
+
+form button {
+    float: right;
+    padding: 10px;
+    margin-left: 15px;
+    vertical-align: middle;
+    font-size: 14.5px;
+}
+
+form button img {
+    width: 15px;
+}
+
+form button[type="submit"] {
+    width: 110px;
+}
+
+form button[type="button"] {
+    width: 90px;
+}
+
+table, tbody, tr {
+    width: 100%;
+}
+
+th {
+    background: rgb(168, 168, 168);
+}
+
+tr:nth-child(even) {
+    background:rgb(207, 207, 207);
+}

@@ -177,3 +177,9 @@ def is_logged(request: HttpRequest) -> bool:
     
     # Caso tenha passado por todas as validações.
     return True
+
+class Cookies:
+    token = None
+    refresh_token = None
+    id = None
+    cargo = None
