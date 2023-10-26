@@ -15,23 +15,20 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/area_footer.css'%}">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/manter_analistarh.css'%}">
+    <link rel="stylesheet" href="{% static 'css/area_do_analistarh.css'%}">
 </head>
 <body>
     <!-- Header, o cabeçalho da página -->
     <header>
         <!-- Ícone do sistema-->
         <div id="header-favicon">
-            <img src="{% static 'icons/favicon.png' %}" alt="Íone da Universidade">
+            <img src="{% static 'icons/favicon.png'%}" alt="Íone da Universidade">
         </div>
 
         <!-- Título (h1) da página -->
         <div id="header-title">
-            <h1>
-                <a href="{% url 'analistarh:index'%}">Área do Analista de RH</a>
-                <span class="subtitle"> / AnalistaRH</span>
-            </h1>
-            <p>Olá, {{analistarh.nome}}!</p>
+            <h1>Área do Analista de RH</h1>
+            <p>Olá, {{ analistarh.nome }}!</p>
         </div>
 
         <!-- Botões do cabeçalho-->
@@ -47,44 +44,37 @@
             </div>
         </div>
 
-        <div class="clear"></div>   
+        <div class="clear"></div>
     </header>
 
     <!-- Main, onde fica todo o conteúdo principal da página -->
     <main>
         <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
             <div class="container"> 
-                <form action="" method="get">
-                    <input type="text" name="filtro" id="filtro" placeholder="Insira o nome para filtrar">
-                    <button type="button">
-                        <img src="{% static 'icons/favicon.png' %}" alt="">
-                        <span>Novo</span>
-                    </button>
-                    <button type="submit">
-                        <img src="{% static 'icons/favicon.png' %}" alt="">
-                        <span>Pesquisar</span>
-                    </button>
-                    <!-- <input type="submit" value="Pesquisar">
-                    <input type="button" value="Novo"> -->
-                    <div style="clear: both;"></div>
-                </form>
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>CPF</th>
-                        <th>RG</th>
-                    </tr>
-                    
-                    {% for item in resultados %}
-                    <tr>
-                        <td>a</td>
-                        <td>{{ item.nome }}</td>
-                        <td>c</td>
-                        <td>d</td>
-                    </tr>
-                    {% endfor %}
-                </table>
+                <div class="option-item">
+                    <a href="{% url 'analistarh:professor'  %}">
+                        <div class="option-item-icon">
+                            <img src="{% static 'icons/favicon.png'%}" alt="">
+                        </div>
+                        <h2>Manter Professor</h2>
+                    </a>
+                </div>
+                <div class="option-item">
+                    <a href="{% url 'analistarh:secretario'  %}">
+                        <div class="option-item-icon">
+                            <img src="{% static 'icons/favicon.png'%}" alt="">
+                        </div>
+                        <h2>Manter Secretário</h2>
+                    </a>
+                </div>
+                <div class="option-item">
+                    <a href="{% url 'analistarh:analistarh'  %}">
+                        <div class="option-item-icon">
+                            <img src="{% static 'icons/favicon.png'%}" alt="">
+                        </div>
+                        <h2>Manter Analista</h2>
+                    </a>
+                </div>
         </section>
     </main>
 
