@@ -78,10 +78,10 @@
                     
                     {% for item in resultados %}
                     <tr>
-                        <td>a</td>
+                        <td>{{ item.id }}</td>
                         <td>{{ item.nome }}</td>
-                        <td>c</td>
-                        <td>d</td>
+                        <td>{{ item.cpf }}</td>
+                        <td class="last-table-item">{{ item.rg }}</td>
                     </tr>
                     {% endfor %}
                 </table>

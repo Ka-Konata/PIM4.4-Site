@@ -39,11 +39,11 @@ class Connection:
         Não funciona caso qualquer outra tabela do tipo pessoa já esteja cadastrada no banco de dados."""
         url = self.base_url + "/login/startup"
         data = {
-            "nome": u.get_nome(),
-            "cpf": u.get_cpf(),
-            "rg": u.get_rg(),
-            "email": u.get_email(),
-            "telefone": u.get_telefone()
+            "nome": u.nome,
+            "cpf": u.cpf,
+            "rg": u.rg,
+            "telefone": u.telefone,
+            "email": u.email
         }
         return requests.post(url, dict_to_josn(data), headers=self.base_headers)
 

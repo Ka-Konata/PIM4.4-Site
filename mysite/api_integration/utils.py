@@ -58,12 +58,12 @@ def get_file_path(documento_url: str) -> str:
 class Login:
     def __init__(
             self, 
-            token: str = None, 
-            refresh_token: str = None, 
-            cargo: str = None, 
-            id: int = None,
-            email: str = None,
-            valido: bool = None 
+            token: str = "", 
+            refresh_token: str = "", 
+            cargo: str = "", 
+            id: int = "",
+            email: str = "",
+            valido: bool = "" 
             ) -> None:
         """Uma classe para guardar algumas informações básicas de login."""
         self.token = token

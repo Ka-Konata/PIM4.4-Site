@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "pim44-site.victorgrferreir.repl.co", "pim44-site--victorgrferreir.repl.co",
     "localhost",
-    "http://127.0.0.1:8000"
+    "127.0.0.1"
     ]
 
 

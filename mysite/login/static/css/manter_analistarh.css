@@ -1,4 +1,4 @@
-section {
+main > section {
     width: 80%;
 }
 
@@ -13,18 +13,28 @@ form {
 }
 
 form input[type="text"] {
-    width: calc(100% - 110px - 90px - 50px);
+    width: calc(100% - 110px - 90px - 40px);
     padding: 10px;
     background-color: rgb(233, 233, 233);
     float: left;
     font-size: 14.5px;
+    height: 18px;
 }
 
 form button {
     float: right;
     padding: 10px;
-    margin-left: 15px;
-    vertical-align: middle;
+    margin-left: 10px;
+    background-color: var(--cor-secundaria);
+    transition: all 0.3s;
+}
+
+form button:hover {
+    background-color: var(--cor-secundaria-hover);
+    cursor: pointer;
+}
+
+form button span {
     font-size: 14.5px;
 }
 
@@ -40,12 +50,24 @@ form button[type="button"] {
     width: 90px;
 }
 
+table {
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    border-collapse: separate;
+    padding: 7px;
+}
+
 table, tbody, tr {
     width: 100%;
 }
 
 th {
-    background: rgb(168, 168, 168);
+    color: rgb(185, 185, 185);
+    background: rgb(104, 104, 104);
 }
 
 tr:nth-child(even) {
