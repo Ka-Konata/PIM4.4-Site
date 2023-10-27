@@ -52,68 +52,53 @@
         <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
             <div class="container"> 
                 <div class="option-item">
-                    <a href="{% url 'analistarh:professor'  %}">
-                        <div class="option-item-icon">
-                            <img src="{% static 'icons/favicon.png'%}" alt="">
-                        </div>
-                        <h2>Acessar Disciplinas</h2>
-                    </a>
-                </div>
-                <div class="option-item">
-                    <a href="{% url 'analistarh:professor'  %}">
+                    <a href="{% url 'aluno:acessar_cursos'  %}">
                         <div class="option-item-icon">
                             <img src="{% static 'icons/favicon.png'%}" alt="">
                         </div>
                         <h2>Acessar Cursos</h2>
                     </a>
                 </div>
-                <div class="option-item">
-                    <a href="{% url 'analistarh:professor'  %}">
+                <div class="option-item disabled">
+                     <a href="{% url 'aluno:notas_e_faltas'  %}">
+                        <div class="option-item-icon">
+                            <img src="{% static 'icons/favicon.png'%}" alt="">
+                        </div>
+                        <h2>Notas e Faltas Semestrais</h2>
+                    </a>
+                </div>
+                <div class="option-item disabled">
+                    <a href="{% url 'aluno:declaracao'  %}">
                         <div class="option-item-icon">
                             <img src="{% static 'icons/favicon.png'%}" alt="">
                         </div>
                         <h2>Emitir Declaração</h2>
                     </a>
                 </div>
-                <div class="option-item">
-                    <a href="{% url 'analistarh:secretario'  %}">
+                <div class="option-item disabled">
+                    <a href="{% url 'aluno:historico'  %}">
                         <div class="option-item-icon">
                             <img src="{% static 'icons/favicon.png'%}" alt="">
                         </div>
                         <h2>Emitir Histórico Escolar</h2>
                     </a>
                 </div>
-                <div class="option-item">
-                    <a href="{% url 'analistarh:analistarh'  %}">
+                <div class="option-item disabled">
+                    <a href="{% url 'aluno:relatorio'  %}">
                         <div class="option-item-icon">
                             <img src="{% static 'icons/favicon.png'%}" alt="">
                         </div>
                         <h2>Emitir Relatório de Matricula</h2>
                     </a>
                 </div>
-                <div class="option-item">
-                    <a href="{% url 'analistarh:secretario'  %}">
+                <div class="option-item disabled">
+                    <a href="{% url 'aluno:boletim'  %}">
                         <div class="option-item-icon">
                             <img src="{% static 'icons/favicon.png'%}" alt="">
                         </div>
                         <h2>Emitir Boletim</h2>
                     </a>
                 </div>
-                <div class="option-item">
-                     <a href="{% url 'analistarh:secretario'  %}">
-                        <div class="option-item-icon">
-                            <img src="{% static 'icons/favicon.png'%}" alt="">
-                        </div>
-                        <h2>Consultar Notas</h2>
-                    </a>
-                </div>
-                <div class="option-item">
-                        <a href="{% url 'analistarh:secretario'  %}">
-                            <div class="option-item-icon">
-                                <img src="{% static 'icons/favicon.png'%}" alt="">
-                        </div>
-                        <h2>Consultar Frequências</h2>
-                    </a>
         </section>
     </main>
 

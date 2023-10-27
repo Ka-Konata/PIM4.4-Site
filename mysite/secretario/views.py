@@ -164,3 +164,53 @@ def editar_disciplina(request: HttpRequest):
 
     # Adicionando o obj ao contexto e respondendo o request.
     return set_cookies(render(request, "secretario/info_disciplina.html", context), login)
+
+def procurar_professor_em_turma(request: HttpRequest):
+    """Página inicial para buscas de disciplina_ministrada"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    filtro = request.GET.get("filtro", "")
+    response, disciplina_ministrada = conn.procurar.disciplina_ministrada(login.token, filtro)
+    context["resultados"] = disciplina_ministrada
+    
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "secretario/manter_professor_em_turma.html", context), login)
+
+def procurar_disciplina_em_curso(request: HttpRequest):
+    """Página inicial para buscas de disciplina_em_curso"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    filtro = request.GET.get("filtro", "")
+    context["resultados"] = []
+    if filtro.isnumeric():
+        response, curso = conn.consultar.curso(login.token, int(filtro)) #disciplinas
+        context["resultados"] = curso.disciplinas
+        
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "secretario/manter_disciplina_em_curso.html", context), login)
+
+def procurar_aluno_em_curso(request: HttpRequest):
+    """Página inicial para buscas de curso_matriculado"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    filtro = request.GET.get("filtro", "")
+    response, curso_matriculado = conn.procurar.curso_matriculado(login.token, filtro)
+    context["resultados"] = curso_matriculado
+    
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "secretario/manter_aluno_em_curso.html", context), login)
+
+def editar_professor_em_turma(request: HttpRequest):
+    pass
+
+def editar_disciplina_em_curso(request: HttpRequest):
+    pass
+
+def editar_aluno_em_curso(request: HttpRequest):
+    pass

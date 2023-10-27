@@ -85,7 +85,7 @@ class Turma:
         return self.__alunos
 
     @property
-    def profesores(self) -> list[Professor]:
+    def professores(self) -> list[Professor]:
         return self.__professores
     
     @curso.setter
@@ -96,6 +96,6 @@ class Turma:
     def alunos(self) -> None:
         pass # Ainda para implementar
     
-    @profesores.setter
-    def profesores(self) -> None:
+    @professores.setter
+    def professores(self) -> None:
         pass # Ainda para implementar

@@ -31,7 +31,7 @@
         <div id="header-title">
             <h1>
                 <a href="{% url 'secretario:index'%}">Área do Secretario</a>
-                <span class="subtitle"> / Disciplina</span>
+                <span class="subtitle"> / Curso Matriculado</span>
             </h1>
             <p>Olá, {{secretario.nome}}!</p>
         </div>
@@ -55,10 +55,10 @@
     <!-- Main, onde fica todo o conteúdo principal da página -->
     <main>
         <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
-            <div class="container"> 
+            <div class="container">
                 <form action="" method="get">
-                    <input type="text" name="filtro" id="filtro" placeholder="Insira o nome para filtrar">
-                    <button type="button" onclick="redirect_to_cad(`{% url 'secretario:disciplina_info' %}`, null)">
+                    <input type="text" name="filtro" id="filtro" placeholder="Insira o ID do aluno para filtrar" required>
+                    <button type="button" onclick="redirect_to_cad(`{% url 'secretario:disciplina_em_curso_info' %}`, null)">
                         <img src="{% static 'icons/favicon.png' %}" alt="">
                         <span>Novo</span>
                     </button>
@@ -72,14 +72,31 @@
                 </form>
                 <table>
                     <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-
+                        <th>Aluno</th>
+                        <th>Curso</th>
+                        <th>Turma</th>
+                        <th>Trancado</th>
+                        <th>Finalizado</th>
                     </tr>
                     {% for item in resultados %}
-                    <tr class="table-row-clickabe" onclick="redirect_to_cad(`{% url 'secretario:disciplina_info' %}`, `{{ item.id }}`)">
-                        <td>{{ item.id }}</td>
-                        <td class="last-table-item">{{ item.nome }}</td>
+                    <tr class="table-row-clickabe" onclick="redirect_to_cad(`{% url 'secretario:disciplina_em_curso_info' %}`, `{{ item.id }}`)">
+                        <td>{{ item.aluno.id }}</td>
+                        <td>{{ item.curso.id }}</td>
+                        <td>{{ item.turma.id }}</td>
+                        <td>
+                            {% if item.trancado %}
+                            Sim
+                            {% else %}
+                            Não
+                            {% endif %}
+                        </td>
+                        <td class="last-table-item">
+                            {% if item.finalizado %}
+                            Sim
+                            {% else %}
+                            Não
+                            {% endif %}
+                        </td>
                     </tr>
                     {% endfor %}
                 </table>
