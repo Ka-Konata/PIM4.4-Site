@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área do Secretario</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'icons/favicon.png'%}" type="image/x-icon">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area_header.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area_main.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area_footer.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/manter_analistarh.css'%}">
+</head>
+<body>
+    <!-- Header, o cabeçalho da página -->
+    <header>
+        <!-- Ícone do sistema-->
+        <div id="header-favicon">
+            <img src="{% static 'icons/favicon.png' %}" alt="Íone da Universidade">
+        </div>
+
+        <!-- Título (h1) da página -->
+        <div id="header-title">
+            <h1>
+                <a href="{% url 'secretario:index'%}">Área do Secretario</a>
+                <span class="subtitle"> / Curso</span>
+            </h1>
+            <p>Olá, {{Secretario.nome}}!</p>
+        </div>
+
+        <!-- Botões do cabeçalho-->
+        <div id="header-buttons">
+            <!-- Botão sair (link para a rota no Back End) -->
+            <div id="sair-button">
+                <a href="{% url 'login:sair' %}">Sair</a>
+            </div>
+            
+            <!-- Botão trocar de senha (link para a rota no Back End) -->
+            <div id="trocar-de-senha-button">
+                <a href="{% url 'login:mudar_senha_pag' %}">Trocar de Senha</a>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+    </header>
+
+    <!-- Main, onde fica todo o conteúdo principal da página -->
+    <main>
+        <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
+            <div class="container"> 
+                <form action="" method="get">
+                    <input type="text" name="filtro" id="filtro" placeholder="Insira o nome para filtrar">
+                    <button type="button">
+                        <img src="{% static 'icons/favicon.png' %}" alt="">
+                        <span>Novo</span>
+                    </button>
+                    <button type="submit">
+                        <img src="{% static 'icons/favicon.png' %}" alt="">
+                        <span>Pesquisar</span>
+                    </button>
+                    <!-- <input type="submit" value="Pesquisar">
+                    <input type="button" value="Novo"> -->
+                    <div style="clear: both;"></div>
+                </form>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                    </tr>
+                    {% for item in resultados %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td class="last-table-item">{{ Nome }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+        </section>
+    </main>
+
+    <!-- Footer, o rodapé da página -->
+    <footer>
+        <!-- Primeira seção do rodapé -->
+        <section id="footer-section-1">
+            <h2>Mapa do Site</h2>
+            <p><a href="{% url 'login:mudar_senha_pag' %}" class="link">Trocar de senha</a></p>
+            <p><a href="{% url 'login:sair' %}" class="link">Sair</a></p>
+        </section>
+
+        <!-- Segunda seção do rodapé -->
+        <section id="footer-section-2">
+            <h2>Atribuições</h2>
+            <p><a href="#" class="link">site - favicon nome</a></p>
+            <p><a href="#" class="link">site - menu itens</a></p>
+        </section>
+    </footer>
+</body>
+</html>
