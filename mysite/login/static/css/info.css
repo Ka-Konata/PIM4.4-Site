@@ -1,0 +1,91 @@
+main > section {
+    width: 80%;
+}
+
+container, form {
+    display: block;
+    width: 100%;
+    text-align: justify;
+}
+
+form {
+    text-align: justify;
+}
+
+form input[type="text"] {
+    width: calc(100% - 110px - 90px - 40px);
+    padding: 10px;
+    background-color: rgb(233, 233, 233);
+    float: left;
+    font-size: 14.5px;
+    height: 18px;
+}
+
+form button {
+    float: right;
+    padding: 10px;
+    margin-left: 10px;
+    background-color: var(--cor-secundaria);
+    transition: all 0.3s;
+}
+
+form button:hover {
+    background-color: var(--cor-secundaria-hover);
+    cursor: pointer;
+}
+
+form button span {
+    font-size: 14.5px;
+    color: white;
+}
+
+form button img {
+    width: 15px;
+}
+
+form button[type="submit"] {
+    width: 110px;
+}
+
+form button[type="button"] {
+    width: 90px;
+}
+
+table {
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    border-collapse: separate;
+    border-right: 1px solid rgb(255, 255, 255);
+    padding: 7px;
+}
+
+table, tbody, tr {
+    width: 100%;
+}
+
+th {
+    color: rgb(185, 185, 185);
+    background: rgb(104, 104, 104);
+}
+
+tr.table-row-clickabe {
+    background: rgb(233, 233, 233);
+    transition: all 0.3s;
+}
+
+tr.table-row-clickabe:hover {
+    cursor: pointer;
+    background: rgb(128, 128, 128);
+}
+
+tr.table-row-clickabe:nth-child(even) {
+    background: rgb(207, 207, 207);
+}
+
+tr.table-row-clickabe:nth-child(even):hover {
+    background: rgb(128, 128, 128);
+}
