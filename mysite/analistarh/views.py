@@ -79,7 +79,6 @@ def manter_secretario(request: HttpRequest):
         return context
     
     context["resultado"] = list()
-    
     # Adicionando o obj ao contexto e respondendo o request.
     return set_cookies(render(request, "analistarh/manter_secretario.html", context), login)
 
@@ -107,7 +106,7 @@ def procurar_secretario(request: HttpRequest):
     context["resultados"] = secretarios
     
     # Adicionando o obj ao contexto e respondendo o request.
-    return set_cookies(render(request, "analistarh/manter_analista.html", context), login)
+    return set_cookies(render(request, "analistarh/manter_secretario.html", context), login)
 
 def procurar_professor(request: HttpRequest):
     """Página inicial para buscas de professor"""
@@ -120,7 +119,7 @@ def procurar_professor(request: HttpRequest):
     context["resultados"] = professores
     
     # Adicionando o obj ao contexto e respondendo o request.
-    return set_cookies(render(request, "analistarh/manter_analista.html", context), login)
+    return set_cookies(render(request, "analistarh/manter_professor.html", context), login)
 
 def editar_analista(request: HttpRequest):
     """Página para cadastro ou alteração de cadastro de AnalistaRH"""
