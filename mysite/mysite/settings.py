@@ -26,9 +26,11 @@ SECRET_KEY = 'django-insecure-(=s-ujyi^$+zw32zyq-epbkk@&(8m)o1i2$nh5d6h-^z8ag7q6
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "pim44-site.victorgrferreir.repl.co", "pim44-site--victorgrferreir.repl.co",
+    "pim44-site.victorgrferreir.repl.co", 
+    "pim44-site--victorgrferreir.repl.co",
     "localhost",
-    "127.0.0.1"
+    "127.0.0.1",
+    "10.10.1.132"
     ]
 
 
