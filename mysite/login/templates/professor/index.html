@@ -28,7 +28,7 @@
         <!-- Título (h1) da página -->
         <div id="header-title">
             <h1>Área do Professor</h1>
-            <p>Olá, {{ Professor.nome }}!</p>
+            <p>Olá, {{ professor.nome }}!</p>
         </div>
 
         <!-- Botões do cabeçalho-->
@@ -50,25 +50,17 @@
     <!-- Main, onde fica todo o conteúdo principal da página -->
     <main>
         <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
-            <div class="container"> 
+            <div class="container">
                 <div class="option-item">
-                    <a href="{% url 'analistarh:professor'  %}">
-                        <div class="option-item-icon">
-                            <img src="{% static 'icons/favicon.png'%}" alt="">
-                        </div>
-                        <h2>Acessar Alunos em Disciplinas</h2>
-                    </a>
-                </div>
-                <div class="option-item">
-                    <a href="{% url 'analistarh:secretario'  %}">
+                    <a href="{% url 'professor:disciplinas'  %}">
                         <div class="option-item-icon">
                             <img src="{% static 'icons/favicon.png'%}" alt="">
                         </div>
                         <h2>Acessar Disciplinas Ministradas</h2>
                     </a>
                 </div>
-                <div class="option-item">
-                    <a href="{% url 'analistarh:analistarh'  %}">
+                <div class="option-item disabled">
+                    <a href="{% url 'professor:conteudo'  %}">
                         <div class="option-item-icon">
                             <img src="{% static 'icons/favicon.png'%}" alt="">
                         </div>
@@ -76,20 +68,13 @@
                     </a>
                 </div>
                 <div class="option-item">
-                    <a href="{% url 'analistarh:secretario'  %}">
+                    <a href="{% url 'professor:conteudo'  %}">
                         <div class="option-item-icon">
                             <img src="{% static 'icons/favicon.png'%}" alt="">
                         </div>
                         <h2>Manter Conteúdo Progrmático</h2>
                     </a>
                 </div>
-                <div class="option-item">
-                    <a href="{% url 'analistarh:secretario'  %}">
-                        <div class="option-item-icon">
-                            <img src="{% static 'icons/favicon.png'%}" alt="">
-                        </div>
-                        <h2>Manter Curso</h2>
-                    </a>
         </section>
     </main>
 

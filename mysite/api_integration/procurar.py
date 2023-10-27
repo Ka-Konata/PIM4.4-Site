@@ -68,17 +68,17 @@ class Procurar:
         # Preparando e efetuando o request na API.
         return self.__do_request(token, self.URLs.CURSO, self.Models.CURSO, "nome", nome)
 
-    def disciplina_cursada(self, token: str, id_professor: int = None) -> list[requests.Response, list]:
+    def disciplina_cursada(self, token: str, id_curso_matriculado: int = None) -> list[requests.Response, list]:
         """Faz uma busca no banco de dados e retorna umã lista de objetos do tipo Disciplina_Cursada.
         Return: list() [requests.Response, list() [Disciplina_Cursada]]"""
         # Preparando e efetuando o request na API.
-        return self.__do_request(token, self.URLs.DISCIPLINA_CURSADA, self.Models.DISCIPLINA_CURSADA, "idProfessor", id_professor)
+        return self.__do_request(token, self.URLs.DISCIPLINA_CURSADA, self.Models.DISCIPLINA_CURSADA, "idCursoMatriculado", id_curso_matriculado)
 
-    def disciplina_ministrada(self, token: str, id_curso_matriculado: int = None) -> list[requests.Response, list]:
+    def disciplina_ministrada(self, token: str, id_professor: int = None) -> list[requests.Response, list]:
         """Faz uma busca no banco de dados e retorna umã lista de objetos do tipo Disciplina_Ministrada.
         Return: list() [requests.Response, list() [Disciplina_Ministrada]]"""
         # Preparando e efetuando o request na API.
-        return self.__do_request(token, self.URLs.DISCIPLINA_MINISTRADA, self.Models.DISCIPLINA_MINISTRADA, "idCursoMatriculado", id_curso_matriculado)
+        return self.__do_request(token, self.URLs.DISCIPLINA_MINISTRADA, self.Models.DISCIPLINA_MINISTRADA, "idProfessor", id_professor)
 
     def disciplina(self, token: str, nome: str = None) -> list[requests.Response, list]:
         """Faz uma busca no banco de dados e retorna umã lista de objetos do tipo Disciplina.

@@ -48,3 +48,119 @@ def index(request: HttpRequest):
 
     # Adicionando o obj ao contexto e respondendo o request.
     return set_cookies(render(request, "secretario/index.html", context), login)
+
+def procurar_aluno(request: HttpRequest):
+    """Página inicial para buscas de aluno"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    filtro = request.GET.get("filtro", "")
+    response, alunos = conn.procurar.aluno(login.token, filtro)
+    context["resultados"] = alunos
+    
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "secretario/manter_aluno.html", context), login)
+
+def procurar_curso(request: HttpRequest):
+    """Página inicial para buscas de curso"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    filtro = request.GET.get("filtro", "")
+    response, cursos = conn.procurar.curso(login.token, filtro)
+    context["resultados"] = cursos
+    
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "secretario/manter_curso.html", context), login)
+
+def procurar_turma(request: HttpRequest):
+    """Página inicial para buscas de turma"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    filtro = request.GET.get("filtro", "")
+    response, turmas = conn.procurar.turma(login.token, filtro)
+    context["resultados"] = turmas
+    
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "secretario/manter_turma.html", context), login)
+
+def procurar_disciplina(request: HttpRequest):
+    """Página inicial para buscas de disciplina"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    filtro = request.GET.get("filtro", "")
+    response, disciplinas = conn.procurar.disciplina(login.token, filtro)
+    context["resultados"] = disciplinas
+    
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "secretario/manter_disciplina.html", context), login)
+
+def editar_aluno(request: HttpRequest):
+    """Página para cadastro ou alteração de cadastro de aluno"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    id = request.GET.get("id", "")
+    if id != "":
+        response, aluno = conn.consultar.aluno(login.token, id)
+        context["cadastro"] = aluno
+    else:
+        context["cadastro"] = None
+
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "secretario/info_aluno.html", context), login)
+
+def editar_curso(request: HttpRequest):
+    """Página para cadastro ou alteração de cadastro de curso"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    id = request.GET.get("id", "")
+    if id != "":
+        response, curso = conn.consultar.curso(login.token, id)
+        context["cadastro"] = curso
+    else:
+        context["cadastro"] = None
+
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "secretario/info_curso.html", context), login)
+
+def editar_turma(request: HttpRequest):
+    """Página para cadastro ou alteração de cadastro de turma"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    id = request.GET.get("id", "")
+    if id != "":
+        response, turma = conn.consultar.turma(login.token, id)
+        context["cadastro"] = turma
+    else:
+        context["cadastro"] = None
+
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "secretario/info_turma.html", context), login)
+
+def editar_disciplina(request: HttpRequest):
+    """Página para cadastro ou alteração de cadastro de disciplina"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    id = request.GET.get("id", "")
+    if id != "":
+        response, disciplina = conn.consultar.disciplina(login.token, id)
+        context["cadastro"] = disciplina
+    else:
+        context["cadastro"] = None
+
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "secretario/info_disciplina.html", context), login)

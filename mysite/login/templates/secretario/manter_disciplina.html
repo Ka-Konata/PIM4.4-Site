@@ -15,7 +15,13 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/area_footer.css'%}">
     {% load static %}
+<<<<<<< Updated upstream
     <link rel="stylesheet" href="{% static 'css/manter_analistarh.css'%}">
+=======
+    <link rel="stylesheet" href="{% static 'css/manter.css'%}">
+    {% load static %}
+    <script src="{% static 'js/manter.js' %}"></script>
+>>>>>>> Stashed changes
 </head>
 <body>
     <!-- Header, o cabeçalho da página -->
@@ -29,9 +35,15 @@
         <div id="header-title">
             <h1>
                 <a href="{% url 'secretario:index'%}">Área do Secretario</a>
+<<<<<<< Updated upstream
                 <span class="subtitle"> / Curso</span>
             </h1>
             <p>Olá, {{Secretario.nome}}!</p>
+=======
+                <span class="subtitle"> / Disciplina</span>
+            </h1>
+            <p>Olá, {{secretario.nome}}!</p>
+>>>>>>> Stashed changes
         </div>
 
         <!-- Botões do cabeçalho-->
@@ -56,7 +68,11 @@
             <div class="container"> 
                 <form action="" method="get">
                     <input type="text" name="filtro" id="filtro" placeholder="Insira o nome para filtrar">
+<<<<<<< Updated upstream
                     <button type="button">
+=======
+                    <button type="button" onclick="redirect_to_cad(`{% url 'secretario:disciplina_info' %}`, null)">
+>>>>>>> Stashed changes
                         <img src="{% static 'icons/favicon.png' %}" alt="">
                         <span>Novo</span>
                     </button>
@@ -72,11 +88,20 @@
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
+<<<<<<< Updated upstream
                     </tr>
                     {% for item in resultados %}
                     <tr>
                         <td>{{ item.id }}</td>
                         <td class="last-table-item">{{ Nome }}</td>
+=======
+
+                    </tr>
+                    {% for item in resultados %}
+                    <tr class="table-row-clickabe" onclick="redirect_to_cad(`{% url 'secretario:disciplina_info' %}`, `{{ item.id }}`)">
+                        <td>{{ item.id }}</td>
+                        <td class="last-table-item">{{ item.nome }}</td>
+>>>>>>> Stashed changes
                     </tr>
                     {% endfor %}
                 </table>

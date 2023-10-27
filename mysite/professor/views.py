@@ -48,3 +48,79 @@ def index(request: HttpRequest):
 
     # Adicionando o obj ao contexto e respondendo o request.
     return set_cookies(render(request, "professor/index.html", context), login)
+
+def procurar_conteudo(request: HttpRequest):
+    """Página inicial para buscas de conteudo"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    filtro = request.GET.get("filtro", "")
+    response, conteudos = conn.procurar.conteudo(login.token, filtro)
+    context["resultados"] = conteudos
+    
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "professor/manter_conteudo.html", context), login)
+
+def editar_conteudo(request: HttpRequest):
+    """Página para cadastro ou alteração de cadastro de conteudo"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    id = request.GET.get("id", "")
+    if id != "":
+        response, conteudo = conn.consultar.conteudo(login.token, id)
+        context["cadastro"] = conteudo
+    else:
+        context["cadastro"] = None
+
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "professor/info_conteudo.html", context), login)
+
+def acessar_disciplinas(request: HttpRequest):
+    """Página inicial para buscas de disciplina"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    filtro = request.GET.get("filtro", "")
+    response, disciplinas = conn.procurar.disciplina_ministrada(login.token, login.id)
+
+    resultados = []
+    for d in disciplinas:
+        print(f"filtro: {filtro} | disciplina: {d.turma.nome}", filtro in d.turma.nome)
+        if filtro in d.turma.nome or filtro == "":
+            resultados.append(d)
+
+    context["resultados"] = resultados
+    
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "professor/acessar_disciplina.html", context), login)
+
+def acessar_alunos_em_disciplinas(request: HttpRequest):
+    """Página inicial para buscas de alunos_em_disciplinas"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    disciplina = request.GET.get("disciplina", "")
+    curso = request.GET.get("curso", "")
+    filtro = request.GET.get("filtro", "")
+
+    resultados = []
+    r2, disciplinas_cursadas = conn.procurar.disciplina_cursada(login.token)
+    for dc in disciplinas_cursadas:
+        print(f"disciplina: {str(dc.disciplina.id)} == {disciplina}: {str(dc.disciplina.id) == disciplina}")
+        print(f"curso: {str(dc.curso_matriculado.curso.id)} == {curso}: {str(dc.curso_matriculado.curso.id) == curso}")
+        print(f"filtro: {str(dc.disciplina.id)} in {dc.curso_matriculado.aluno.nome}: {filtro in dc.curso_matriculado.aluno.nome}")
+        print(f"filtro: {filtro} == : {filtro == ''}")
+        if str(dc.disciplina.id) == disciplina and str(dc.curso_matriculado.curso.id) == curso and (filtro in dc.curso_matriculado.aluno.nome or filtro == ""):
+            resultados.append(dc.curso_matriculado.aluno)
+
+    context["disciplina"] = disciplina
+    context["curso"] = curso
+    context["resultados"] = resultados
+    
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "professor/alunos_em_disciplina.html", context), login)

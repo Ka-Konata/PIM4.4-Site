@@ -28,7 +28,7 @@
         <!-- Título (h1) da página -->
         <div id="header-title">
             <h1>Área do Secretário</h1>
-            <p>Olá, {{ Secretario.nome }}!</p>
+            <p>Olá, {{ secretario.nome }}!</p>
         </div>
 
         <!-- Botões do cabeçalho-->
@@ -51,24 +51,24 @@
     <main>
         <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
             <div class="container"> 
-                <div class="option-item">
-                    <a href="{% url 'analistarh:professor'  %}">
+                <div class="option-item disabled">
+                    <a href="{% url 'secretario:professor_em_turma'  %}">
                         <div class="option-item-icon">
                             <img src="{% static 'icons/favicon.png'%}" alt="">
                         </div>
                         <h2>Manter Professor em Turma</h2>
                     </a>
                 </div>
-                <div class="option-item">
-                    <a href="{% url 'analistarh:secretario'  %}">
+                <div class="option-item disabled">
+                    <a href="{% url 'secretario:disciplina_em_curso'  %}">
                         <div class="option-item-icon">
                             <img src="{% static 'icons/favicon.png'%}" alt="">
                         </div>
                         <h2>Manter Disciplina em Curso</h2>
                     </a>
                 </div>
-                <div class="option-item">
-                    <a href="{% url 'analistarh:analistarh'  %}">
+                <div class="option-item disabled">
+                    <a href="{% url 'secretario:aluno_em_curso'  %}">
                         <div class="option-item-icon">
                             <img src="{% static 'icons/favicon.png'%}" alt="">
                         </div>
@@ -76,7 +76,7 @@
                     </a>
                 </div>
                 <div class="option-item">
-                    <a href="{% url 'analistarh:secretario'  %}">
+                    <a href="{% url 'secretario:aluno'  %}">
                         <div class="option-item-icon">
                             <img src="{% static 'icons/favicon.png'%}" alt="">
                         </div>
@@ -84,7 +84,7 @@
                     </a>
                 </div>
                 <div class="option-item">
-                    <a href="{% url 'analistarh:secretario'  %}">
+                    <a href="{% url 'secretario:curso'  %}">
                         <div class="option-item-icon">
                             <img src="{% static 'icons/favicon.png'%}" alt="">
                         </div>
@@ -92,7 +92,7 @@
                     </a>
                 </div>
                 <div class="option-item">
-                    <a href="{% url 'analistarh:secretario'  %}">
+                    <a href="{% url 'secretario:turma'  %}">
                         <div class="option-item-icon">
                             <img src="{% static 'icons/favicon.png'%}" alt="">
                         </div>
@@ -100,7 +100,7 @@
                     </a>
                 </div>
                 <div class="option-item">
-                    <a href="{% url 'analistarh:secretario'  %}">
+                    <a href="{% url 'secretario:disciplina'  %}">
                         <div class="option-item-icon">
                             <img src="{% static 'icons/favicon.png'%}" alt="">
                         </div>

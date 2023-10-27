@@ -6,3 +6,12 @@ function redirect_to_cad(tipo, id) {
         window.location = tipo
     }
 }
+
+function alunos_em_disciplina(tipo, disciplina, curso, filtro) {
+    input = document.getElementById("filtro")
+    if (filtro == true && input.value != undefined) {
+        window.location = tipo + "?disciplina=" + disciplina + "&curso=" + curso + "&filtro=" + input.value
+    } else {
+        window.location = tipo + "?disciplina=" + disciplina + "&curso=" + curso + "&filtro="
+    }
+}

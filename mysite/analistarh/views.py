@@ -50,38 +50,6 @@ def index(request: HttpRequest):
     # Adicionando o obj ao contexto e respondendo o request.
     return set_cookies(render(request, "analistarh/index.html", context), login)
 
-def manter_analista(request: HttpRequest):
-    """Página inicial para buscas de Analista de RH"""
-    context, login = check_login(request)
-    if not isinstance(context, dict):
-        return context
-    
-    context["resultado"] = list()
-    
-    # Adicionando o obj ao contexto e respondendo o request.
-    return set_cookies(render(request, "analistarh/manter_analista.html", context), login)
-
-def manter_professor(request: HttpRequest):
-    """Página inicial para buscas de Professor"""
-    context, login = check_login(request)
-    if not isinstance(context, dict):
-        return context
-    
-    context["resultado"] = list()
-    
-    # Adicionando o obj ao contexto e respondendo o request.
-    return set_cookies(render(request, "analistarh/manter_professor.html", context), login)
-
-def manter_secretario(request: HttpRequest):
-    """Página inicial para buscas de Secretario"""
-    context, login = check_login(request)
-    if not isinstance(context, dict):
-        return context
-    
-    context["resultado"] = list()
-    # Adicionando o obj ao contexto e respondendo o request.
-    return set_cookies(render(request, "analistarh/manter_secretario.html", context), login)
-
 def procurar_analista(request: HttpRequest):
     """Página inicial para buscas de Analista de RH"""
     context, login = check_login(request)
