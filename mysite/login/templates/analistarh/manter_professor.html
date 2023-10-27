@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área do Analista de RH</title>
+    <title>Área do Professor</title>
     {% load static %}
     <link rel="shortcut icon" href="{% static 'icons/favicon.png'%}" type="image/x-icon">
     {% load static %}
@@ -28,10 +28,10 @@
         <!-- Título (h1) da página -->
         <div id="header-title">
             <h1>
-                <a href="{% url 'analistarh:index'%}">Área do Analista de RH</a>
+                <a href="{% url 'professor:index'%}">Área do Professor</a>
                 <span class="subtitle"> / AnalistaRH</span>
             </h1>
-            <p>Olá, {{analistarh.nome}}!</p>
+            <p>Olá, {{professor.nome}}!</p>
         </div>
 
         <!-- Botões do cabeçalho-->
