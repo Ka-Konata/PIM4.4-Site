@@ -8,6 +8,8 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("analistarh", views.procurar_analista, name="analistarh"),
     path("analistarh/info", views.editar_analista, name="analistarh_info"),
-    path("professor", views.procurar_analista, name="professor"),
-    path("secretario", views.procurar_analista, name="secretario")
+    path("professor", views.procurar_professor, name="professor"),
+    path("professor/info", views.editar_professor, name="professor_info"),
+    path("secretario", views.procurar_secretario, name="secretario"),
+    path("secretario/info", views.editar_secretario, name="secretario_info")
 ]

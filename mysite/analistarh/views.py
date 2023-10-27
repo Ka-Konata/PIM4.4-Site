@@ -61,6 +61,28 @@ def manter_analista(request: HttpRequest):
     # Adicionando o obj ao contexto e respondendo o request.
     return set_cookies(render(request, "analistarh/manter_analista.html", context), login)
 
+def manter_professor(request: HttpRequest):
+    """Página inicial para buscas de Professor"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    context["resultado"] = list()
+    
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "analistarh/manter_professor.html", context), login)
+
+def manter_secretario(request: HttpRequest):
+    """Página inicial para buscas de Secretario"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    context["resultado"] = list()
+    
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "analistarh/manter_secretario.html", context), login)
+
 def procurar_analista(request: HttpRequest):
     """Página inicial para buscas de Analista de RH"""
     context, login = check_login(request)
@@ -74,6 +96,32 @@ def procurar_analista(request: HttpRequest):
     # Adicionando o obj ao contexto e respondendo o request.
     return set_cookies(render(request, "analistarh/manter_analista.html", context), login)
 
+def procurar_secretario(request: HttpRequest):
+    """Página inicial para buscas de secretario"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    filtro = request.GET.get("filtro", "")
+    response, secretarios = conn.procurar.secretario(login.token, filtro)
+    context["resultados"] = secretarios
+    
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "analistarh/manter_analista.html", context), login)
+
+def procurar_professor(request: HttpRequest):
+    """Página inicial para buscas de professor"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    filtro = request.GET.get("filtro", "")
+    response, professores = conn.procurar.professor(login.token, filtro)
+    context["resultados"] = professores
+    
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "analistarh/manter_analista.html", context), login)
+
 def editar_analista(request: HttpRequest):
     """Página para cadastro ou alteração de cadastro de AnalistaRH"""
     context, login = check_login(request)
@@ -83,10 +131,42 @@ def editar_analista(request: HttpRequest):
     id = request.GET.get("id", "")
     if id != "":
         response, analistarh = conn.consultar.analistarh(login.token, id)
-        context["analistarh"] = analistarh
+        context["cadastro"] = analistarh
     else:
-        context["analistarh"] = None
+        context["cadastro"] = None
 
     # Adicionando o obj ao contexto e respondendo o request.
     return set_cookies(render(request, "analistarh/info_analista.html", context), login)
+
+def editar_professor(request: HttpRequest):
+    """Página para cadastro ou alteração de cadastro de professor"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    id = request.GET.get("id", "")
+    if id != "":
+        response, professor = conn.consultar.professor(login.token, id)
+        context["cadastro"] = professor
+    else:
+        context["cadastro"] = None
+
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "professor/info_professor.html", context), login)
+
+def editar_secretario(request: HttpRequest):
+    """Página para cadastro ou alteração de cadastro de secretario"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    id = request.GET.get("id", "")
+    if id != "":
+        response, secretario = conn.consultar.secretario(login.token, id)
+        context["cadastro"] = secretario
+    else:
+        context["cadastro"] = None
+
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "secretario/info_secretario.html", context), login)
     
