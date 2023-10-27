@@ -34,10 +34,10 @@ Um site para o PIM com integração na nossa API.
 ### Rotas que faltam integrar
 - [x] POST /api/Curso/disciplina
 - [x] DELETE /api/Curso/disciplina
-- [ ] PUT /api/DisciplinaCursada/media/{id}
-- [ ] PUT /api/DisciplinaCursada/frequencia/{id}
-- [ ] PUT /api/DisciplinaCursada/situacao{id}
-- [ ] PUT /api/File/conteudo/{file}
+- [x] PUT /api/DisciplinaCursada/media/{id}
+- [x] PUT /api/DisciplinaCursada/frequencia/{id}
+- [x] PUT /api/DisciplinaCursada/situacao{id}
+- [ ] GET /api/File/conteudo/{file}
 - [ ] GET /api/File/boletim/{id}
 - [ ] GET /api/File/historico/{id}
 - [ ] GET /api/File/declaracao/{id}
@@ -56,9 +56,34 @@ Um site para o PIM com integração na nossa API.
 * Connection.procurar
 * Connection.cadastrar
 * Connection.editar
+* Connection.editar
+* Connection.editar
 * Connection.apagar
 * Connection.\[tipo de operação\].\[tipo de cadastro\]
 > Substitua \[tipo de operação\] pela operação a ser realizada (ex: cadastrar ou consultar) e \[tipo de cadastro\] pelo tipo de cadastro a ser consultado, pois cada tipo tem sua própria função (ex: aluno ou conteudo).
+* Connection.editar.calcular_media
+> Calcula a média das notas de um cadastro do tipo "disciplina_cursada" e retorna o resultado.
+* Connection.editar.calcular_frequencia
+> Calcula a frequência de presença em um cadastro do tipo "disciplina_cursada" e retorna o resultado.
+* Connection.editar.calcular_situacao
+> Calcula a situação de aprovação em um cadastro do tipo "disciplina_cursada" e retorna o resultado
+* Connection.arquivo.conteudo
+* Connection.arquivo.boletim
+* Connection.arquivo.declaracao
+* Connection.arquivo.historico
+* Connection.arquivo.relatorio
+* Utils.Login.set_values_with_response
+> Após instanciar um obj Login, use essa função para inserir os valores de login apartir de um obj requests.Response.
+* Utils.Login.set_refresh
+> Ao fazer um refresh_token, use essa função para atualziar as informações de um obj Login, inserindo o obj requests.Response obtido.
+* Utils.get_file_path
+> Ao fazer um request do tipo GET api/conteudo, use essa função para converter um atributo Conteudo.documento_url em um nome de arquivo válido.
+* Utils.dict_to_josn
+> Converte dicionários em strings json válidas.
+* Utils.bytes_to_dict
+> Converte bytes em dicionário.
+* Utils.get_value
+> Consulta um valor em um atributo requests.Response.content, returna None quando não encontrado.
 
 ### Aprendendo a usar o módulo
 #### Se conectando à API:
@@ -176,3 +201,5 @@ print(aluno.to_dict())
 * class Disciplina_Ministrada
 * class Disciplina
 * class Turma
+* class Utils.Login
+* class utils.Cargo

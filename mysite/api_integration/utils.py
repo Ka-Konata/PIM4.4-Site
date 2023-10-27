@@ -49,16 +49,21 @@ def object_to_json(obj: object, tipo_de_objeto: str) -> str:
     # Convertentdo para json e retornando
     return dumps(novo_objeto)
 
+def get_file_path(documento_url: str) -> str:
+    r = documento_url.replace("/api/file/conteudo/", "")
+    r = r.replace("/api/file/certificado/", "")
+    return  r
+
 
 class Login:
     def __init__(
             self, 
-            token: str = None, 
-            refresh_token: str = None, 
-            cargo: str = None, 
-            id: int = None,
-            email: str = None,
-            valido: bool = None 
+            token: str = "", 
+            refresh_token: str = "", 
+            cargo: str = "", 
+            id: int = "",
+            email: str = "",
+            valido: bool = "" 
             ) -> None:
         """Uma classe para guardar algumas informações básicas de login."""
         self.token = token

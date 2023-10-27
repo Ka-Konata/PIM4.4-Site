@@ -1,0 +1,40 @@
+/* ------------------ Estilizando o Main ------------------ */
+/* Esse é o template, portanto, não há muito a acrescentar */
+
+/* Peculiaridades da tag main */
+main {
+    z-index: 1;
+    position: relative;
+    background-color: var(--cor-terciaria);
+    padding: 140px 0px 110px 0px;
+    /* height: calc(100vh - 280px); */
+    text-align: center;
+}
+
+main > section { 
+    display: inline-block;
+    /* width: 60%;
+    height: 60%; */
+
+    position: relative;
+    padding-top: 20px;
+    /* top: 50%;
+    transform: translateY(-50%); */
+} 
+
+p {
+    font-size: 20px;
+}
+
+/* ------------------ Deixando a Página mais responsiva ------------------ */
+@media screen and (max-width: 450px) {
+    /* Remvendo a margin da tag main */
+    main {
+        padding: 0;
+        /* padding-top: 0; */
+    }
+
+    .option-item a {
+        margin: 10px;
+    }
+}

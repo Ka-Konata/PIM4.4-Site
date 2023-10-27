@@ -5,37 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    
     {% load static %}
     <link rel="shortcut icon" href="{% static 'icons/favicon.png' %}" type="image/x-icon">
-    
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/geral.css' %}">
+    <link rel="stylesheet" href="{% static 'css/geral.css'%}">
 </head>
 <body>
-    <header>
-        <h1>Login</h1>
-    </header>
-    <main>
-        <!-- img -->
-        <form action={% url "login:connect"  %} method="get">
-            {% if erros.401 == True %} <div class="block-erro">ID/RA ou senha incorreto.</div> {% endif %}
-            {% if erros.426 == True %} <div class="block-erro">Necessário trocar a senha.</div> {% endif %}
-            <div>
-                <label for="id">ID/RA</label>
-                <input type="text" name="id" id="login-id" placeholder="seu id/ra">
-                {% if "id" in erros.vazio %} <div class="text-erro">Campo obrigatório.</div> {% endif %}
-            </div>
-            <div>
-                <label for="senha">Senha</label>
-                <input type="text" name="senha" id="login-senha" placeholder="sua senha">
-                {% if "senha" in erros.vazio %} <div class="text-erro">Campo obrigatório.</div> {% endif %}
-            </div>
+    <div class="container">
+        <img src="{% static 'icons/favicon.png' %}" alt="Imagem de Login">
+        <h1 class="align-center">Login</h1>
+
+        {% if erros.401 == True %} <div class="block-erro">ID/RA ou senha incorreto.</div> {% endif %}
+        {% if erros.426 == True %} <div class="block-erro">Necessário trocar a senha.</div> {% endif %}
+        <form id="loginForm" method="GET" action={% url "login:connect"  %}>
+            
+            <label for="login-id">ID/RA</label> <!-- {% if "id" in erros.vazio %}class="text-erro"{% endif %} -->
+            <input type="text" name="id" id="login-id" placeholder="Seu ID/RA" required>
+
+            <label for="login-senha">Senha</label> <!-- {% if "senha" in erros.vazio %}class="text-erro"{% endif %} -->
+            <input type="password" name="senha" id="login-senha" placeholder="Sua Senha" required>
+
             <input type="submit" value="Entrar">
+            <a href="{% url 'login:mudar_senha_pag' %}">Trocar de Senha.</a>
         </form>
-        <a href="{% url 'login:mudar_senha_pag' %}">trocar a senha</a>
-    </main>
-    <footer></footer>
     <script>
         function getCookie(name) {
             const value = `; ${document.cookie}`;
@@ -43,8 +35,8 @@
             if (parts.length === 2) return parts.pop().split(';').shift();
         }
 
-        console.log("ACCESS-TOKEN: " + getCookie("PIM4.4-API-ACCESS-TOKEN"));
-        console.log("REFRESH-TOKEN: " + getCookie("PIM4.4-API-REFRESH-TOKEN"));
+        // console.log("ACCESS-TOKEN: " + getCookie("PIM4.4-API-ACCESS-TOKEN"));
+        // console.log("REFRESH-TOKEN: " + getCookie("PIM4.4-API-REFRESH-TOKEN"));
     </script>
 </body>
 </html>

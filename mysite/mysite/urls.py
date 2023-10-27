@@ -24,8 +24,10 @@ load_dotenv()
 print(os.environ["API_URL"])
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("", include("root.urls")),
+    path("admin/", admin.site.urls),
     path("login/", include("login.urls")),
+    path("erros/", include("errors.urls")),
     path("analistarh/", include("analistarh.urls")),
     path("secretario/", include("secretario.urls")),
     path("professor/", include("professor.urls")),

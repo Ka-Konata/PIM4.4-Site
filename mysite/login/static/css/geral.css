@@ -1,6 +1,7 @@
 * {
     padding: 0;
     margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 html {
@@ -27,15 +28,10 @@ footer {
     width: 100%;
     background-color: rgb(25, 163, 255);
 }
-
-label {
-    display: inline-block;
-    width: 50px;
-}
-
-div.text-erro {
-    display: inline;
+.text-erro {
+    display: block;
     color: red;
+    text-align: left;
 }
 
 div.block-erro {
@@ -54,4 +50,107 @@ div.area-opcao {
     height: 100px;
     background-color: rgb(231, 231, 231);
     border: 1px solid black;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #5964be;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    
+}
+
+h1 {
+    margin-bottom: 15px;
+}
+
+.align-center{
+    text-align: center;
+}
+.container {
+    display: inline-block;
+    width: 500px;
+    background-color: #ffffff;
+    padding: 20px;
+    border: 10px solid #ffffff;
+    border-radius: 10px;
+    text-align: center;
+}
+.containerMudar {
+    max-width: 600px; 
+    background-color: #ffffff;
+    padding: 60px;
+    border: 60px #007bff;
+    border-radius: 1px;
+    text-align: justify;
+}
+
+#loginForm {
+    width: 100%;
+}
+
+#loginForm label {
+    display: inline-block;
+    width: calc(20% - 40px);
+}
+
+#loginForm input[type="text"],
+#loginForm input[type="password"] {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#loginForm input[type="submit"] {
+    margin: 10px 0;
+    background-color: #575fa2;
+    color: #ffffff;
+    border: 1px solid #007bff;
+    padding: 5px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#loginForm input[type="submit"]:hover {
+    background-color: #4d559c;
+}
+.form-group {
+    margin-bottom: 5px;
+}
+        
+.form-group label {
+    display: flexbox;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+        
+.form-group input {
+    width: 80%;
+    padding: 10px;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+        
+.btn {
+    background-color: #575fa2;
+    color: #ffffff;
+    border-bottom: none;
+    padding: 10px 10px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 560px) {
+    .container {
+        width: calc(100% - 60px);
+        border-radius: 0;
+    }
+
+    #loginForm label {
+        display: none;
+    }
 }

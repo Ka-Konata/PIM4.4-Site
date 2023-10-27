@@ -7,7 +7,7 @@ class Pessoa:
                  cpf: int, 
                  rg: int, 
                  telefone: int, 
-                 email: str = None,
+                 email: str,
                  cargo: str = None,
                  id: int = None,  
                  senha: str = None) -> None:

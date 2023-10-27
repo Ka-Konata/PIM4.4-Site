@@ -1,0 +1,5 @@
+from api_integration import api, utils
+conn = api.Connection("https://pim44-api.victorgrferreir.repl.co/api")
+token = "eyJhbGciOiJIUzI1NiIsInR5cCI6ImF0K2p3dCJ9.eyJlbWFpbCI6IjEyMzQ1QGdtYWlsLmNvbSIsInJvbGUiOiJBbmFsaXN0YVJIIiwiaWQiOiIxMDAwMSIsImp0aSI6ImYyNGQ5MWRlLTRlZTQtNDQ2My05OWJjLTdkZDlmZmM1YzFmZSIsIm5iZiI6MTY5ODM0NTk2MiwiZXhwIjoxNjk4MzQ5NTYyLCJpYXQiOjE2OTgzNDU5NjIsImlzcyI6ImxvY2FsaG9zdDo3MjQ2IiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzI0NiJ9.uPEo34WpJzgZMEhVfpBah-P5gTEreNKBn5OXoLvhOrw"
+response, a = conn.consultar.analistarh(token, 10001)
+print(response.status_code, a, response)

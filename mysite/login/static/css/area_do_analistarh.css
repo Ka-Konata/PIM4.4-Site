@@ -1,0 +1,56 @@
+/* Caixa que comporta as opções */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* align-items: center; */
+    background-color: #ffffff;
+    overflow-y: scroll;
+    max-width: calc(190px * 5);
+}
+
+.container::-webkit-scrollbar {
+    display: none;
+}
+
+.container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Cada opção disponível na página */
+.option-item a {
+    /* border: 1px solid red; */
+    display: inline-block;
+    cursor: pointer;
+    width: 150px;
+    margin: 20px;
+    text-align: center;
+}
+
+.option-item h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.option-item img {
+    width: 70px;
+}
+
+.option-item .option-item-icon {
+    /* display: inline-block; */
+    min-width: 70px;
+    padding: 15px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.option-item h3 {
+    font-size: 18px; /* Tamanho do título aumentado */
+} 
+
+.disabled a div {
+    background-color: rgba(119, 119, 119, 0.575) !important;
+}

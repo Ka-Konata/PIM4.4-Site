@@ -5,6 +5,7 @@ from . consultar import Consultar
 from . editar import Editar
 from . apagar import Apagar
 from . cadastrar import Cadastrar
+from . arquivo import Arquivo
 from . utils import *
 from . models.pessoa import Pessoa
 from . models.analistarh import AnalistaRH
@@ -31,17 +32,18 @@ class Connection:
         self.__editar = Editar(self.base_url, self.base_headers, URLs, Models)
         self.__apagar = Apagar(self.base_url, self.base_headers, URLs, Models)
         self.__cadastrar = Cadastrar(self.base_url, self.base_headers, URLs, Models)
+        self.__arquivo = Arquivo(self.base_url, self.base_headers, URLs, Models)
 
     def startup(self, u: AnalistaRH) -> requests.Response:
         """Cadastre a conta inicial do banco de dados\n
         Não funciona caso qualquer outra tabela do tipo pessoa já esteja cadastrada no banco de dados."""
         url = self.base_url + "/login/startup"
         data = {
-            "nome": u.get_nome(),
-            "cpf": u.get_cpf(),
-            "rg": u.get_rg(),
-            "email": u.get_email(),
-            "telefone": u.get_telefone()
+            "nome": u.nome,
+            "cpf": u.cpf,
+            "rg": u.rg,
+            "telefone": u.telefone,
+            "email": u.email
         }
         return requests.post(url, dict_to_josn(data), headers=self.base_headers)
 
@@ -98,6 +100,10 @@ class Connection:
     @property
     def cadastrar(self) -> Cadastrar:
         return self.__cadastrar
+    
+    @property
+    def arquivo(self) -> Arquivo:
+        return self.__arquivo
 
 
 class URLs:
@@ -110,9 +116,17 @@ class URLs:
     CURSO = "curso"
     DISCIPLINA_EM_CURSO = "curso/disciplina"
     DISCIPLINA_CURSADA = "disciplinaCursada"
+    CALCULAR_MEDIA = "disciplinaCursada/media"
+    CALCULAR_FREQUENCIA = "disciplinaCursada/frequencia"
+    CALCULAR_SITUACAO = "disciplinaCursada/situacao"
     DISCIPLINA_MINISTRADA = "disciplinaMinistrada"
     DISCIPLINA = "disciplina"
     TURMA = "turma"
+    FILE_CONTEUDO = "file/conteudo"
+    FILE_BOLETIM = "file/boletim"
+    FILE_HISTORICO = "file/historico"
+    FILE_DECLARACAO = "file/declaracao"
+    FILE_RELATORIO = "file/relatorio"
 
 
 class Models:
