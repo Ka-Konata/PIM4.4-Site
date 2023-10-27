@@ -17,9 +17,10 @@ def check_login(request: HttpRequest) -> [dict, api.Login]:
     context = {
         "erros":[]
     }
+    print("area status code:", response.status_code)
 
     # Caso o token esteja expirado.
-    if response.status_code == 401 or response.status_code:
+    if response.status_code == 401:
         # Verificando se o refresh_token é válido
         refresh = conn.refresh(login.id, login.token, login.refresh_token)
         if refresh.status_code == 400:

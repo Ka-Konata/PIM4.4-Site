@@ -2,4 +2,5 @@ from django.shortcuts import render
 
 # Create your views here.
 def error403(request):
-    return render(request, "erros/403")
+    context = {}
+    return render(request, "erros/403.html", context)
