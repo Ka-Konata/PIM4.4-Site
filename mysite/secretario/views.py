@@ -19,14 +19,14 @@ def check_login(request: HttpRequest) -> [dict, api.Login]:
     }
 
     # Caso o token esteja expirado.
-    if response.status_code == 401 or response.status_code:
+    if response.status_code == 401:
         # Verificando se o refresh_token é válido
         refresh = conn.refresh(login.id, login.token, login.refresh_token)
         if refresh.status_code == 400:
             return redirect("login:index"), login
 
     # Caso o token seja válido, mas o usuário não tenha permissão para usar o endpoint.
-    elif response.status_code == 403 or login.cargo != utils.Cargo.secretario:
+    elif response.status_code == 403 or login.cargo != utils.Cargo.SECRETARIO:
         return redirect("erros:403"), login
     
     # Caso tudo ocorra bem
