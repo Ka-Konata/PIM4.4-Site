@@ -33,7 +33,7 @@
                 <a href="{% url 'analistarh:index'%}">Área do Analista de RH</a>
                 <span class="subtitle"> / AnalistaRH</span>
             </h1>
-            <p>Olá, {{analistarh.nome}}!</p>
+            <p>Olá, {{analistarh}}!</p>
         </div>
 
         <!-- Botões do cabeçalho-->
@@ -58,7 +58,7 @@
             <div class="container"> 
                 <form action="{% url 'analistarh:analistarh'  %}" method="get">
                     <input type="text" name="filtro" id="filtro" placeholder="Insira o nome para filtrar">
-                    <button type="button" onclick="redirect_to_cad(`{% url 'analistarh:analistarh_info' %}`, null)">
+                    <button type="button" onclick="">
                         <img src="{% static 'icons/favicon.png' %}" alt="">
                         <span>Novo</span>
                     </button>
@@ -68,23 +68,6 @@
                     </button>
                     <div style="clear: both;"></div>
                 </form>
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>CPF</th>
-                        <th>RG</th>
-                    </tr>
-                    
-                    {% for item in resultados %}
-                    <tr class="table-row-clickabe" onclick="redirect_to_cad(`{% url 'analistarh:analistarh_info' %}`, `{{ item.id }}`)">
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.nome }}</td>
-                        <td>{{ item.cpf }}</td>
-                        <td class="last-table-item">{{ item.rg }}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
         </section>
     </main>
 

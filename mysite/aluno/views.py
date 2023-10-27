@@ -24,6 +24,12 @@ def check_login(request: HttpRequest) -> [dict, api.Login]:
         refresh = conn.refresh(login.id, login.token, login.refresh_token)
         if refresh.status_code == 400:
             return redirect("login:index"), login
+        
+        # Caso o refresh tenha tido êxito
+        login = api.Login()
+        login.set_values_with_response(refresh)
+        # Fazendo o request na API novamente com o novo token
+        response, aluno = conn.consultar.aluno(login.token, login.id)
 
     # Caso o token seja válido, mas o usuário não tenha permissão para usar o endpoint.
     elif response.status_code == 403 or login.cargo != utils.Cargo.ALUNO:

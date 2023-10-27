@@ -25,6 +25,12 @@ def check_login(request: HttpRequest) -> [dict, api.Login]:
         refresh = conn.refresh(login.id, login.token, login.refresh_token)
         if refresh.status_code == 400:
             return redirect("login:index"), login
+        
+        # Caso o refresh tenha tido êxito
+        login = api.Login()
+        login.set_values_with_response(refresh)
+        # Fazendo o request na API novamente com o novo token
+        response, analistarh = conn.consultar.analistarh(login.token, login.id)
 
     # Caso o token seja válido, mas o usuário não tenha permissão para usar o endpoint.
     elif response.status_code == 403 or login.cargo != utils.Cargo.ANALISTARH:
@@ -69,4 +75,18 @@ def procurar_analista(request: HttpRequest):
     return set_cookies(render(request, "analistarh/manter_analista.html", context), login)
 
 def editar_analista(request: HttpRequest):
-    pass
+    """Página para cadastro ou alteração de cadastro de AnalistaRH"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    id = request.GET.get("id", "")
+    if id != "":
+        response, analistarh = conn.consultar.analistarh(login.token, id)
+        context["analistarh"] = analistarh
+    else:
+        context["analistarh"] = None
+
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "analistarh/info_analista.html", context), login)
+    
