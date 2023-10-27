@@ -30,7 +30,8 @@ ALLOWED_HOSTS = [
     "pim44-site--victorgrferreir.repl.co",
     "localhost",
     "127.0.0.1",
-    "10.10.1.132"
+    "10.10.1.132",
+    "10.20.1.128"
     ]
 
 
