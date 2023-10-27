@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área do Secretário</title>
+    <title>Área do Professor</title>
     {% load static %}
     <link rel="shortcut icon" href="{% static 'icons/favicon.png'%}" type="image/x-icon">
     {% load static %}
@@ -27,8 +27,8 @@
 
         <!-- Título (h1) da página -->
         <div id="header-title">
-            <h1>Área do Secretário</h1>
-            <p>Olá, {{ Secretario.nome }}!</p>
+            <h1>Área do Professor</h1>
+            <p>Olá, {{ Professor.nome }}!</p>
         </div>
 
         <!-- Botões do cabeçalho-->
@@ -56,7 +56,7 @@
                         <div class="option-item-icon">
                             <img src="{% static 'icons/favicon.png'%}" alt="">
                         </div>
-                        <h2>Manter Professor em Turma</h2>
+                        <h2>Acessar Alunos em Disciplinas</h2>
                     </a>
                 </div>
                 <div class="option-item">
@@ -64,7 +64,7 @@
                         <div class="option-item-icon">
                             <img src="{% static 'icons/favicon.png'%}" alt="">
                         </div>
-                        <h2>Manter Disciplina em Curso</h2>
+                        <h2>Acessar Disciplinas Ministradas</h2>
                     </a>
                 </div>
                 <div class="option-item">
@@ -72,7 +72,7 @@
                         <div class="option-item-icon">
                             <img src="{% static 'icons/favicon.png'%}" alt="">
                         </div>
-                        <h2>Manter Aluno em Curso</h2>
+                        <h2>Emitir Mapa de Notas</h2>
                     </a>
                 </div>
                 <div class="option-item">
@@ -80,7 +80,7 @@
                         <div class="option-item-icon">
                             <img src="{% static 'icons/favicon.png'%}" alt="">
                         </div>
-                        <h2>Manter Aluno</h2>
+                        <h2>Manter Conteúdo Progrmático</h2>
                     </a>
                 </div>
                 <div class="option-item">
@@ -90,23 +90,6 @@
                         </div>
                         <h2>Manter Curso</h2>
                     </a>
-                </div>
-                <div class="option-item">
-                    <a href="{% url 'analistarh:secretario'  %}">
-                        <div class="option-item-icon">
-                            <img src="{% static 'icons/favicon.png'%}" alt="">
-                        </div>
-                        <h2>Manter Turma</h2>
-                    </a>
-                </div>
-                <div class="option-item">
-                    <a href="{% url 'analistarh:secretario'  %}">
-                        <div class="option-item-icon">
-                            <img src="{% static 'icons/favicon.png'%}" alt="">
-                        </div>
-                        <h2>Manter Disciplina</h2>
-                    </a>
-                </div>
         </section>
     </main>
 
