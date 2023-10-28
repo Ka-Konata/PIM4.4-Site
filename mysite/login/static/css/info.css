@@ -3,9 +3,13 @@ main > section {
 }
 
 container, form {
-    display: block;
-    width: 80%;
-    text-align: justify;
+    display: inline-block;
+    width: 500px;
+    background-color: #ffffff;
+    padding: 20px;
+    border: 10px solid #ffffff;
+    border-radius: 10px;
+    text-align: center;
 }
 
 form {
