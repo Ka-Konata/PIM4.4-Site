@@ -153,3 +153,4 @@ cython_debug/
 
 # Ocultando ambiente virtual
 pim4site/
+arquivos_temporarios/

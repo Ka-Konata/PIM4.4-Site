@@ -112,6 +112,11 @@ def acessar_conteudos(request: HttpRequest):
     # Adicionando o obj ao contexto e respondendo o request.
     return set_cookies(render(request, "aluno/acessar_conteudos.html", context), login)
 
+def verificar_pasta_arquivos_temporarios():
+    pasta = os.getcwd() + "\\arquivos_temporarios\\"
+    if not os.path.isdir(pasta):
+        os.mkdir(pasta)
+
 def apagar_todos_os_arquivos_temporarios():
     pasta = os.getcwd() + "\\arquivos_temporarios\\"
     for file in os.listdir(pasta):
@@ -123,6 +128,7 @@ def download_conteudo(request: HttpRequest):
     if not isinstance(context, dict):
         return context
     
+    verificar_pasta_arquivos_temporarios()
     apagar_todos_os_arquivos_temporarios()
     file_path = os.path.join(os.getcwd() + "\\arquivos_temporarios\\", request.GET.get("file_name", ""))
     response = conn.arquivo.conteudo(login.token, request.GET.get("file_name", ""))
