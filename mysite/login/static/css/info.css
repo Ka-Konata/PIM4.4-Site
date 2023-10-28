@@ -2,7 +2,7 @@ main > section {
     width: 80%;
 }
 
-container, form {
+.container, form {
     display: inline-block;
     width: 500px;
     background-color: #ffffff;
@@ -11,11 +11,19 @@ container, form {
     border-radius: 10px;
     text-align: center;
 }
-
+.centered-form {
+    display: inline-block;
+    border-radius: 10px;
+    text-align: center;
+    color: #333
+}
 form {
     text-align: justify;
 }
-
+.form-input {
+    display: block; /* Display elements as blocks */
+    margin-bottom: 10px; /* Add spacing between elements */
+}
 form input[type="text"] {
     width: calc(100% - 110px - 90px - 40px);
     padding: 10px;

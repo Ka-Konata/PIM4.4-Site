@@ -67,25 +67,34 @@
                         <span>Pesquisar</span>
                     </button>
                     <div style="clear: both;"></div>
-                </form>
-                <div class="container">
-                    <label for="Cadastro-nome">Nome:</label> 
-                    <input type="text" name="id" id="Cadastro-nome" placeholder="Nome Completo" required>
+                </form> 
+                <div class="centered-form">
+                    <form action="process.php" method="post"></form>
+                        <div class="form-input">
+                        <label for="nome">Nome:</label></form></div>
+                        <input type="text" name="id" id="nome" placeholder="Nome completo" required>
+                    </div>
 
-                    <label for="Cadastro-cpf">Cpf:</label> 
-                    <input type="Cpf" name= "cpf" id="Cadastro-cpf" placeholder="Seu número de CPF" required>
+                    <div class="form-input">
+                        <label for="cpf">Cpf:</label> 
+                        <input type="Cpf" name= "cpf" id="Cadastro-cpf" placeholder="Seu número de CPF" required></p>
+                    </div>
 
-                    <label for="Cadastro-rg">Rg:</label> 
-                    <input type="rg" name= "rg" id="Cadastro-rg" placeholder="Seu número de rg" required>
+                    <div class="form-input">
+                        <label for="rg">Rg:</label> 
+                        <input type="rg" name= "rg" id="Cadastro-rg" placeholder="Seu número de rg" required></p>
+                    </div>
+
+                    <div class="form-input">
+                        <label for="e-mail">E-mail:</label> 
+                        <input type="E-mail" name="senha" id="Cadastro-e-mail" placeholder="Seu E-mail" required></p>
+                    </div>
                     
-                    <label for="Cadastro-e-mail">E-mail:</label> 
-                    <input type="E-mail" name="senha" id="Cadastro-e-mail" placeholder="Seu E-mail" required>
-
-                    <label for="Cadastro-telefone">Telefone:</label> 
-                    <input type="Telefone" name="senha" id="Cadastro-telefone" placeholder="Seu telefone" required>
+                    <div class="form-input">
+                        <label for="Cadastro-telefone">Telefone:</label> 
+                        <input type="Telefone" name="senha" id="Cadastro-telefone" placeholder="Seu telefone" required></p>
+                    </div>
                 </div>
-
-
                 </form>
         </section>
     </main>
