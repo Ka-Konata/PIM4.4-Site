@@ -1,10 +1,21 @@
 import os, json
+from datetime import datetime
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest, FileResponse
 from api_integration import api, utils
 from login.views import is_logged, set_cookies
 
 conn = api.Connection(os.environ["API_URL"])
+
+def verificar_pasta_arquivos_temporarios():
+    pasta = os.getcwd() + "\\arquivos_temporarios\\"
+    if not os.path.isdir(pasta):
+        os.mkdir(pasta)
+
+def apagar_todos_os_arquivos_temporarios():
+    pasta = os.getcwd() + "\\arquivos_temporarios\\"
+    for file in os.listdir(pasta):
+        os.remove(os.path.join(pasta, file))
 
 def check_login(request: HttpRequest) -> [dict, api.Login]:
     # Verificando se o usuário está logado.
@@ -112,16 +123,6 @@ def acessar_conteudos(request: HttpRequest):
     # Adicionando o obj ao contexto e respondendo o request.
     return set_cookies(render(request, "aluno/acessar_conteudos.html", context), login)
 
-def verificar_pasta_arquivos_temporarios():
-    pasta = os.getcwd() + "\\arquivos_temporarios\\"
-    if not os.path.isdir(pasta):
-        os.mkdir(pasta)
-
-def apagar_todos_os_arquivos_temporarios():
-    pasta = os.getcwd() + "\\arquivos_temporarios\\"
-    for file in os.listdir(pasta):
-        os.remove(os.path.join(pasta, file))
-
 def download_conteudo(request: HttpRequest):
     """Página inicial para buscas de curso"""
     context, login = check_login(request)
@@ -146,15 +147,44 @@ def notas_e_faltas(request: HttpRequest):
         return context
     
     filtro = request.GET.get("filtro", "")
-    response, cms = conn.procurar.curso_matriculado(login.token, login.id)
+    cms = conn.procurar.curso_matriculado(login.token, login.id)[1]
     context["resultados"] = []
     
-    # Apenas os do aluno
+    # Apenas os do curso
     for cm in cms:
-        for dc in cm.disciplinas:
-            if filtro in dc.disciplina.nome or filtro == "":
-                dc.curso_matriculado_id = cm.id
-                context["resultados"].append(dc)
+        if filtro in cm.curso.nome or filtro == "":
+            for d in cm.disciplinas:
+                dcs = conn.procurar.disciplina_cursada(login.token, cm.id)[1]
+                print(dcs)
+                context["resultados"] += dcs
+                print(context["resultados"])
     
     # Adicionando o obj ao contexto e respondendo o request.
     return set_cookies(render(request, "aluno/notas_e_faltas.html", context), login)
+
+
+def download_declaracao(request: HttpRequest):
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    verificar_pasta_arquivos_temporarios()
+    apagar_todos_os_arquivos_temporarios()
+
+    file_name = f"declaracao ({str(datetime.now())}).pdf"
+    file_path = os.path.join(os.getcwd() + "\\arquivos_temporarios\\", file_name)
+    response = conn.arquivo.declaracao(login.token, str(login.id))
+
+    filew = open(file_path, 'wb')
+    filew.write(response.content)
+    filew.close()
+
+    return FileResponse(open(file_path, "rb"), as_attachment=True)
+
+def download_historico(request: HttpRequest):
+    pass
+
+def download_relatorio(request: HttpRequest):
+    pass
+
+def download_boletim(request: HttpRequest):
+    pass

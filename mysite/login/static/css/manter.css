@@ -89,3 +89,24 @@ tr.table-row-clickabe:nth-child(even) {
 tr.table-row-clickabe:nth-child(even):hover {
     background: rgb(128, 128, 128);
 }
+
+tr.table-row-non-clickabe {
+    background: rgb(233, 233, 233);
+}
+
+tr.table-row-non-clickabe:nth-child(even) {
+    background: rgb(207, 207, 207);
+}
+
+.doc_btn_download {
+    cursor: pointer;
+    background-color: var(--cor-secundaria);
+    transition: all 0.3s;
+    text-align: center;
+    text-transform: lowercase;
+    color: white;
+}
+
+.doc_btn_download:hover {
+    background-color: var(--cor-secundaria-hover);
+}

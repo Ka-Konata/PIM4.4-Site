@@ -12,8 +12,8 @@ urlpatterns = [
     path("curso/disciplina/conteudo/download", views.download_conteudo, name="download_conteudo"),
     path("notas_e_faltas", views.notas_e_faltas, name="notas_e_faltas"),
     
-    path("declaracao", views.index, name="declaracao"),
-    path("historico", views.index, name="historico"),
-    path("relatorio", views.index, name="relatorio"),
-    path("boletim", views.index, name="boletim")
+    path("declaracao", views.download_declaracao, name="declaracao"),
+    path("historico", views.download_historico, name="historico"),
+    path("relatorio", views.download_relatorio, name="relatorio"),
+    path("boletim", views.download_boletim, name="boletim")
 ]

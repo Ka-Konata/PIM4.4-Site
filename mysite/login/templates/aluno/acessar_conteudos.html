@@ -62,9 +62,9 @@
                         <th></th>
                     </tr>
                     {% for item in resultados %}
-                    <tr class="">
+                    <tr class="table-row-non-clickabe">
                         <td>{{ item.documento_url }}</td>
-                        <td class="last-table-item"><a target="_blank" href="
+                        <td class="doc_btn_download last-table-item"><a target="_blank" href="
                             {% url 'aluno:download_conteudo' %}?file_name={{ item.documento_url }}
                             ">Download</a></td>
                     </tr>

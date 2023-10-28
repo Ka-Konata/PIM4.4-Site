@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área do Secretario</title>
+    <title>Área do Aluno</title>
     {% load static %}
     <link rel="shortcut icon" href="{% static 'icons/favicon.png'%}" type="image/x-icon">
     {% load static %}
@@ -30,10 +30,10 @@
         <!-- Título (h1) da página -->
         <div id="header-title">
             <h1>
-                <a href="{% url 'secretario:index'%}">Área do Secretario</a>
-                <span class="subtitle"> / Curso / Disciplinas</span>
+                <a href="{% url 'aluno:index'%}">Área do Aluno</a>
+                <span class="subtitle"> / Notas e Faltas</span>
             </h1>
-            <p>Olá, {{secretario.nome}}!</p>
+            <p>Olá, {{aluno.nome}}!</p>
         </div>
 
         <!-- Botões do cabeçalho-->
@@ -55,31 +55,39 @@
     <!-- Main, onde fica todo o conteúdo principal da página -->
     <main>
         <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
-            <div class="container">
+            <div class="container"> 
                 <form action="" method="get">
-                    <input type="text" name="filtro" id="filtro" placeholder="Insira o ID do curso para pesquisar" required>
-                    <button type="button" onclick="redirect_to_cad(`{% url 'secretario:disciplina_em_curso_info' %}`, null)">
-                        <img src="{% static 'icons/favicon.png' %}" alt="">
-                        <span>Novo</span>
-                    </button>
+                    <input type="text" name="filtro" id="filtro" placeholder="Insira o nome do curso para filtrar">
                     <button type="submit">
                         <img src="{% static 'icons/favicon.png' %}" alt="">
                         <span>Pesquisar</span>
                     </button>
-                    <!-- <input type="submit" value="Pesquisar">
-                    <input type="button" value="Novo"> -->
                     <div style="clear: both;"></div>
                 </form>
                 <table>
                     <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-
+                        <th>Curso</th>
+                        <th>Disciplina</th>
+                        <th>Faltas</th>
+                        <th>Frequencia</th>
+                        <th>NP1</th>
+                        <th>NP2</th>
+                        <th>PIM</th>
+                        <th>Media</th>
+                        <th>Situacao</th>
                     </tr>
+                    
                     {% for item in resultados %}
-                    <tr class="table-row-clickabe" onclick="redirect_to_cad(`{% url 'secretario:disciplina_em_curso_info' %}`, `{{ item.id }}`)">
-                        <td>{{ item.id }}</td>
-                        <td class="last-table-item">{{ item.nome }}</td>
+                    <tr class="table-row-non-clickabe">
+                        <td>{{ item.curso_matriculado.curso.nome }}</td>
+                        <td>{{ item.disciplina.nome }}</td>
+                        <td>{{ item.faltas}}</td>
+                        <td>{% if item.frequencia != None %}{{ item.frequencia }}{% endif %}</td>
+                        <td>{{ item.nota1 }}</td>
+                        <td>{{ item.nota2 }}</td>
+                        <td>{{ item.pim }}</td>
+                        <td>{% if item.media != None %}{{ item.media }}{% endif %}</td>
+                        <td class="last-table-item">{{ item.situacao }}</td>
                     </tr>
                     {% endfor %}
                 </table>
