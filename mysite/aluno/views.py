@@ -170,7 +170,7 @@ def download_declaracao(request: HttpRequest):
     verificar_pasta_arquivos_temporarios()
     apagar_todos_os_arquivos_temporarios()
 
-    file_name = f"declaracao ({str(datetime.now())}).pdf"
+    file_name = "declaracao (" + datetime.now().strftime("%d_%m_%Y as %H horas e %M minutos") + ").pdf"
     file_path = os.path.join(os.getcwd() + "\\arquivos_temporarios\\", file_name)
     response = conn.arquivo.declaracao(login.token, str(login.id))
 
@@ -181,10 +181,52 @@ def download_declaracao(request: HttpRequest):
     return FileResponse(open(file_path, "rb"), as_attachment=True)
 
 def download_historico(request: HttpRequest):
-    pass
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    verificar_pasta_arquivos_temporarios()
+    apagar_todos_os_arquivos_temporarios()
+
+    file_name = "historico (" + datetime.now().strftime("%d_%m_%Y as %H horas e %M minutos") + ").pdf"
+    file_path = os.path.join(os.getcwd() + "\\arquivos_temporarios\\", file_name)
+    response = conn.arquivo.historico(login.token, str(login.id))
+
+    filew = open(file_path, 'wb')
+    filew.write(response.content)
+    filew.close()
+
+    return FileResponse(open(file_path, "rb"), as_attachment=True)
 
 def download_relatorio(request: HttpRequest):
-    pass
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    verificar_pasta_arquivos_temporarios()
+    apagar_todos_os_arquivos_temporarios()
+
+    file_name = "relatorio (" + datetime.now().strftime("%d_%m_%Y as %H horas e %M minutos") + ").pdf"
+    file_path = os.path.join(os.getcwd() + "\\arquivos_temporarios\\", file_name)
+    response = conn.arquivo.relatorio(login.token, str(login.id))
+
+    filew = open(file_path, 'wb')
+    filew.write(response.content)
+    filew.close()
+
+    return FileResponse(open(file_path, "rb"), as_attachment=True)
 
 def download_boletim(request: HttpRequest):
-    pass
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    verificar_pasta_arquivos_temporarios()
+    apagar_todos_os_arquivos_temporarios()
+
+    file_name = "boletim (" + datetime.now().strftime("%d_%m_%Y as %H horas e %M minutos") + ").pdf"
+    file_path = os.path.join(os.getcwd() + "\\arquivos_temporarios\\", file_name)
+    response = conn.arquivo.boletim(login.token, str(login.id))
+
+    filew = open(file_path, 'wb')
+    filew.write(response.content)
+    filew.close()
+
+    return FileResponse(open(file_path, "rb"), as_attachment=True)
