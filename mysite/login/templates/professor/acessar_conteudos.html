@@ -31,7 +31,7 @@
         <div id="header-title">
             <h1>
                 <a href="{% url 'professor:index'%}">Área do Professor</a>
-                <span class="subtitle"> / Mapa de Notas</span>
+                <span class="subtitle"> / Disciplina Ministrada / Conteudo</span>
             </h1>
             <p>Olá, {{professor.nome}}!</p>
         </div>
@@ -57,41 +57,25 @@
         <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
             <div class="container"> 
                 <form action="" method="get">
-                    <input type="text" name="filtro" id="filtro" placeholder="Insira o ID da disciplina para filtrar">
-                    <button type="submit">
+                    <button type="button" onclick="redirect_to_cad(`{% url 'professor:conteudo_info' %}`, null)">
                         <img src="{% static 'icons/favicon.png' %}" alt="">
-                        <span>Pesquisar</span>
+                        <span>Novo</span>
                     </button>
-                    <!-- <input type="submit" value="Pesquisar">
-                    <input type="button" value="Novo"> -->
                     <div style="clear: both;"></div>
                 </form>
                 <table>
                     <tr>
-                        <th>Aluno</th>
-                        <th>Curso</th>
-                        <th>Disciplina</th>
-                        <th>Faltas</th>
-                        <th>Frequencia</th>
-                        <th>NP1</th>
-                        <th>NP2</th>
-                        <th>PIM</th>
-                        <th>Media</th>
-                        <th>Situacao</th>
+                        <th>Nome do Documento</th>
+                        <th></th>
+                        <th></th>
                     </tr>
-                    
                     {% for item in resultados %}
                     <tr class="table-row-non-clickabe">
-                        <td>{{ item.curso_matriculado.aluno.id }}</td>
-                        <td>{{ item.curso_matriculado.curso.id }}</td>
-                        <td>{{ item.disciplina.id }}</td>
-                        <td>{{ item.faltas}}</td>
-                        <td>{% if item.frequencia != None %}{{ item.frequencia }}{% endif %}</td>
-                        <td>{{ item.nota1 }}</td>
-                        <td>{{ item.nota2 }}</td>
-                        <td>{{ item.pim }}</td>
-                        <td>{% if item.media != None %}{{ item.media }}{% endif %}</td>
-                        <td class="last-table-item">{{ item.situacao }}</td>
+                        <td>{{ item.documento_url }}</td>
+                        <td class="doc_btn_download" onclick="redirect_to_cad(`{% url 'professor:conteudo_info' %}`, `{{ item.id }}`)">Editar</td>
+                        <td class="doc_btn_download last-table-item"><a target="_blank" href="
+                            {% url 'professor:download_conteudo' %}?file_name={{ item.documento_url }}
+                            ">Download</a></td>
                     </tr>
                     {% endfor %}
                 </table>

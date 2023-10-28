@@ -79,7 +79,7 @@
                     </tr>
                     
                     {% for item in resultados %}
-                    <tr class="table-row-clickabe" onclick="redirect_to_cad(`{% url 'secretario:aluno_info' %}`, `{{ item.id }}`)">
+                    <tr class="table-row-non-clickabe">
                         <td>{{ item.id }}</td>
                         <td>{{ item.nome }}</td>
                         <td>{{ item.cpf }}</td>

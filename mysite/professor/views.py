@@ -1,6 +1,6 @@
 import os, json
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest, FileResponse
 from api_integration import api, utils
 from login.views import is_logged, set_cookies
 
@@ -56,27 +56,20 @@ def procurar_conteudo(request: HttpRequest):
         return context
     
     filtro = request.GET.get("filtro", "")
-    response, conteudos = conn.procurar.conteudo(login.token, filtro)
-    context["resultados"] = conteudos
+    response, dms = conn.procurar.disciplina_ministrada(login.token, login.id)
+
+    resultados = []
+    for d in dms:
+        if filtro in d.turma.nome or filtro == "":
+            resultados.append(d)
+
+    context["resultados"] = resultados
     
     # Adicionando o obj ao contexto e respondendo o request.
     return set_cookies(render(request, "professor/manter_conteudo.html", context), login)
 
 def editar_conteudo(request: HttpRequest):
-    """Página para cadastro ou alteração de cadastro de conteudo"""
-    context, login = check_login(request)
-    if not isinstance(context, dict):
-        return context
-    
-    id = request.GET.get("id", "")
-    if id != "":
-        response, conteudo = conn.consultar.conteudo(login.token, id)
-        context["cadastro"] = conteudo
-    else:
-        context["cadastro"] = None
-
-    # Adicionando o obj ao contexto e respondendo o request.
-    return set_cookies(render(request, "professor/info_conteudo.html", context), login)
+   pass
 
 def acessar_disciplinas(request: HttpRequest):
     """Página inicial para buscas de disciplina"""
@@ -143,3 +136,55 @@ def mapa_de_notas(request: HttpRequest):
     
     # Adicionando o obj ao contexto e respondendo o request.
     return set_cookies(render(request, "professor/mapa_de_notas.html", context), login)
+
+def acessar_conteudos(request: HttpRequest):
+    """Página inicial para buscas de curso"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    turma = request.GET.get("turma", "")
+    disciplina = request.GET.get("disciplina", "")
+    
+    professores = conn.consultar.turma(login.token, turma)[1].professores 
+    disciplina_ministrada = None
+    for p in professores:
+        dms = conn.procurar.disciplina_ministrada(login.token, p.id)[1]
+        for dm in dms:
+            if dm.disciplina.id == disciplina:
+                disciplina_ministrada = dm.id
+                
+    conteudos = conn.procurar.conteudo(login.token, disciplina_ministrada)[1]
+    for c in range(0, len(conteudos)):
+        conteudos[c].documento_url = conteudos[c].documento_url.replace("/api/file/conteudo/", "")
+    context["resultados"] = conteudos
+    
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "professor/acessar_conteudos.html", context), login)
+
+def download_conteudo(request: HttpRequest):
+    """Página inicial para buscas de curso"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    verificar_pasta_arquivos_temporarios()
+    apagar_todos_os_arquivos_temporarios()
+    file_path = os.path.join(os.getcwd() + "\\arquivos_temporarios\\", request.GET.get("file_name", ""))
+    response = conn.arquivo.conteudo(login.token, request.GET.get("file_name", ""))
+
+    filew = open(file_path, 'wb')
+    filew.write(response.content)
+    filew.close()
+
+    return FileResponse(open(file_path, "rb"), as_attachment=True)
+
+def verificar_pasta_arquivos_temporarios():
+    pasta = os.getcwd() + "\\arquivos_temporarios\\"
+    if not os.path.isdir(pasta):
+        os.mkdir(pasta)
+
+def apagar_todos_os_arquivos_temporarios():
+    pasta = os.getcwd() + "\\arquivos_temporarios\\"
+    for file in os.listdir(pasta):
+        os.remove(os.path.join(pasta, file))
