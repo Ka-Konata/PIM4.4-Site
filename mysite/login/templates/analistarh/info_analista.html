@@ -33,7 +33,7 @@
                 <a href="{% url 'analistarh:index'%}">Área do Analista de RH</a>
                 <span class="subtitle"> / AnalistaRH</span>
             </h1>
-            <p>Olá, {{analistarh}}!</p>
+            <p>Olá, {{analistarh.nome}}!</p>
         </div>
 
         <!-- Botões do cabeçalho-->
@@ -60,11 +60,11 @@
                     <input type="text" name="filtro" id="filtro" placeholder="Insira o nome para filtrar">
                     <button type="button" onclick="">
                         <img src="{% static 'icons/favicon.png' %}" alt="">
-                        <span>Novo</span>
+                        <span>Apagar</span>
                     </button>
                     <button type="submit">
                         <img src="{% static 'icons/favicon.png' %}" alt="">
-                        <span>Pesquisar</span>
+                        <span>Salvar</span>
                     </button>
                     <div style="clear: both;"></div>
                 </form> 
@@ -90,8 +90,8 @@
                             <input type="text" name="telefone" id="telefone" placeholder="Digite seu Telefone">
                         </div>
                         <div class="form-input">
-                            <label for="E-mail"><E-mail></E-mail></label>
-                            <input type="text" name="telefone" id="telefone" placeholder="Digite seu E-mail">
+                            <label for="E-mail">E-mail</label>
+                            <input type="text" name="email" id="email" placeholder="Digite seu E-mail">
                         </div>
                 </form>
         </section>
