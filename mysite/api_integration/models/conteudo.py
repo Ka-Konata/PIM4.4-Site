@@ -47,6 +47,10 @@ class Conteudo:
     @property
     def documento_url(self) -> str:
         return self.__documento_url
+    
+    @documento_url.setter
+    def documento_url(self, value) -> None:
+        self.__documento_url = value
 
     @property
     def disciplina_ministrada(self) -> Disciplina_Ministrada:
@@ -56,6 +60,6 @@ class Conteudo:
     def documento(self):
         return self.__documento
     
-    @disciplina_ministrada.setter # Modifica o valor encapsulado
-    def disciplina_ministrada(self, conection: any, novo_id: int) -> None:
-        pass # Ainda para implementar
+    @documento.setter
+    def documento(self, value) -> None:
+        self.__documento = value

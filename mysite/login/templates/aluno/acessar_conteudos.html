@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área do Aluno</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'icons/favicon.png'%}" type="image/x-icon">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area_header.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area_main.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area_footer.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/manter.css'%}">
+    {% load static %}
+    <script src="{% static 'js/manter.js' %}"></script>
+</head>
+<body>
+    <!-- Header, o cabeçalho da página -->
+    <header>
+        <!-- Ícone do sistema-->
+        <div id="header-favicon">
+            <img src="{% static 'icons/favicon.png' %}" alt="Íone da Universidade">
+        </div>
+
+        <!-- Título (h1) da página -->
+        <div id="header-title">
+            <h1>
+                <a href="{% url 'aluno:index'%}">Área do Aluno</a>
+                <span class="subtitle"> / Curso / Disciplina / Conteudo</span>
+            </h1>
+            <p>Olá, {{aluno.nome}}!</p>
+        </div>
+
+        <!-- Botões do cabeçalho-->
+        <div id="header-buttons">
+            <!-- Botão sair (link para a rota no Back End) -->
+            <div id="sair-button">
+                <a href="{% url 'login:sair' %}">Sair</a>
+            </div>
+            
+            <!-- Botão trocar de senha (link para a rota no Back End) -->
+            <div id="trocar-de-senha-button">
+                <a href="{% url 'login:mudar_senha_pag' %}">Trocar de Senha</a>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+    </header>
+
+    <!-- Main, onde fica todo o conteúdo principal da página -->
+    <main>
+        <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
+            <div class="container"> 
+                <table>
+                    <tr>
+                        <th>Nome do Documento</th>
+                        <th></th>
+                    </tr>
+                    {% for item in resultados %}
+                    <tr class="">
+                        <td>{{ item.documento_url }}</td>
+                        <td class="last-table-item"><a target="_blank" href="
+                            {% url 'aluno:download_conteudo' %}?file_name={{ item.documento_url }}
+                            ">Download</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+        </section>
+    </main>
+
+    <!-- Footer, o rodapé da página -->
+    <footer>
+        <!-- Primeira seção do rodapé -->
+        <section id="footer-section-1">
+            <h2>Mapa do Site</h2>
+            <p><a href="{% url 'login:mudar_senha_pag' %}" class="link">Trocar de senha</a></p>
+            <p><a href="{% url 'login:sair' %}" class="link">Sair</a></p>
+        </section>
+
+        <!-- Segunda seção do rodapé -->
+        <section id="footer-section-2">
+            <h2>Atribuições</h2>
+            <p><a href="#" class="link">site - favicon nome</a></p>
+            <p><a href="#" class="link">site - menu itens</a></p>
+        </section>
+    </footer>
+</body>
+</html>

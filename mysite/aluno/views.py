@@ -1,6 +1,6 @@
 import os, json
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest, FileResponse
 from api_integration import api, utils
 from login.views import is_logged, set_cookies
 
@@ -105,10 +105,33 @@ def acessar_conteudos(request: HttpRequest):
                 disciplina_ministrada = dm.id
                 
     conteudos = conn.procurar.conteudo(login.token, disciplina_ministrada)[1]
+    for c in range(0, len(conteudos)):
+        conteudos[c].documento_url = conteudos[c].documento_url.replace("/api/file/conteudo/", "")
     context["resultados"] = conteudos
     
     # Adicionando o obj ao contexto e respondendo o request.
     return set_cookies(render(request, "aluno/acessar_conteudos.html", context), login)
+
+def apagar_todos_os_arquivos_temporarios():
+    pasta = os.getcwd() + "\\arquivos_temporarios\\"
+    for file in os.listdir(pasta):
+        os.remove(os.path.join(pasta, file))
+
+def download_conteudo(request: HttpRequest):
+    """Página inicial para buscas de curso"""
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    apagar_todos_os_arquivos_temporarios()
+    file_path = os.path.join(os.getcwd() + "\\arquivos_temporarios\\", request.GET.get("file_name", ""))
+    response = conn.arquivo.conteudo(login.token, request.GET.get("file_name", ""))
+
+    filew = open(file_path, 'wb')
+    filew.write(response.content)
+    filew.close()
+
+    return FileResponse(open(file_path, "rb"), as_attachment=True)
 
 def notas_e_faltas(request: HttpRequest):
     """Página inicial para buscas de curso"""
