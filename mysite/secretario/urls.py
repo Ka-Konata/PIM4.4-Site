@@ -21,5 +21,8 @@ urlpatterns = [
     
     path("professor_em_turma/info", views.editar_professor_em_turma, name="professor_em_turma_info"),
     path("disciplina_em_curso/info", views.editar_disciplina_em_curso, name="disciplina_em_curso_info"),
-    path("aluno_em_curso/info", views.editar_aluno_em_curso, name="aluno_em_curso_info")
+    path("aluno_em_curso/info", views.editar_aluno_em_curso, name="aluno_em_curso_info"),
+
+
+    path("professor_em_turma/info/salvar", views.professor_em_turma_salvar, name="professor_em_turma_salvar")
 ]

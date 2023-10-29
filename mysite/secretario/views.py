@@ -207,7 +207,53 @@ def procurar_aluno_em_curso(request: HttpRequest):
     return set_cookies(render(request, "secretario/manter_aluno_em_curso.html", context), login)
 
 def editar_professor_em_turma(request: HttpRequest):
-    pass
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    id = request.GET.get("id", "")
+    if id != "":
+        response, dm = conn.consultar.disciplina_ministrada(login.token, id)
+        context["cadastro"] = dm
+    else:
+        context["cadastro"] = None
+
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "secretario/info_professor_em_turma.html", context), login)
+
+def professor_em_turma_salvar(request: HttpRequest):
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+
+    id = request.GET.get("id", "")
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False}
+
+    professor = conn.consultar.professor(login.token, request.GET.get("id_professor", ""))
+    turma = conn.consultar.turma(login.token, request.GET.get("id_turma", ""))
+    disciplina = conn.consultar.disciplina(login.token, request.GET.get("id_disciplina", ""))
+    obj = api.Disciplina_Ministrada(
+        disciplina=disciplina,
+        professor=professor,
+        turma=turma,
+        encerrada=request.GET.get("encerrada", ""),
+        coordenador=request.GET.get("coordenador", "")
+    )
+
+    if id == "":
+        response = conn.cadastrar.analistarh(login.token, obj)
+    else:
+        response = conn.editar.analistarh(login.token, id, obj)
+    if response.status_code == 200:
+        context["status"]["200"] = True
+    if response.status_code == 400:
+        context["status"]["400"] = True
+    if response.status_code == 409:
+        context["status"]["409"] = True
+    if response.status_code == 500:
+        context["status"]["409"] = True
+    return set_cookies(render(request, "analistarh/info_analista.html", context), login)
+
 
 def editar_disciplina_em_curso(request: HttpRequest):
     pass
