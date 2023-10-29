@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área do Analista de RH</title>
+    <title>Área do Secretario</title>
     {% load static %}
     <link rel="shortcut icon" href="{% static 'icons/favicon.png'%}" type="image/x-icon">
     {% load static %}
@@ -30,10 +30,10 @@
         <!-- Título (h1) da página -->
         <div id="header-title">
             <h1>
-                <a href="{% url 'analistarh:index'%}">Área do Analista de RH</a>
-                <span class="subtitle"> / AnalistaRH</span>
+                <a href="{% url 'analistarh:index'%}">Área do Secretario</a>
+                <span class="subtitle"> / Secretario</span>
             </h1>
-            <p>Olá, {{analistarh.nome}}!</p>
+            <p>Olá, {{secretario.nome}}!</p>
         </div>
 
         <!-- Botões do cabeçalho-->
@@ -87,27 +87,9 @@
                         {% if cadastro != None %} value="{{ cadastro.nome }}" {% endif %}>
                         <label for="nome">Nome</label>
                     </div>
-                    <div class="form-input">
-                        <input class="input" type="text" name="rg" id="rg" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.rg }}" {% endif %}>
-                        <label for="rg">RG</label>
-                    </div>
-            
-                    <div class="form-input">
-                        <input class="input" type="text" name="cpf" id="cpf" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.cpf }}" {% endif %}>
-                        <label for="cpf">CPF</label>
-                    </div>
-            
-                    <div class="form-input">
-                        <input class="input" type="text" name="telefone" id="telefone" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.telefone }}" {% endif %}>
-                        <label for="telefone">Telefone</label>
-                    </div>
-                    <div class="form-input">
-                        <input class="input" type="text" name="email" id="email" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.email }}" {% endif %}>
-                        <label for="E-mail">E-mail</label>
+                        <input class="input" type="text" name="id_curso" id="id_curso" placeholder="Insira o valor aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.id_curso }}" {% endif %}>
+                        <label for="id_curso">id_curso</label>
                     </div>
                     <div style="clear: both;"></div>
                 </form>

@@ -83,34 +83,29 @@
                     </div>
             
                     <div class="form-input">
-                        <input class="input" type="text" name="nome" id="nome" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.nome }}" {% endif %}>
-                        <label for="nome">Nome</label>
+                        <input class="input" type="text" name="id_professor" id="id_professor" placeholder="Insira o valor aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.id_professor }}" {% endif %}>
+                        <label for="id_professor">id_professor</label>
                     </div>
                     <div class="form-input">
-                        <input class="input" type="text" name="rg" id="rg" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.rg }}" {% endif %}>
-                        <label for="rg">RG</label>
-                    </div>
-            
-                    <div class="form-input">
-                        <input class="input" type="text" name="cpf" id="cpf" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.cpf }}" {% endif %}>
-                        <label for="cpf">CPF</label>
+                        <input class="input" type="text" name="id_turma" id="id_turma" placeholder="Insira o valor aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.id_turma }}" {% endif %}>
+                        <label for="id_turma">id_turma</label>
                     </div>
             
                     <div class="form-input">
-                        <input class="input" type="text" name="telefone" id="telefone" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.telefone }}" {% endif %}>
-                        <label for="telefone">Telefone</label>
-                    </div>
-                    <div class="form-input">
-                        <input class="input" type="text" name="email" id="email" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.email }}" {% endif %}>
-                        <label for="E-mail">E-mail</label>
+                        <input class="input" type="text" name="id_disciplina" id="id_disciplina" placeholder="Insira o valor aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.id_disciplina }}" {% endif %}>
+                        <label for="id_disciplina">id_disciplina</label>
+                    <div style="clear: both;"></div>
+                    <div class="form-input-select">
+                        <input type="checkbox" name="Encerrada" id="Encerrada">
+                        <label for="Encerrada">Encerrada</label>
+                        <div style="clear: both;"></div>
                     </div>
                     <div style="clear: both;"></div>
                 </form>
+                
         </section>
     </main>
 
