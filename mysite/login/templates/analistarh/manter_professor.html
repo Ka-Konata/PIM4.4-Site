@@ -68,37 +68,25 @@
                     </button>
                     <!-- <input type="submit" value="Pesquisar">
                     <input type="button" value="Novo"> -->
-                    <div style="clear: both;"></div>             
-                    </div>
-
-                    <div class="form-input">
-                        <input class="input" type="text" name="nome" id="nome" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.nome }}" {% endif %}>
-                        <label for="nome">Nome</label>
-                    </div>
-                    <div class="form-input">
-                        <input class="input" type="text" name="rg" id="rg" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.rg }}" {% endif %}>
-                        <label for="rg">RG</label>
-                    </div>
-            
-                    <div class="form-input">
-                        <input class="input" type="text" name="cpf" id="cpf" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.cpf }}" {% endif %}>
-                        <label for="cpf">CPF</label>
-                    </div>
-            
-                    <div class="form-input">
-                        <input class="input" type="text" name="telefone" id="telefone" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.telefone }}" {% endif %}>
-                        <label for="telefone">Telefone</label>
-                    </div>
-                    <div class="form-input">
-                        <input class="input" type="text" name="email" id="email" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.email }}" {% endif %}>
-                        <label for="E-mail">E-mail</label>
-                    </div>
+                    <div style="clear: both;"></div>
                 </form>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>RG</th>
+                    </tr>
+                    
+                    {% for item in resultados %}
+                    <tr class="table-row-clickabe" onclick="redirect_to_cad(`{% url 'analistarh:professor_info' %}`, `{{ item.id }}`)">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nome }}</td>
+                        <td>{{ item.cpf }}</td>
+                        <td class="last-table-item">{{ item.rg }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
         </section>
     </main>
 
