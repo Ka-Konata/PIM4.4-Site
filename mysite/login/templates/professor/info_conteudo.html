@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área do Analista de RH</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'icons/favicon.png'%}" type="image/x-icon">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area_header.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area_main.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area_footer.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/info.css'%}">
+    {% load static %}
+    <script src="{% static 'js/manter.js' %}"></script>
+</head>
+<body>
+    <!-- Header, o cabeçalho da página -->
+    <header>
+        <!-- Ícone do sistema-->
+        <div id="header-favicon">
+            <img src="{% static 'icons/favicon.png' %}" alt="Íone da Universidade">
+        </div>
+
+        <!-- Título (h1) da página -->
+        <div id="header-title">
+            <h1>
+                <a href="{% url 'analistarh:index'%}">Área do Analista de RH</a>
+                <span class="subtitle"> / AnalistaRH</span>
+            </h1>
+            <p>Olá, {{analistarh.nome}}!</p>
+        </div>
+
+        <!-- Botões do cabeçalho-->
+        <div id="header-buttons">
+            <!-- Botão sair (link para a rota no Back End) -->
+            <div id="sair-button">
+                <a href="{% url 'login:sair' %}">Sair</a>
+            </div>
+            
+            <!-- Botão trocar de senha (link para a rota no Back End) -->
+            <div id="trocar-de-senha-button">
+                <a href="{% url 'login:mudar_senha_pag' %}">Trocar de Senha</a>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+    </header>
+
+    <!-- Main, onde fica todo o conteúdo principal da página -->
+    <main>
+        <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
+            <div class="container"> 
+                <div id="retornos">
+                    {% if status.200 %} <div class="block-success">Cadastro/Alteração realizado(a) com sucesso.</div> {% endif %}
+                    {% if status.200_delete %} <div class="block-success">Cadastro apagado com sucesso.</div> {% endif %}
+                    {% if status.delete_error %} <div class="block-success">Erro ao apagar cadastro.</div> {% endif %}
+                    {% if status.400 %} <div class="block-erro">Um ou mais dados inseridos são inválidos.</div> {% endif %}
+                    {% if status.409 %} <div class="block-erro">Um ou mais dados já pertecem a outro cadastro.</div> {% endif %}
+                    {% if status.500 %} <div class="block-erro">Ocorreu um erro com o servidor.</div> {% endif %}
+                </div>
+                <form action="{% url 'analistarh:analistarh_salvar'  %}" method="get">
+
+                    <div>
+                        {% if cadastro != None %}
+                        <button type="button" onclick="redirect_to_cad(`{% url 'analistarh:analistarh_apagar' %}`,
+                        `{{ cadastro.id }}`)">
+                            <img src="{% static 'icons/apagar.png' %}" alt="">
+                            <span>Apagar</span>
+                        </button>
+                        <input type="text" name="id" id="id" value="{{ cadastro.id }}" style="display: none;">
+                        {% endif %}
+                        <button type="submit">
+                            <img src="{% static 'icons/novo.png' %}" alt="">
+                            <span>Salvar</span>
+                        </button>
+                        <div style="clear: both;"></div>
+                    </div>
+            
+                    <div class="form-input">
+                        <input class="input" type="text" name="nome" id="nome" placeholder="Insira o valor aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.nome }}" {% endif %}>
+                        <label for="nome">Nome</label>
+                    </div>
+                    <div class="form-input">
+                        <input class="input" type="text" name="rg" id="rg" placeholder="Insira o valor aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.rg }}" {% endif %}>
+                        <label for="rg">RG</label>
+                    </div>
+            
+                    <div class="form-input">
+                        <input class="input" type="text" name="cpf" id="cpf" placeholder="Insira o valor aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.cpf }}" {% endif %}>
+                        <label for="cpf">CPF</label>
+                    </div>
+            
+                    <div class="form-input">
+                        <input class="input" type="text" name="telefone" id="telefone" placeholder="Insira o valor aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.telefone }}" {% endif %}>
+                        <label for="telefone">Telefone</label>
+                    </div>
+                    <div class="form-input">
+                        <input class="input" type="text" name="email" id="email" placeholder="Insira o valor aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.email }}" {% endif %}>
+                        <label for="E-mail">E-mail</label>
+                    </div>
+                    <div style="clear: both;"></div>
+                </form>
+        </section>
+    </main>
+
+    <!-- Footer, o rodapé da página -->
+    <footer>
+        <!-- Primeira seção do rodapé -->
+        <section id="footer-section-1">
+            <h2>Sobre</h2>
+            <p>PIM do 4° Semestre</p>
+            <p>Grupo: DS4.4</p>
+        </section>
+
+        <!-- Segunda seção do rodapé -->
+        <section id="footer-section-2">
+            <h2>Atribuições</h2>
+            <p><a href="https://www.flaticon.com/br/icones-gratis/universidade" class="link" target="_blank">Favicon by Flaticon</a></p>
+            <p><a href="https://www.freepik.com" class="link" target="_blank">Icons by Freepik</a></p>
+        </section>
+    </footer>
+</body>
+</html>
