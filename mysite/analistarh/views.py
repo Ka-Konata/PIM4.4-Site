@@ -144,11 +144,6 @@ def analistarh_salvar(request: HttpRequest):
 
     id = request.GET.get("id", "")
     context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False}
-    print(request.GET.get("nome", ""))
-    print(request.GET.get("rg", ""))
-    print(request.GET.get("cpf", ""))
-    print(request.GET.get("telefone", ""))
-    print(request.GET.get("email", ""))
 
     obj = api.AnalistaRH(
         nome = request.GET.get("nome", ""),
@@ -170,20 +165,67 @@ def analistarh_salvar(request: HttpRequest):
         context["status"]["409"] = True
     if response.status_code == 500:
         context["status"]["409"] = True
-    print(f"status: {response.status_code} | {response.content}")
     return set_cookies(render(request, "analistarh/info_analista.html", context), login)
 
 def secretario_salvar(request: HttpRequest):
     context, login = check_login(request)
     if not isinstance(context, dict):
         return context
-    pass
+
+    id = request.GET.get("id", "")
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False}
+
+    obj = api.Secretario(
+        nome = request.GET.get("nome", ""),
+        rg = int(request.GET.get("rg", "")),
+        cpf = int(request.GET.get("cpf", "")),
+        telefone = int(request.GET.get("telefone", "")),
+        email = request.GET.get("email", "")
+    )
+
+    if id == "":
+        response = conn.cadastrar.secretario(login.token, obj)
+    else:
+        response = conn.editar.secretario(login.token, id, obj)
+    if response.status_code == 200:
+        context["status"]["200"] = True
+    if response.status_code == 400:
+        context["status"]["400"] = True
+    if response.status_code == 409:
+        context["status"]["409"] = True
+    if response.status_code == 500:
+        context["status"]["409"] = True
+    return set_cookies(render(request, "analistarh/info_secretario.html", context), login)
 
 def professor_salvar(request: HttpRequest):
     context, login = check_login(request)
     if not isinstance(context, dict):
         return context
-    pass
+
+    id = request.GET.get("id", "")
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False}
+
+    obj = api.Professor(
+        nome = request.GET.get("nome", ""),
+        rg = int(request.GET.get("rg", "")),
+        cpf = int(request.GET.get("cpf", "")),
+        telefone = int(request.GET.get("telefone", "")),
+        email = request.GET.get("email", "")
+    )
+
+    if id == "":
+        response = conn.cadastrar.professor(login.token, obj)
+    else:
+        response = conn.editar.professor(login.token, id, obj)
+    if response.status_code == 200:
+        context["status"]["200"] = True
+    if response.status_code == 400:
+        context["status"]["400"] = True
+    if response.status_code == 409:
+        context["status"]["409"] = True
+    if response.status_code == 500:
+        context["status"]["409"] = True
+    return set_cookies(render(request, "analistarh/info_professor.html", context), login)
 
 def analistarh_apagar(request: HttpRequest):
     context, login = check_login(request)
@@ -205,11 +247,33 @@ def secretario_apagar(request: HttpRequest):
     context, login = check_login(request)
     if not isinstance(context, dict):
         return context
-    pass
+
+    id = request.GET.get("id", "")
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False}
+
+    response = conn.apagar.secretario(login.token, id)
+
+    if response.status_code == 200:
+        context["status"]["200_delete"] = True
+    else:
+        context["status"]["delete_error"] = True
+    return set_cookies(render(request, "analistarh/info_secretario.html", context), login)
 
 def professor_apagar(request: HttpRequest):
     context, login = check_login(request)
     if not isinstance(context, dict):
         return context
-    pass
-    
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+
+    id = request.GET.get("id", "")
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False}
+
+    response = conn.apagar.professor(login.token, id)
+
+    if response.status_code == 200:
+        context["status"]["200_delete"] = True
+    else:
+        context["status"]["delete_error"] = True
+    return set_cookies(render(request, "analistarh/info_professor.html", context), login)
