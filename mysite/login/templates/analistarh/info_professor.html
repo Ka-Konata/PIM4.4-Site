@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área do Professor</title>
+    <title>Área do Analista de RH</title>
     {% load static %}
     <link rel="shortcut icon" href="{% static 'icons/favicon.png'%}" type="image/x-icon">
     {% load static %}
@@ -15,7 +15,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/area_footer.css'%}">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/manter.css'%}">
+    <link rel="stylesheet" href="{% static 'css/info.css'%}">
     {% load static %}
     <script src="{% static 'js/manter.js' %}"></script>
 </head>
@@ -56,21 +56,32 @@
     <main>
         <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
             <div class="container"> 
-                <form action="" method="get">
-                    <input type="text" name="filtro" id="filtro" placeholder="Insira o nome para filtrar">
-                    <button type="button" onclick="redirect_to_cad(`{% url 'analistarh:professor_info' %}`, null)">
-                        <img src="{% static 'icons/manter_novo.png' %}" alt="">
-                        <span>Novo</span>
-                    </button>
-                    <button type="submit">
-                        <img src="{% static 'icons/lupa_pesquisa.png' %}" alt="">
-                        <span>Pesquisar</span>
-                    </button>
-                    <!-- <input type="submit" value="Pesquisar">
-                    <input type="button" value="Novo"> -->
-                    <div style="clear: both;"></div>             
-                    </div>
+                <div id="retornos">
+                    {% if status.200 %} <div class="block-success">Cadastro/Alteração realizado(a) com sucesso.</div> {% endif %}
+                    {% if status.200_delete %} <div class="block-success">Cadastro apagado com sucesso.</div> {% endif %}
+                    {% if status.delete_error %} <div class="block-success">Erro ao apagar cadastro.</div> {% endif %}
+                    {% if status.400 %} <div class="block-erro">Um ou mais dados inseridos são inválidos.</div> {% endif %}
+                    {% if status.409 %} <div class="block-erro">Um ou mais dados já pertecem a outro cadastro.</div> {% endif %}
+                    {% if status.500 %} <div class="block-erro">Ocorreu um erro com o servidor.</div> {% endif %}
+                </div>
+                <form action="{% url 'analistarh:professor_salvar'  %}" method="get">
 
+                    <div>
+                        {% if cadastro != None %}
+                        <button type="button" onclick="redirect_to_cad(`{% url 'analistarh:professor_apagar' %}`,
+                        `{{ cadastro.id }}`)">
+                            <img src="{% static 'icons/apagar.png' %}" alt="">
+                            <span>Apagar</span>
+                        </button>
+                        <input type="text" name="id" id="id" value="{{ cadastro.id }}" style="display: none;">
+                        {% endif %}
+                        <button type="submit">
+                            <img src="{% static 'icons/novo.png' %}" alt="">
+                            <span>Salvar</span>
+                        </button>
+                        <div style="clear: both;"></div>
+                    </div>
+            
                     <div class="form-input">
                         <input class="input" type="text" name="nome" id="nome" placeholder="Insira o valor aqui" required
                         {% if cadastro != None %} value="{{ cadastro.nome }}" {% endif %}>
@@ -98,6 +109,7 @@
                         {% if cadastro != None %} value="{{ cadastro.email }}" {% endif %}>
                         <label for="E-mail">E-mail</label>
                     </div>
+                    <div style="clear: both;"></div>
                 </form>
         </section>
     </main>
