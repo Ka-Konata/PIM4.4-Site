@@ -11,5 +11,14 @@ urlpatterns = [
     path("professor", views.procurar_professor, name="professor"),
     path("professor/info", views.editar_professor, name="professor_info"),
     path("secretario", views.procurar_secretario, name="secretario"),
-    path("secretario/info", views.editar_secretario, name="secretario_info")
+    path("secretario/info", views.editar_secretario, name="secretario_info"),
+
+
+    path("analistarh/info/salvar", views.analistarh_salvar, name="analistarh_salvar"),
+    path("professor/info/salvar", views.professor_salvar, name="professor_salvar"),
+    path("secretario/info/salvar", views.secretario_salvar, name="secretario_salvar"),
+
+    path("analistarh/info/apagar", views.analistarh_apagar, name="analistarh_apagar"),
+    path("professor/info/apagar", views.professor_apagar, name="professor_apagar"),
+    path("secretario/info/apagar", views.secretario_apagar, name="secretario_apagar"),
 ]

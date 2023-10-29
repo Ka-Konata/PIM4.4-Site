@@ -45,3 +45,28 @@ a.link {
     color: var(--cor-secundaria-hover);
     text-decoration: underline;
 }
+
+#retornos {
+    background-color: rgb(221, 221, 221);
+    margin-bottom: 8px;
+}
+
+.block-erro {
+    display: inline-block;
+    border: 1px solid rgb(201, 2, 2);
+    border-radius: 5px;
+    background-color: rgb(255, 149, 149);
+    color: rgb(201, 2, 2);
+    padding: 7px;
+    margin: 5px 0;
+}
+
+.block-success {
+    display: inline-block;
+    border: 1px solid rgb(0, 83, 11);
+    border-radius: 5px;
+    background-color: rgb(85, 209, 126);
+    color: rgb(12, 46, 21);
+    padding: 7px;
+    margin: 5px 0;
+}

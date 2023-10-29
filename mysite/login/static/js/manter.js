@@ -15,3 +15,11 @@ function alunos_em_disciplina(tipo, disciplina, curso, filtro) {
         window.location = tipo + "?disciplina=" + disciplina + "&curso=" + curso + "&filtro="
     }
 }
+
+function atualizar_obj(tipo, id) {
+    url = tipo + "?id=" + id
+    let valores = document.getElementsByClassName("input")
+    for(let i = 0; i < valores.length; i++) {
+        url = url + "&" + valores[i].id + "=" + valores[i].value
+    }
+}
