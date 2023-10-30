@@ -86,10 +86,10 @@
                         <td>{{ item.curso_matriculado.curso.id }}</td>
                         <td>{{ item.disciplina.id }}</td>
                         <td>{{ item.faltas}}</td>
-                        <td>{% if item.frequencia != None %}{{ item.frequencia }}{% endif %}</td>
-                        <td>{{ item.nota1 }}</td>
-                        <td>{{ item.nota2 }}</td>
-                        <td>{{ item.pim }}</td>
+                        <td>{% if item.frequencia != None %}{{ item.frequencia }}%{% endif %}</td>
+                        <td>{% if item.frequencia != None %}{{ item.prova1 }}{% endif %}</td>
+                        <td>{% if item.frequencia != None %}{{ item.prova2 }}{% endif %}</td>
+                        <td>{% if item.frequencia != None %}{{ item.trabalho }}{% endif %}</td>
                         <td>{% if item.media != None %}{{ item.media }}{% endif %}</td>
                         <td class="last-table-item">{{ item.situacao }}</td>
                     </tr>

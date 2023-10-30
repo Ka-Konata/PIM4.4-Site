@@ -50,7 +50,7 @@ form button[type="button"] {
     width: 100%;
 }
 
-.form-input > label, .form-input > input, .form-input-file label, .form-input-file input {
+.form-input > label, .form-input > input, .form-input-file label, .form-input-file input, .fake-input-value {
     float: right;
     padding: 8px;
     font-size: 18px;
@@ -71,6 +71,12 @@ form button[type="button"] {
 
 .form-input > input, .form-input-file input {
     background: rgb(207, 207, 207);
+    width: calc(70% - 19px);
+}
+
+.fake-input-value {
+    background: rgb(147 147 147);
+    color: rgb(214, 214, 214);
     width: calc(70% - 19px);
 }
 

@@ -58,10 +58,6 @@
             <div class="container"> 
                 <form action="" method="get">
                     <input type="text" name="filtro" id="filtro" placeholder='Insira o nome do aluno para filtrar'>
-                    <!-- <button type="button" onclick="redirect_to_cad(`{% url 'professor:alunos_em_disciplinas' %}`, null)">
-                        <img src="{% static 'icons/favicon.png' %}" alt="">
-                        <span>Novo</span>
-                    </button> -->
                     <button style="width: 110px;" type="button" onclick="alunos_em_disciplina(`{% url 'professor:alunos_em_disciplinas' %}`, `{{ disciplina }}`, `{{ curso }}`, true)">
                         <img src="{% static 'icons/lupa_pesquisa.png' %}" alt="">
                         <span>Pesquisar</span>
@@ -79,11 +75,11 @@
                     </tr>
                     
                     {% for item in resultados %}
-                    <tr class="table-row-non-clickabe">
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.nome }}</td>
-                        <td>{{ item.cpf }}</td>
-                        <td class="last-table-item">{{ item.rg }}</td>
+                    <tr class="table-row-clickabe" onclick="redirect_to_cad(`{% url 'professor:info_alunos_em_disciplinas' %}`, `{{ item.id }}`)">
+                        <td>{{ item.curso_matriculado.aluno.id }}</td>
+                        <td>{{ item.curso_matriculado.aluno.nome }}</td>
+                        <td>{{ item.curso_matriculado.aluno.cpf }}</td>
+                        <td class="last-table-item">{{ item.curso_matriculado.aluno.rg }}</td>
                     </tr>
                     {% endfor %}
                 </table>

@@ -15,6 +15,7 @@ class Editar:
         url = self.base_url + f"/{url}/{id}"
         headers = self.base_headers
         headers["Authorization"] = f"Bearer {token}"
+        print(url)
 
         if obj != None:
             return requests.put(url, headers=headers, data=dict_to_josn(obj.to_dict()))
@@ -75,20 +76,20 @@ class Editar:
         Return: requests.Response"""
         return self.__do_request(token, id, self.URLs.DISCIPLINA_CURSADA, disciplina_cursada)
 
-    def calcular_media(self, token: str, id_disciplina_ministrada: int) -> requests.Response:
+    def calcular_media(self, token: str, id_disciplina_cursada: int) -> requests.Response:
         """Pede para a API calcular a média em um cadastro do tipo Disciplina_Cursada.
         Return: requests.Response"""
-        return self.__do_request(token, id_disciplina_ministrada, self.URLs.CALCULAR_MEDIA)
+        return self.__do_request(token, id_disciplina_cursada, self.URLs.CALCULAR_MEDIA)
 
-    def calcular_frequencia(self, token: str, id_disciplina_ministrada: int) -> requests.Response:
+    def calcular_frequencia(self, token: str, id_disciplina_cursada: int) -> requests.Response:
         """Pede para a API calcular a frequência em um cadastro do tipo Disciplina_Cursada.
         Return: requests.Response"""
-        return self.__do_request(token, id_disciplina_ministrada, self.URLs.CALCULAR_FREQUENCIA)
+        return self.__do_request(token, id_disciplina_cursada, self.URLs.CALCULAR_FREQUENCIA)
 
-    def calcular_situacao(self, token: str, id_disciplina_ministrada: int) -> requests.Response:
+    def calcular_situacao(self, token: str, id_disciplina_cursada: int) -> requests.Response:
         """Pede para a API calcular a situação em um cadastro do tipo Disciplina_Cursada.
         Return: requests.Response"""
-        return self.__do_request(token, id_disciplina_ministrada, self.URLs.CALCULAR_SITUACAO)
+        return self.__do_request(token, id_disciplina_cursada, self.URLs.CALCULAR_SITUACAO)
 
     def disciplina_ministrada(self, token: str, id: int, disciplina_ministrada: object) -> requests.Response:
         """Altera um cadastro já inserido no banco de dados. Cadastro do tipo Disciplina_Ministrada.

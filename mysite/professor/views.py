@@ -91,6 +91,50 @@ def acessar_disciplinas(request: HttpRequest):
     # Adicionando o obj ao contexto e respondendo o request.
     return set_cookies(render(request, "professor/acessar_disciplina.html", context), login)
 
+def info_alunos_em_disciplinas(request: HttpRequest):
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    id = request.GET.get("id", "")
+    if id != "":
+        response, conteudo = conn.consultar.disciplina_cursada(login.token, id)
+        context["cadastro"] = conteudo
+    else:
+        context["cadastro"] = None
+
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "professor/info_disciplina_cursada.html", context), login)
+
+def alunos_em_disciplinas_salvar(request: HttpRequest):
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+
+    id = request.GET.get("id", "")
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False, "418": False}
+    disciplina_cursada = conn.consultar.disciplina_cursada(login.token, int(id))[1]
+    disciplina_cursada.prova1 = int(request.GET.get("prova1", ""))
+    disciplina_cursada.prova2 = int(request.GET.get("prova2", ""))
+    disciplina_cursada.trabalho = int(request.GET.get("trabalho", ""))
+    disciplina_cursada.faltas = int(request.GET.get("faltas", ""))
+
+    response = conn.editar.disciplina_cursada(login.token, id, disciplina_cursada)
+    conn.editar.calcular_media(login.token, disciplina_cursada.id)
+    conn.editar.calcular_frequencia(login.token, disciplina_cursada.id)
+    conn.editar.calcular_situacao(login.token, disciplina_cursada.id)
+ 
+    if response.status_code == 200:
+        context["status"]["200"] = True
+    if response.status_code == 400:
+        context["status"]["400"] = True
+    if response.status_code == 409:
+        context["status"]["409"] = True
+    if response.status_code == 500:
+        context["status"]["500"] = True
+    print(f"cargo: {login.cargo} status: {response.status_code}", context["status"])
+    return set_cookies(render(request, "professor/info_disciplina_cursada.html", context), login)
+
 def acessar_alunos_em_disciplinas(request: HttpRequest):
     """Página inicial para buscas de alunos_em_disciplinas"""
     context, login = check_login(request)
@@ -104,12 +148,8 @@ def acessar_alunos_em_disciplinas(request: HttpRequest):
     resultados = []
     r2, disciplinas_cursadas = conn.procurar.disciplina_cursada(login.token)
     for dc in disciplinas_cursadas:
-        # print(f"disciplina: {str(dc.disciplina.id)} == {disciplina}: {str(dc.disciplina.id) == disciplina}")
-        # print(f"curso: {str(dc.curso_matriculado.curso.id)} == {curso}: {str(dc.curso_matriculado.curso.id) == curso}")
-        # print(f"filtro: {str(dc.disciplina.id)} in {dc.curso_matriculado.aluno.nome}: {filtro in dc.curso_matriculado.aluno.nome}")
-        # print(f"filtro: {filtro} == : {filtro == ''}")
         if str(dc.disciplina.id) == disciplina and str(dc.curso_matriculado.curso.id) == curso and (filtro in dc.curso_matriculado.aluno.nome or filtro == ""):
-            resultados.append(dc.curso_matriculado.aluno)
+            resultados.append(dc)
 
     context["disciplina"] = disciplina
     context["curso"] = curso

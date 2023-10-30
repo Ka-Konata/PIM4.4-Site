@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área do Professor</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'icons/favicon.png'%}" type="image/x-icon">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area_header.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area_main.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/area_footer.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/info.css'%}">
+    {% load static %}
+    <script src="{% static 'js/manter.js' %}"></script>
+</head>
+<body>
+    <!-- Header, o cabeçalho da página -->
+    <header>
+        <!-- Ícone do sistema-->
+        <div id="header-favicon">
+            <img src="{% static 'icons/favicon.png' %}" alt="Íone da Universidade">
+        </div>
+
+        <!-- Título (h1) da página -->
+        <div id="header-title">
+            <h1>
+                <a href="{% url 'professor:index'%}">Área do Professor</a>
+                <span class="subtitle"> / Disciplina Cursada</span>
+            </h1>
+            <p>Olá, {{professor.nome}}!</p>
+        </div>
+
+        <!-- Botões do cabeçalho-->
+        <div id="header-buttons">
+            <!-- Botão sair (link para a rota no Back End) -->
+            <div id="sair-button">
+                <a href="{% url 'login:sair' %}">Sair</a>
+            </div>
+            
+            <!-- Botão trocar de senha (link para a rota no Back End) -->
+            <div id="trocar-de-senha-button">
+                <a href="{% url 'login:mudar_senha_pag' %}">Trocar de Senha</a>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+    </header>
+
+    <!-- Main, onde fica todo o conteúdo principal da página -->
+    <main>
+        <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
+            <div class="container"> 
+                <div id="retornos">
+                    {% if status.200 %} <div class="block-success">Cadastro/Alteração realizado(a) com sucesso.</div> {% endif %}
+                    {% if status.200_delete %} <div class="block-success">Cadastro apagado com sucesso.</div> {% endif %}
+                    {% if status.delete_error %} <div class="block-erro">Erro ao apagar cadastro.</div> {% endif %}
+                    {% if status.400 %} <div class="block-erro">Um ou mais dados inseridos são inválidos.</div> {% endif %}
+                    {% if status.409 %} <div class="block-erro">Um ou mais dados já pertecem a outro cadastro.</div> {% endif %}
+                    {% if status.418 %} <div class="block-erro">Este cadastro não pode ser deletado pois está relacionado à outros.</div> {% endif %}
+                    {% if status.500 %} <div class="block-erro">Ocorreu um erro com o servidor.</div> {% endif %}
+                </div>
+                <form action="{% url 'professor:disciplina_cursada_salvar'  %}" method="get">
+
+                    <div>
+                        {% if cadastro != None %}
+                        <input type="text" name="id" id="id" value="{{ cadastro.id }}" style="display: none;">
+                        {% endif %}
+                        <button type="submit">
+                            <img src="{% static 'icons/novo.png' %}" alt="">
+                            <span>Salvar</span>
+                        </button>
+                        <!-- <button>
+                            <span>Calcular Frequência</span>
+                        </button>
+                        <button>
+                            <span>Calcular Nota</span>
+                        </button>
+                        <button>
+                            <span>Calcular Situação</span>
+                        </button> -->
+                        <div style="clear: both;"></div>
+                    </div>
+
+                    {% if cadastro != None %}
+                    <!-- Apenas mostrando informações, não tem efeito no backend -->
+                    <div class="form-input">
+                        <div class="fake-input-value">{% if cadastro.curso_matriculado.aluno.nome != None %}{{ cadastro.curso_matriculado.aluno.nome }}{% else %}--{% endif %}</div>
+                        <label>Aluno</label>
+                    </div>
+                    <div class="form-input">
+                        <div class="fake-input-value">{% if cadastro.curso_matriculado.curso.nome != None %}{{ cadastro.curso_matriculado.curso.nome }}{% else %}--{% endif %}</div>
+                        <label>Curso</label>
+                    </div>
+                    <div class="form-input">
+                        <div class="fake-input-value">{% if cadastro.disciplina.nome != None %}{{ cadastro.disciplina.nome }}{% else %}--{% endif %}</div>
+                        <label>Disciplina</label>
+                    </div>
+                    <!--  ENDBLOCK  -->
+            
+                    <div class="form-input">
+                        <input class="input" type="number" name="prova1" id="prova1" placeholder="Insira o valor aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.prova1 }}" {% endif %}>
+                        <label for="prova1">Nota Prova 1</label>
+                    </div>
+                    <div class="form-input">
+                        <input class="input" type="number" name="prova2" id="prova2" placeholder="Insira o valor aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.prova2 }}" {% endif %}>
+                        <label for="prova2">Nota Prova 2</label>
+                    </div>
+                    <div class="form-input">
+                        <input class="input" type="number" name="trabalho" id="trabalho" placeholder="Insira o valor aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.trabalho }}" {% endif %}>
+                        <label for="trabalho">Nota Trabalho</label>
+                    </div>
+                    <div class="form-input">
+                        <input class="input" type="number" name="faltas" id="faltas" placeholder="Insira o valor aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.faltas }}" {% endif %}>
+                        <label for="faltas">Faltas</label>
+                    </div>
+
+                    <!-- Apenas mostrando informações, não tem efeito no backend -->
+                    <div class="form-input">
+                        <div class="fake-input-value">{% if cadastro.media != None %}{{ cadastro.media }}{% else %}--{% endif %}</div>
+                        <label>Media</label>
+                    </div>
+                    <div class="form-input">
+                        <div class="fake-input-value">{% if cadastro.frequencia != None %}{{ cadastro.frequencia }}%{% else %}--{% endif %}</div>
+                        <label>Frequência</label>
+                    </div>
+                    <div class="form-input">
+                        <div class="fake-input-value">{% if cadastro.situacao != None %}{{ cadastro.situacao }}{% else %}--{% endif %}</div>
+                        <label>Situação</label>
+                    </div>
+                    <!--  ENDBLOCK  -->
+                    {% endif %}
+                    <div style="clear: both;"></div>
+                </form>
+                
+        </section>
+    </main>
+
+    <!-- Footer, o rodapé da página -->
+    <footer>
+        <!-- Primeira seção do rodapé -->
+        <section id="footer-section-1">
+            <h2>Sobre</h2>
+            <p>PIM do 4° Semestre</p>
+            <p>Grupo: DS4.4</p>
+        </section>
+
+        <!-- Segunda seção do rodapé -->
+        <section id="footer-section-2">
+            <h2>Atribuições</h2>
+            <p><a href="https://www.flaticon.com/br/icones-gratis/universidade" class="link" target="_blank">Favicon by Flaticon</a></p>
+            <p><a href="https://www.freepik.com" class="link" target="_blank">Icons by Freepik</a></p>
+        </section>
+    </footer>
+</body>
+</html>

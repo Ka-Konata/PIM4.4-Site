@@ -16,5 +16,7 @@ urlpatterns = [
     path("conteudo/listar/download", views.download_conteudo, name="download_conteudo"),
     path("conteudo/listar/info", views.editar_conteudo, name="info_conteudo"),
     path("conteudo/listar/info/salvar", views.conteudo_salvar, name="conteudo_salvar"),
-    path("conteudo/listar/info/apagar", views.conteudo_apagar, name="conteudo_apagar")
+    path("conteudo/listar/info/apagar", views.conteudo_apagar, name="conteudo_apagar"),
+    path("disciplinas/alunos/info", views.info_alunos_em_disciplinas, name="info_alunos_em_disciplinas"),
+    path("disciplinas/alunos/info/salvar", views.alunos_em_disciplinas_salvar, name="disciplina_cursada_salvar")
 ]
