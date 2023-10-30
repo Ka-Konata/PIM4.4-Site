@@ -30,8 +30,8 @@
         <!-- Título (h1) da página -->
         <div id="header-title">
             <h1>
-                <a href="{% url 'analistarh:index'%}">Área do Secretario</a>
-                <span class="subtitle"> / Secretario</span>
+                <a href="{% url 'secretario:index'%}">Área do Secretario</a>
+                <span class="subtitle"> / Curso / Disciplinas</span>
             </h1>
             <p>Olá, {{secretario.nome}}!</p>
         </div>
@@ -59,12 +59,13 @@
                 <div id="retornos">
                     {% if status.200 %} <div class="block-success">Cadastro/Alteração realizado(a) com sucesso.</div> {% endif %}
                     {% if status.200_delete %} <div class="block-success">Cadastro apagado com sucesso.</div> {% endif %}
-                    {% if status.delete_error %} <div class="block-success">Erro ao apagar cadastro.</div> {% endif %}
+                    {% if status.delete_error %} <div class="block-erro">Erro ao apagar cadastro.</div> {% endif %}
+                    {% if status.418 %} <div class="block-erro">Este cadastro não pode ser deletado pois está relacionado à outros.</div> {% endif %}
                     {% if status.400 %} <div class="block-erro">Um ou mais dados inseridos são inválidos.</div> {% endif %}
                     {% if status.409 %} <div class="block-erro">Um ou mais dados já pertecem a outro cadastro.</div> {% endif %}
                     {% if status.500 %} <div class="block-erro">Ocorreu um erro com o servidor.</div> {% endif %}
                 </div>
-                <form action="{% url 'analistarh:analistarh_salvar'  %}" method="get">
+                <form action="{% url 'secretario:disciplina_em_curso_salvar'  %}" method="get">
 
                     <div>
                         {% if cadastro != None %}
@@ -83,14 +84,12 @@
                     </div>
             
                     <div class="form-input">
-                        <input class="input" type="text" name="id_curso" id="id_curso" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.id_curso }}" {% endif %}>
-                        <label for="id_curso">id_curso</label>
+                        <input class="input" type="number" name="id_curso" id="id_curso" placeholder="Insira o valor aqui" required>
+                        <label for="id_curso">ID do Curso</label>
                     </div>
                     <div class="form-input">
-                        <input class="input" type="text" name="id_disciplina" id="id_disciplina" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.id_disciplina }}" {% endif %}>
-                        <label for="id_disciplina">id_disciplina</label>    
+                        <input class="input" type="number" name="id_disciplina" id="id_disciplina" placeholder="Insira o valor aqui" required>
+                        <label for="id_disciplina">ID da Disciplina</label>    
                     </div>
                     <div style="clear: both;"></div>
                 </form>

@@ -4,7 +4,7 @@ main > section {
 
 .container, form {
     display: inline-block;
-    width: 500px;
+    width: 600px;
     background-color: #ffffff;
     text-align: center;
 }
@@ -50,7 +50,7 @@ form button[type="button"] {
     width: 100%;
 }
 
-.form-input label, input {
+.form-input > label, .form-input > input {
     float: right;
     padding: 8px;
     font-size: 18px;
@@ -58,14 +58,14 @@ form button[type="button"] {
     text-align: left;
 }
 
-.form-input label {
+.form-input > label {
     background: rgb(128, 128, 128);
     width: calc(30% - 19px);
     font-weight: bolder;
     color: rgb(214, 214, 214);
 }
 
-.form-input input {
+.form-input > input {
     background: rgb(207, 207, 207);
     width: calc(70% - 19px);
 }
@@ -80,10 +80,16 @@ form button[type="button"] {
     background: rgb(128, 128, 128);
     color: rgb(214, 214, 214);
     float: right;
+    margin-left: 8px;
 }
 
-.form-input-select label, input {
+.form-input-select label, .form-input-select input {
     float: right;
+}
+
+.form-input-select label {
+    width: auto;
+    font-weight: bolder;
 }
 
 .form-input-select input {

@@ -56,6 +56,12 @@
     <main>
         <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
             <div class="container"> 
+                <div id="retornos">
+                    {% if status.200_delete %} <div class="block-success">Cadastro apagado com sucesso.</div> {% endif %}
+                    {% if status.delete_error %} <div class="block-erro">Erro ao apagar cadastro.</div> {% endif %}
+                    {% if status.418 %} <div class="block-erro">Este cadastro não pode ser deletado pois está relacionado à outros.</div> {% endif %}
+                    {% if status.500 %} <div class="block-erro">Ocorreu um erro com o servidor.</div> {% endif %}
+                </div>
                 <form action="" method="get">
                     <button type="button" onclick="redirect_to_cad(`{% url 'professor:conteudo_info' %}`, null)">
                         <img src="{% static 'icons/favicon.png' %}" alt="">

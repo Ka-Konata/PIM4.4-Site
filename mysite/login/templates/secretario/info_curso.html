@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área do Analista de RH</title>
+    <title>Área do Secretario</title>
     {% load static %}
     <link rel="shortcut icon" href="{% static 'icons/favicon.png'%}" type="image/x-icon">
     {% load static %}
@@ -30,10 +30,10 @@
         <!-- Título (h1) da página -->
         <div id="header-title">
             <h1>
-                <a href="{% url 'analistarh:index'%}">Área do Analista de RH</a>
-                <span class="subtitle"> / AnalistaRH</span>
+                <a href="{% url 'secretario:index'%}">Área do Secretario</a>
+                <span class="subtitle"> / Curso</span>
             </h1>
-            <p>Olá, {{analistarh.nome}}!</p>
+            <p>Olá, {{secretario.nome}}!</p>
         </div>
 
         <!-- Botões do cabeçalho-->
@@ -59,16 +59,17 @@
                 <div id="retornos">
                     {% if status.200 %} <div class="block-success">Cadastro/Alteração realizado(a) com sucesso.</div> {% endif %}
                     {% if status.200_delete %} <div class="block-success">Cadastro apagado com sucesso.</div> {% endif %}
-                    {% if status.delete_error %} <div class="block-success">Erro ao apagar cadastro.</div> {% endif %}
+                    {% if status.delete_error %} <div class="block-erro">Erro ao apagar cadastro.</div> {% endif %}
                     {% if status.400 %} <div class="block-erro">Um ou mais dados inseridos são inválidos.</div> {% endif %}
                     {% if status.409 %} <div class="block-erro">Um ou mais dados já pertecem a outro cadastro.</div> {% endif %}
+                    {% if status.418 %} <div class="block-erro">Este cadastro não pode ser deletado pois está relacionado à outros.</div> {% endif %}
                     {% if status.500 %} <div class="block-erro">Ocorreu um erro com o servidor.</div> {% endif %}
                 </div>
-                <form action="{% url 'analistarh:analistarh_salvar'  %}" method="get">
+                <form action="{% url 'secretario:curso_salvar'  %}" method="get">
 
                     <div>
                         {% if cadastro != None %}
-                        <button type="button" onclick="redirect_to_cad(`{% url 'analistarh:analistarh_apagar' %}`,
+                        <button type="button" onclick="redirect_to_cad(`{% url 'secretario:curso_apagar' %}`,
                         `{{ cadastro.id }}`)">
                             <img src="{% static 'icons/apagar.png' %}" alt="">
                             <span>Apagar</span>
@@ -88,13 +89,13 @@
                         <label for="nome">Nome</label>
                     </div>
                     <div class="form-input">
-                        <input class="input" type="text" name=" carga_horaria" id=" carga_horaria" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro. carga_horaria }}" {% endif %}>
-                        <label for=" carga_horaria"> carga_horaria</label>
+                        <input class="input" type="number" name="carga_horaria" id="carga_horaria" placeholder="Insira o valor aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.carga_horaria }}" {% endif %}>
+                        <label for="carga_horaria"> carga_horaria</label>
                     </div>
             
                     <div class="form-input">
-                        <input class="input" type="text" name="aulas_totais" id="aulas_totais" placeholder="Insira o valor aqui" required
+                        <input class="input" type="number" name="aulas_totais" id="aulas_totais" placeholder="Insira o valor aqui" required
                         {% if cadastro != None %} value="{{ cadastro.aulas_totais }}" {% endif %}>
                         <label for="aulas_totais">aulas_totais</label>
                     </div>

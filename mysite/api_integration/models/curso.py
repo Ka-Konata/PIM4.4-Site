@@ -5,11 +5,11 @@ class Curso:
     """Model para a entidade Curso."""
 
     def __init__(self, 
-                 id: int,
                  nome: str,
                  carga_horaria: int,
                  aulas_totais: int,
-                 disciplinas: list[Disciplina]) -> None:
+                 id: int = None,
+                 disciplinas: list[Disciplina] = None) -> None:
         """Construtor da classe."""
         self.__id = id
         self.__disciplinas = disciplinas

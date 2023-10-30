@@ -56,8 +56,17 @@
     <main>
         <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
             <div class="container">
-                <form action="" method="get">
-                    <input type="text" name="filtro" id="filtro" placeholder="Insira o ID do curso para pesquisar" required>
+                <div id="retornos">
+                    {% if status.200 %} <div class="block-success">Cadastro/Alteração realizado(a) com sucesso.</div> {% endif %}
+                    {% if status.200_delete %} <div class="block-success">Cadastro apagado com sucesso.</div> {% endif %}
+                    {% if status.delete_error %} <div class="block-erro">Erro ao apagar cadastro.</div> {% endif %}
+                    {% if status.418 %} <div class="block-erro">Este cadastro não pode ser deletado pois está relacionado à outros.</div> {% endif %}
+                    {% if status.400 %} <div class="block-erro">Um ou mais dados inseridos são inválidos.</div> {% endif %}
+                    {% if status.409 %} <div class="block-erro">Um ou mais dados já pertecem a outro cadastro.</div> {% endif %}
+                    {% if status.500 %} <div class="block-erro">Ocorreu um erro com o servidor.</div> {% endif %}
+                </div>
+                <form action="{% url 'secretario:disciplina_em_curso' %}" method="get">
+                    <input type="number" name="filtro" id="filtro" placeholder="Insira o ID do curso para pesquisar" required>
                     <button type="button" onclick="redirect_to_cad(`{% url 'secretario:disciplina_em_curso_info' %}`, null)">
                         <img src="{% static 'icons/manter_novo.png' %}" alt="">
                         <span>Novo</span>
@@ -72,14 +81,13 @@
                 </form>
                 <table>
                     <tr>
-                        <th>ID</th>
                         <th>Nome</th>
-
+                        <th></th>
                     </tr>
                     {% for item in resultados %}
-                    <tr class="table-row-clickabe" onclick="redirect_to_cad(`{% url 'secretario:disciplina_em_curso_info' %}`, `{{ item.id }}`)">
-                        <td>{{ item.id }}</td>
-                        <td class="last-table-item">{{ item.nome }}</td>
+                    <tr class="table-row-non-clickabe">
+                        <td>{{ item.nome }}</td>
+                        <td class="doc_btn_download last-table-item" onclick="remover_disicplina(`{% url 'secretario:disciplina_em_curso_apagar' %}`, `{{ item.id }}`, `{{ item.id_curso }}`)">Apagar</td>
                     </tr>
                     {% endfor %}
                 </table>

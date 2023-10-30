@@ -30,8 +30,8 @@
         <!-- Título (h1) da página -->
         <div id="header-title">
             <h1>
-                <a href="{% url 'analistarh:index'%}">Área do Secretario</a>
-                <span class="subtitle"> / Secretario</span>
+                <a href="{% url 'secretario:index'%}">Área do Secretario</a>
+                <span class="subtitle"> / Turma</span>
             </h1>
             <p>Olá, {{secretario.nome}}!</p>
         </div>
@@ -59,16 +59,17 @@
                 <div id="retornos">
                     {% if status.200 %} <div class="block-success">Cadastro/Alteração realizado(a) com sucesso.</div> {% endif %}
                     {% if status.200_delete %} <div class="block-success">Cadastro apagado com sucesso.</div> {% endif %}
-                    {% if status.delete_error %} <div class="block-success">Erro ao apagar cadastro.</div> {% endif %}
+                    {% if status.delete_error %} <div class="block-erro">Erro ao apagar cadastro.</div> {% endif %}
                     {% if status.400 %} <div class="block-erro">Um ou mais dados inseridos são inválidos.</div> {% endif %}
                     {% if status.409 %} <div class="block-erro">Um ou mais dados já pertecem a outro cadastro.</div> {% endif %}
+                    {% if status.418 %} <div class="block-erro">Este cadastro não pode ser deletado pois está relacionado à outros.</div> {% endif %}
                     {% if status.500 %} <div class="block-erro">Ocorreu um erro com o servidor.</div> {% endif %}
                 </div>
-                <form action="{% url 'analistarh:analistarh_salvar'  %}" method="get">
+                <form action="{% url 'secretario:turma_salvar'  %}" method="get">
 
                     <div>
                         {% if cadastro != None %}
-                        <button type="button" onclick="redirect_to_cad(`{% url 'analistarh:analistarh_apagar' %}`,
+                        <button type="button" onclick="redirect_to_cad(`{% url 'secretario:turma_apagar' %}`,
                         `{{ cadastro.id }}`)">
                             <img src="{% static 'icons/apagar.png' %}" alt="">
                             <span>Apagar</span>
@@ -87,9 +88,10 @@
                         {% if cadastro != None %} value="{{ cadastro.nome }}" {% endif %}>
                         <label for="nome">Nome</label>
                     </div>
-                        <input class="input" type="text" name="id_curso" id="id_curso" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.id_curso }}" {% endif %}>
-                        <label for="id_curso">id_curso</label>
+                    <div class="form-input">
+                        <input class="input" type="number" name="id_curso" id="id_curso" placeholder="Insira o valor aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.curso.id }}" {% endif %}>
+                        <label for="id_curso">ID do Curso</label>
                     </div>
                     <div style="clear: both;"></div>
                 </form>

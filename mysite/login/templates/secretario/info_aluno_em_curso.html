@@ -30,8 +30,8 @@
         <!-- Título (h1) da página -->
         <div id="header-title">
             <h1>
-                <a href="{% url 'analistarh:index'%}">Área do Secretario</a>
-                <span class="subtitle"> / Secretario</span>
+                <a href="{% url 'secretario:index'%}">Área do Secretario</a>
+                <span class="subtitle"> / Curso Matriculado</span>
             </h1>
             <p>Olá, {{secretario.nome}}!</p>
         </div>
@@ -59,16 +59,17 @@
                 <div id="retornos">
                     {% if status.200 %} <div class="block-success">Cadastro/Alteração realizado(a) com sucesso.</div> {% endif %}
                     {% if status.200_delete %} <div class="block-success">Cadastro apagado com sucesso.</div> {% endif %}
-                    {% if status.delete_error %} <div class="block-success">Erro ao apagar cadastro.</div> {% endif %}
+                    {% if status.delete_error %} <div class="block-erro">Erro ao apagar cadastro.</div> {% endif %}
                     {% if status.400 %} <div class="block-erro">Um ou mais dados inseridos são inválidos.</div> {% endif %}
                     {% if status.409 %} <div class="block-erro">Um ou mais dados já pertecem a outro cadastro.</div> {% endif %}
+                    {% if status.418 %} <div class="block-erro">Este cadastro não pode ser deletado pois está relacionado à outros.</div> {% endif %}
                     {% if status.500 %} <div class="block-erro">Ocorreu um erro com o servidor.</div> {% endif %}
                 </div>
-                <form action="{% url 'analistarh:analistarh_salvar'  %}" method="get">
+                <form action="{% url 'secretario:aluno_em_curso_salvar'  %}" method="get">
 
                     <div>
                         {% if cadastro != None %}
-                        <button type="button" onclick="redirect_to_cad(`{% url 'analistarh:analistarh_apagar' %}`,
+                        <button type="button" onclick="redirect_to_cad(`{% url 'secretario:aluno_em_curso_apagar' %}`,
                         `{{ cadastro.id }}`)">
                             <img src="{% static 'icons/apagar.png' %}" alt="">
                             <span>Apagar</span>
@@ -83,34 +84,43 @@
                     </div>
             
                     <div class="form-input">
-                        <input class="input" type="text" name="id_aluno" id="id_aluno" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.id_aluno }}" {% endif %}>
-                        <label for="id_aluno">id_aluno</label>
+                        <input class="input" type="number" name="id_aluno" id="id_aluno" placeholder="Insira o valor aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.aluno.id }}" {% endif %}>
+                        <label for="id_aluno">ID do Aluno</label>
                     </div>
                     <div class="form-input">
-                        <input class="input" type="text" name="id_curso" id="id_curso" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.id_curso }}" {% endif %}>
-                        <label for="id_curso">id_curso</label>
-                    </div>
-            
-                    <div class="form-input">
-                        <input class="input" type="text" name="id_turma" id="id_turma" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.id_turma }}" {% endif %}>
-                        <label for="id_turma">id_turma</label>
+                        <input class="input" type="number" name="id_curso" id="id_curso" placeholder="Insira o valor aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.curso.id }}" {% endif %}>
+                        <label for="id_curso">ID do Curso</label>
                     </div>
             
                     <div class="form-input">
-                        <input class="input" type="text" name="semestre_atual" id="semestre_atual" placeholder="Insira o valor aqui" required
+                        <input class="input" type="number" name="id_turma" id="id_turma" placeholder="Insira o valor aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.turma.id }}" {% endif %}>
+                        <label for="id_turma">ID da Turma</label>
+                    </div>
+
+                    <!-- Opções de Input que só apareceram caso esteja editando um cadastro -->
+                    {% if cadastro != None %}
+                    <div class="form-input">
+                        <input class="input" type="number" name="semestre_atual" id="semestre_atual" placeholder="Insira o valor aqui" required
                         {% if cadastro != None %} value="{{ cadastro.semestre_atual }}" {% endif %}>
-                        <label for="semestre_atual">semestre_atual</label>
+                        <label for="semestre_atual">Semestre Atual</label>
                     </div>
+                    <div class="form-input-select">
+                        <input type="checkbox" name="trancado" id="trancado" {% if cadastro.trancado %} checked {% endif%}>
+                        <label for="trancado">Trancado</label>
+                        <div style="clear: both;"></div>
+                    </div>
+                    <div class="form-input-select">
+                        <input type="checkbox" name="finalizado" id="finalizado" {% if cadastro.finalizado %} checked {% endif%}>
+                        <label for="finalizado">Finalizado</label>
+                        <div style="clear: both;"></div>
+                    </div>
+                    {% endif %}
+
                     <div style="clear: both;"></div>
                 </form>
-                <div class="form-input-select">
-                    <input type="checkbox" name="coordenador" id="coordenador">
-                    <label for="coordenador">Coordenador</label>
-                    <div style="clear: both;"></div>
-                </div>
         </section>
     </main>
 

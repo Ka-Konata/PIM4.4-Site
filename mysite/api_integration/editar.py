@@ -66,7 +66,7 @@ class Editar:
         """Altera um cadastro já inserido no banco de dados. Cadastro do tipo Curso.
         param curso: api.Curso
         Return: requests.Response"""
-        return self.__do_request(token, id, curso, self.URLs.CURSO)
+        return self.__do_request(token, id, self.URLs.CURSO, curso)
 
     def disciplina_cursada(self, token: str, id: int, disciplina_cursada: object) -> requests.Response:
         """Altera um cadastro já inserido no banco de dados. Cadastro do tipo Disciplina_Cursada.

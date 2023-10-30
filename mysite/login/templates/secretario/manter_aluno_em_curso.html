@@ -57,8 +57,8 @@
         <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
             <div class="container">
                 <form action="" method="get">
-                    <input type="text" name="filtro" id="filtro" placeholder="Insira o ID do aluno para filtrar" required>
-                    <button type="button" onclick="redirect_to_cad(`{% url 'secretario:disciplina_em_curso_info' %}`, null)">
+                    <input type="number" name="filtro" id="filtro" placeholder="Insira o ID do aluno para filtrar">
+                    <button type="button" onclick="redirect_to_cad(`{% url 'secretario:aluno_em_curso_info' %}`, null)">
                         <img src="{% static 'icons/manter_novo.png' %}" alt="">
                         <span>Novo</span>
                     </button>
@@ -79,7 +79,7 @@
                         <th>Finalizado</th>
                     </tr>
                     {% for item in resultados %}
-                    <tr class="table-row-clickabe" onclick="redirect_to_cad(`{% url 'secretario:disciplina_em_curso_info' %}`, `{{ item.id }}`)">
+                    <tr class="table-row-clickabe" onclick="redirect_to_cad(`{% url 'secretario:aluno_em_curso_info' %}`, `{{ item.id }}`)">
                         <td>{{ item.aluno.id }}</td>
                         <td>{{ item.curso.id }}</td>
                         <td>{{ item.turma.id }}</td>

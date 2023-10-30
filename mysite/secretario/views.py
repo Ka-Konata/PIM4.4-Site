@@ -101,69 +101,36 @@ def procurar_disciplina(request: HttpRequest):
     # Adicionando o obj ao contexto e respondendo o request.
     return set_cookies(render(request, "secretario/manter_disciplina.html", context), login)
 
-def editar_aluno(request: HttpRequest):
-    """Página para cadastro ou alteração de cadastro de aluno"""
+def __editar(request: HttpRequest, funcao, path):
     context, login = check_login(request)
     if not isinstance(context, dict):
         return context
     
     id = request.GET.get("id", "")
     if id != "":
-        response, aluno = conn.consultar.aluno(login.token, id)
-        context["cadastro"] = aluno
+        response, obj = funcao(login.token, id)
+        context["cadastro"] = obj
     else:
         context["cadastro"] = None
 
     # Adicionando o obj ao contexto e respondendo o request.
-    return set_cookies(render(request, "secretario/info_aluno.html", context), login)
+    return set_cookies(render(request, path, context), login)
+
+def editar_aluno(request: HttpRequest):
+    """Página para cadastro ou alteração de cadastro de aluno"""
+    return __editar(request, conn.consultar.aluno, "secretario/info_aluno.html")
 
 def editar_curso(request: HttpRequest):
     """Página para cadastro ou alteração de cadastro de curso"""
-    context, login = check_login(request)
-    if not isinstance(context, dict):
-        return context
-    
-    id = request.GET.get("id", "")
-    if id != "":
-        response, curso = conn.consultar.curso(login.token, id)
-        context["cadastro"] = curso
-    else:
-        context["cadastro"] = None
-
-    # Adicionando o obj ao contexto e respondendo o request.
-    return set_cookies(render(request, "secretario/info_curso.html", context), login)
+    return __editar(request, conn.consultar.curso, "secretario/info_curso.html")
 
 def editar_turma(request: HttpRequest):
     """Página para cadastro ou alteração de cadastro de turma"""
-    context, login = check_login(request)
-    if not isinstance(context, dict):
-        return context
-    
-    id = request.GET.get("id", "")
-    if id != "":
-        response, turma = conn.consultar.turma(login.token, id)
-        context["cadastro"] = turma
-    else:
-        context["cadastro"] = None
-
-    # Adicionando o obj ao contexto e respondendo o request.
-    return set_cookies(render(request, "secretario/info_turma.html", context), login)
+    return __editar(request, conn.consultar.turma, "secretario/info_turma.html")
 
 def editar_disciplina(request: HttpRequest):
     """Página para cadastro ou alteração de cadastro de disciplina"""
-    context, login = check_login(request)
-    if not isinstance(context, dict):
-        return context
-    
-    id = request.GET.get("id", "")
-    if id != "":
-        response, disciplina = conn.consultar.disciplina(login.token, id)
-        context["cadastro"] = disciplina
-    else:
-        context["cadastro"] = None
-
-    # Adicionando o obj ao contexto e respondendo o request.
-    return set_cookies(render(request, "secretario/info_disciplina.html", context), login)
+    return __editar(request, conn.consultar.disciplina, "secretario/info_disciplina.html")
 
 def procurar_professor_em_turma(request: HttpRequest):
     """Página inicial para buscas de disciplina_ministrada"""
@@ -188,6 +155,8 @@ def procurar_disciplina_em_curso(request: HttpRequest):
     context["resultados"] = []
     if filtro.isnumeric():
         response, curso = conn.consultar.curso(login.token, int(filtro)) #disciplinas
+        for n in range(0, len(curso.disciplinas)):
+            curso.disciplinas[n].id_curso = curso.id
         context["resultados"] = curso.disciplinas
         
     # Adicionando o obj ao contexto e respondendo o request.
@@ -227,23 +196,204 @@ def professor_em_turma_salvar(request: HttpRequest):
         return context
 
     id = request.GET.get("id", "")
-    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False}
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False, "418": False}
 
-    professor = conn.consultar.professor(login.token, request.GET.get("id_professor", ""))
-    turma = conn.consultar.turma(login.token, request.GET.get("id_turma", ""))
-    disciplina = conn.consultar.disciplina(login.token, request.GET.get("id_disciplina", ""))
+    professor = conn.consultar.professor(login.token, request.GET.get("id_professor", ""))[1]
+    turma = conn.consultar.turma(login.token, request.GET.get("id_turma", ""))[1]
+    disciplina = conn.consultar.disciplina(login.token, request.GET.get("id_disciplina", ""))[1]
+
+    encerrada = True if request.GET.get("encerrada", "") == "on" else False
+    coordenador = True if request.GET.get("coordenador", "") == "on" else False
+
     obj = api.Disciplina_Ministrada(
         disciplina=disciplina,
         professor=professor,
         turma=turma,
-        encerrada=request.GET.get("encerrada", ""),
-        coordenador=request.GET.get("coordenador", "")
+        encerrada= encerrada,
+        coordenador=coordenador
+    )
+
+    if professor == None or turma == None or disciplina == None:
+        context["status"]["400"] = True
+        return set_cookies(render(request, "secretario/info_professor_em_turma.html", context), login)
+    elif id == "":
+        response = conn.cadastrar.disciplina_ministrada(login.token, obj)
+    else:
+        response = conn.editar.disciplina_ministrada(login.token, id, obj)
+ 
+    if response.status_code == 200:
+        context["status"]["200"] = True
+    if response.status_code == 400 and response.text != "Este professor já ministra esta disciplina nesta turma":
+        context["status"]["400"] = True
+    if response.status_code == 409 or response.text == "Este professor já ministra esta disciplina nesta turma":
+        context["status"]["409"] = True
+    if response.status_code == 500:
+        context["status"]["500"] = True
+    return set_cookies(render(request, "secretario/info_professor_em_turma.html", context), login)
+
+def professor_em_turma_apagar(request: HttpRequest):
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+
+    id = request.GET.get("id", "")
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False, "418": False}
+
+    response = conn.apagar.disciplina_ministrada(login.token, id)
+
+    if response.status_code == 200:
+        context["status"]["200_delete"] = True
+    elif response.status_code == 418:
+        context["status"]["418"] = True
+    else:
+        context["status"]["delete_error"] = True
+    return set_cookies(render(request, "secretario/info_professor_em_turma.html", context), login)
+
+def editar_disciplina_em_curso(request: HttpRequest):
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    context["cadastro"] = None
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "secretario/info_disciplina_em_curso.html", context), login)
+
+def disciplina_em_curso_salvar(request: HttpRequest):
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False, "418": False}
+
+    if not request.GET.get("id_disciplina", "").isnumeric() or not request.GET.get("id_curso", "").isnumeric():
+        context["status"]["400"] = True
+        return set_cookies(render(request, "secretario/info_disciplina_em_curso.html", context), login)
+    
+    response = conn.cadastrar.disciplina_em_curso(login.token, int(request.GET.get("id_curso", "")), int(request.GET.get("id_disciplina", "")))
+ 
+    if response.status_code == 200:
+        context["status"]["200"] = True
+    if response.status_code == 400 and response.text:
+        context["status"]["400"] = True
+    if response.status_code == 409 or response.text:
+        context["status"]["409"] = True
+    if response.status_code == 500:
+        context["status"]["500"] = True
+    return set_cookies(render(request, "secretario/info_disciplina_em_curso.html", context), login)
+
+def disciplina_em_curso_apagar(request: HttpRequest):
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False, "418": False}
+    response = conn.apagar.disciplina_em_curso(login.token, int(request.GET.get("id_curso", "")), int(request.GET.get("id_discilina", "")))
+    if response.status_code == 200:
+        context["status"]["200_delete"] = True
+    elif response.status_code == 418:
+        context["status"]["418"] = True
+    else:
+        context["status"]["delete_error"] = True
+    return set_cookies(render(request, "secretario/manter_disciplina_em_curso.html", context), login)
+
+def editar_aluno_em_curso(request: HttpRequest):
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+    
+    id = request.GET.get("id", "")
+    if id != "":
+        response, dm = conn.consultar.curso_matriculado(login.token, id)
+        context["cadastro"] = dm
+    else:
+        context["cadastro"] = None
+
+    # Adicionando o obj ao contexto e respondendo o request.
+    return set_cookies(render(request, "secretario/info_aluno_em_curso.html", context), login)
+
+def aluno_em_curso_salvar(request: HttpRequest):
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+
+    id = request.GET.get("id", "")
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False, "418": False}
+
+    aluno = conn.consultar.aluno(login.token, request.GET.get("id_aluno", ""))[1]
+    turma = conn.consultar.turma(login.token, request.GET.get("id_turma", ""))[1]
+    curso = conn.consultar.curso(login.token, request.GET.get("id_curso", ""))[1]
+
+    finalizado = True if request.GET.get("finalizado", "") == "on" else False
+    trancado = True if request.GET.get("trancado", "") == "on" else False
+    semestre_atual = int(request.GET.get("semestre_atual", "")) if request.GET.get("semestre_atual", "").isnumeric() else 1
+
+    obj = api.Curso_Matriculado(
+        curso=curso,
+        aluno=aluno,
+        turma=turma,
+        semestre_atual=semestre_atual,
+        trancado=trancado,
+        finalizado=finalizado
+    )
+
+    if aluno == None or turma == None or curso == None:
+        context["status"]["400"] = True
+        return set_cookies(render(request, "secretario/info_aluno_em_curso.html", context), login)
+    elif id == "":
+        response = conn.cadastrar.curso_matriculado(login.token, obj)
+    else:
+        response = conn.editar.curso_matriculado(login.token, id, obj)
+ 
+    print(f"status code: {response.status_code} {response.text}")
+    if response.status_code == 200:
+        context["status"]["200"] = True
+    if (response.status_code == 400 or response.status_code == 404) and response.text != "Este aluno já faz parte desta turma":
+        context["status"]["400"] = True
+    if response.status_code == 409 or response.text == "Este aluno já faz parte desta turma":
+        context["status"]["409"] = True
+    if response.status_code == 500:
+        context["status"]["500"] = True
+    return set_cookies(render(request, "secretario/info_aluno_em_curso.html", context), login)
+
+def aluno_em_curso_apagar(request: HttpRequest):
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+
+    id = request.GET.get("id", "")
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False, "418": False}
+
+    response = conn.apagar.curso_matriculado(login.token, id)
+
+    if response.status_code == 200:
+        context["status"]["200_delete"] = True
+    elif response.status_code == 418:
+        context["status"]["418"] = True
+    else:
+        context["status"]["delete_error"] = True
+    return set_cookies(render(request, "secretario/info_aluno_em_curso.html", context), login)
+
+def aluno_salvar(request: HttpRequest):
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+
+    id = request.GET.get("id", "")
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False, "418": False}
+
+    obj = api.Aluno(
+        nome = request.GET.get("nome", ""),
+        rg = int(request.GET.get("rg", "")),
+        cpf = int(request.GET.get("cpf", "")),
+        telefone = int(request.GET.get("telefone", "")),
+        email = request.GET.get("email", "")
     )
 
     if id == "":
-        response = conn.cadastrar.analistarh(login.token, obj)
+        response = conn.cadastrar.aluno(login.token, obj)
     else:
-        response = conn.editar.analistarh(login.token, id, obj)
+        response = conn.editar.aluno(login.token, id, obj)
+ 
     if response.status_code == 200:
         context["status"]["200"] = True
     if response.status_code == 400:
@@ -251,12 +401,123 @@ def professor_em_turma_salvar(request: HttpRequest):
     if response.status_code == 409:
         context["status"]["409"] = True
     if response.status_code == 500:
+        context["status"]["500"] = True
+    return set_cookies(render(request, "secretario/info_aluno.html", context), login)
+
+def curso_salvar(request: HttpRequest):
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+
+    id = request.GET.get("id", "")
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False, "418": False}
+
+    obj = api.Curso(
+        nome = request.GET.get("nome", ""),
+        aulas_totais=int(request.GET.get("aulas_totais", "")),
+        carga_horaria=int(request.GET.get("carga_horaria", ""))
+    )
+
+    if id == "":
+        response = conn.cadastrar.curso(login.token, obj)
+    else:
+        response = conn.editar.curso(login.token, id, obj)
+ 
+    if response.status_code == 200:
+        context["status"]["200"] = True
+    if response.status_code == 400:
+        context["status"]["400"] = True
+    if response.status_code == 409:
         context["status"]["409"] = True
-    return set_cookies(render(request, "analistarh/info_analista.html", context), login)
+    if response.status_code == 500:
+        context["status"]["500"] = True
+    return set_cookies(render(request, "secretario/info_curso.html", context), login)
 
+def turma_salvar(request: HttpRequest):
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
 
-def editar_disciplina_em_curso(request: HttpRequest):
-    pass
+    id = request.GET.get("id", "")
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False, "418": False}
 
-def editar_aluno_em_curso(request: HttpRequest):
-    pass
+    
+    curso = conn.consultar.curso(login.token, int(request.GET.get("id_curso", "")))[1]
+    if curso == None:
+        context["status"]["400"] = True
+        return set_cookies(render(request, "secretario/info_turma.html", context), login)
+
+    obj = api.Turma(
+        nome=request.GET.get("nome", ""),
+        curso=curso
+    )
+
+    if id == "":
+        response = conn.cadastrar.turma(login.token, obj)
+    else:
+        response = conn.editar.turma(login.token, id, obj)
+ 
+    if response.status_code == 200:
+        context["status"]["200"] = True
+    if response.status_code == 400:
+        context["status"]["400"] = True
+    if response.status_code == 409:
+        context["status"]["409"] = True
+    if response.status_code == 500:
+        context["status"]["500"] = True
+    return set_cookies(render(request, "secretario/info_turma.html", context), login)
+
+def disciplina_salvar(request: HttpRequest):
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+
+    id = request.GET.get("id", "")
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False, "418": False}
+
+    obj = api.Disciplina(
+        nome = request.GET.get("nome", "")
+    )
+
+    if id == "":
+        response = conn.cadastrar.disciplina(login.token, obj)
+    else:
+        response = conn.editar.disciplina(login.token, id, obj)
+ 
+    if response.status_code == 200:
+        context["status"]["200"] = True
+    if response.status_code == 400:
+        context["status"]["400"] = True
+    if response.status_code == 409:
+        context["status"]["409"] = True
+    if response.status_code == 500:
+        context["status"]["500"] = True
+    return set_cookies(render(request, "secretario/info_disciplina.html", context), login)
+
+def __apagar(request: HttpRequest, funcao, path):
+    context, login = check_login(request)
+    if not isinstance(context, dict):
+        return context
+
+    id = request.GET.get("id", "")
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False, "418": False}
+
+    response = funcao(login.token, id)
+
+    if response.status_code == 200:
+        context["status"]["200_delete"] = True
+    else:
+        context["status"]["delete_error"] = True
+    return set_cookies(render(request, path, context), login)
+
+def aluno_apagar(request: HttpRequest):
+    return __apagar(request, conn.apagar.aluno, "secretario/info_aluno.html")
+
+def curso_apagar(request: HttpRequest):
+    return __apagar(request, conn.apagar.curso, "secretario/info_curso.html")
+
+def turma_apagar(request: HttpRequest):
+    return __apagar(request, conn.apagar.turma, "secretario/info_turma.html")
+
+def disciplina_apagar(request: HttpRequest):
+    return __apagar(request, conn.apagar.disciplina, "secretario/info_disciplina.html")

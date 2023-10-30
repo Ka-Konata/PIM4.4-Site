@@ -59,9 +59,10 @@
                 <div id="retornos">
                     {% if status.200 %} <div class="block-success">Cadastro/Alteração realizado(a) com sucesso.</div> {% endif %}
                     {% if status.200_delete %} <div class="block-success">Cadastro apagado com sucesso.</div> {% endif %}
-                    {% if status.delete_error %} <div class="block-success">Erro ao apagar cadastro.</div> {% endif %}
+                    {% if status.delete_error %} <div class="block-erro">Erro ao apagar cadastro.</div> {% endif %}
                     {% if status.400 %} <div class="block-erro">Um ou mais dados inseridos são inválidos.</div> {% endif %}
                     {% if status.409 %} <div class="block-erro">Um ou mais dados já pertecem a outro cadastro.</div> {% endif %}
+                    {% if status.418 %} <div class="block-erro">Este cadastro não pode ser deletado pois está relacionado à outros.</div> {% endif %}
                     {% if status.500 %} <div class="block-erro">Ocorreu um erro com o servidor.</div> {% endif %}
                 </div>
                 <form action="{% url 'analistarh:analistarh_salvar'  %}" method="get">
@@ -88,19 +89,19 @@
                         <label for="nome">Nome</label>
                     </div>
                     <div class="form-input">
-                        <input class="input" type="text" name="rg" id="rg" placeholder="Insira o valor aqui" required
+                        <input class="input" type="number" name="rg" id="rg" placeholder="Insira o valor aqui" required
                         {% if cadastro != None %} value="{{ cadastro.rg }}" {% endif %}>
                         <label for="rg">RG</label>
                     </div>
             
                     <div class="form-input">
-                        <input class="input" type="text" name="cpf" id="cpf" placeholder="Insira o valor aqui" required
+                        <input class="input" type="number" name="cpf" id="cpf" placeholder="Insira o valor aqui" required
                         {% if cadastro != None %} value="{{ cadastro.cpf }}" {% endif %}>
                         <label for="cpf">CPF</label>
                     </div>
             
                     <div class="form-input">
-                        <input class="input" type="text" name="telefone" id="telefone" placeholder="Insira o valor aqui" required
+                        <input class="input" type="number" name="telefone" id="telefone" placeholder="Insira o valor aqui" required
                         {% if cadastro != None %} value="{{ cadastro.telefone }}" {% endif %}>
                         <label for="telefone">Telefone</label>
                     </div>

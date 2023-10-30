@@ -143,7 +143,7 @@ def analistarh_salvar(request: HttpRequest):
         return context
 
     id = request.GET.get("id", "")
-    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False}
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False, "418": False}
 
     obj = api.AnalistaRH(
         nome = request.GET.get("nome", ""),
@@ -157,6 +157,7 @@ def analistarh_salvar(request: HttpRequest):
         response = conn.cadastrar.analistarh(login.token, obj)
     else:
         response = conn.editar.analistarh(login.token, id, obj)
+ 
     if response.status_code == 200:
         context["status"]["200"] = True
     if response.status_code == 400:
@@ -164,7 +165,7 @@ def analistarh_salvar(request: HttpRequest):
     if response.status_code == 409:
         context["status"]["409"] = True
     if response.status_code == 500:
-        context["status"]["409"] = True
+        context["status"]["500"] = True
     return set_cookies(render(request, "analistarh/info_analista.html", context), login)
 
 def secretario_salvar(request: HttpRequest):
@@ -173,7 +174,7 @@ def secretario_salvar(request: HttpRequest):
         return context
 
     id = request.GET.get("id", "")
-    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False}
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False, "418": False}
 
     obj = api.Secretario(
         nome = request.GET.get("nome", ""),
@@ -187,6 +188,7 @@ def secretario_salvar(request: HttpRequest):
         response = conn.cadastrar.secretario(login.token, obj)
     else:
         response = conn.editar.secretario(login.token, id, obj)
+ 
     if response.status_code == 200:
         context["status"]["200"] = True
     if response.status_code == 400:
@@ -194,7 +196,7 @@ def secretario_salvar(request: HttpRequest):
     if response.status_code == 409:
         context["status"]["409"] = True
     if response.status_code == 500:
-        context["status"]["409"] = True
+        context["status"]["500"] = True
     return set_cookies(render(request, "analistarh/info_secretario.html", context), login)
 
 def professor_salvar(request: HttpRequest):
@@ -203,7 +205,7 @@ def professor_salvar(request: HttpRequest):
         return context
 
     id = request.GET.get("id", "")
-    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False}
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False, "418": False}
 
     obj = api.Professor(
         nome = request.GET.get("nome", ""),
@@ -217,6 +219,7 @@ def professor_salvar(request: HttpRequest):
         response = conn.cadastrar.professor(login.token, obj)
     else:
         response = conn.editar.professor(login.token, id, obj)
+ 
     if response.status_code == 200:
         context["status"]["200"] = True
     if response.status_code == 400:
@@ -224,7 +227,7 @@ def professor_salvar(request: HttpRequest):
     if response.status_code == 409:
         context["status"]["409"] = True
     if response.status_code == 500:
-        context["status"]["409"] = True
+        context["status"]["500"] = True
     return set_cookies(render(request, "analistarh/info_professor.html", context), login)
 
 def analistarh_apagar(request: HttpRequest):
@@ -233,7 +236,7 @@ def analistarh_apagar(request: HttpRequest):
         return context
 
     id = request.GET.get("id", "")
-    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False}
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False, "418": False}
 
     response = conn.apagar.analistarh(login.token, id)
 
@@ -249,7 +252,7 @@ def secretario_apagar(request: HttpRequest):
         return context
 
     id = request.GET.get("id", "")
-    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False}
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False, "418": False}
 
     response = conn.apagar.secretario(login.token, id)
 
@@ -263,12 +266,9 @@ def professor_apagar(request: HttpRequest):
     context, login = check_login(request)
     if not isinstance(context, dict):
         return context
-    context, login = check_login(request)
-    if not isinstance(context, dict):
-        return context
 
     id = request.GET.get("id", "")
-    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False}
+    context["status"] = {"200_delete":False, "delete_error":False, "200":False, "400":False, "409":False, "500":False, "418": False}
 
     response = conn.apagar.professor(login.token, id)
 
