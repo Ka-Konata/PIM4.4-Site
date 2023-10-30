@@ -46,11 +46,11 @@ form button[type="button"] {
     width: 90px;
 }
 
-.form-input {
+.form-input, .form-input-file {
     width: 100%;
 }
 
-.form-input > label, .form-input > input {
+.form-input > label, .form-input > input, .form-input-file label, .form-input-file input {
     float: right;
     padding: 8px;
     font-size: 18px;
@@ -58,14 +58,18 @@ form button[type="button"] {
     text-align: left;
 }
 
-.form-input > label {
+.form-input-file input {
+    font-size: 13px;
+}
+
+.form-input > label, .form-input-file label {
     background: rgb(128, 128, 128);
     width: calc(30% - 19px);
     font-weight: bolder;
     color: rgb(214, 214, 214);
 }
 
-.form-input > input {
+.form-input > input, .form-input-file input {
     background: rgb(207, 207, 207);
     width: calc(70% - 19px);
 }

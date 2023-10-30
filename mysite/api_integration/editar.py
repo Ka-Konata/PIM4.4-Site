@@ -50,10 +50,11 @@ class Editar:
         param conteudo: api.Conteudo
         Return: requests.Response"""
         # O conteúdo é o único que envia um body no dormato "multipart/form-data" e cin um arquivo. Portanto, o código para exutar o request precisa ser diferente do restante.
-        url = self.base_url + f"/{self.URLs.CONTEUDO}"
+        url = self.base_url + f"/{self.URLs.CONTEUDO}/{id}"
         headers = {"Authorization": f"Bearer {token}"}
         data = {"idDisciplinaMinistrada": conteudo.disciplina_ministrada.id}
         files=[('documento', (conteudo.documento.name, conteudo.documento, conteudo.documento.content_type))]
+        print(url, files)
         return requests.put(url, headers=headers, data=data, files=files)
 
     def curso_matriculado(self, token: str, id: int, curso_matriculado: object) -> requests.Response:

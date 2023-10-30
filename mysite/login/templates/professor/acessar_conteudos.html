@@ -57,13 +57,16 @@
         <section> <!-- Coloque o conteúdo dentro desta seção, pois ela é centralizada -->
             <div class="container"> 
                 <div id="retornos">
+                    {% if status.200 %} <div class="block-success">Cadastro/Alteração realizado(a) com sucesso.</div> {% endif %}
                     {% if status.200_delete %} <div class="block-success">Cadastro apagado com sucesso.</div> {% endif %}
                     {% if status.delete_error %} <div class="block-erro">Erro ao apagar cadastro.</div> {% endif %}
                     {% if status.418 %} <div class="block-erro">Este cadastro não pode ser deletado pois está relacionado à outros.</div> {% endif %}
+                    {% if status.400 %} <div class="block-erro">Um ou mais dados inseridos são inválidos.</div> {% endif %}
+                    {% if status.409 %} <div class="block-erro">Um ou mais dados já pertecem a outro cadastro.</div> {% endif %}
                     {% if status.500 %} <div class="block-erro">Ocorreu um erro com o servidor.</div> {% endif %}
                 </div>
                 <form action="" method="get">
-                    <button type="button" onclick="redirect_to_cad(`{% url 'professor:conteudo_info' %}`, null)">
+                    <button type="button" onclick="redirect_to_cad(`{% url 'professor:info_conteudo' %}`, null)">
                         <img src="{% static 'icons/favicon.png' %}" alt="">
                         <span>Novo</span>
                     </button>
@@ -78,7 +81,7 @@
                     {% for item in resultados %}
                     <tr class="table-row-non-clickabe">
                         <td>{{ item.documento_url }}</td>
-                        <td class="doc_btn_download" onclick="redirect_to_cad(`{% url 'professor:conteudo_info' %}`, `{{ item.id }}`)">Editar</td>
+                        <td class="doc_btn_download" onclick="redirect_to_cad(`{% url 'professor:info_conteudo' %}`, `{{ item.id }}`)">Editar</td>
                         <td class="doc_btn_download last-table-item"><a target="_blank" href="
                             {% url 'professor:download_conteudo' %}?file_name={{ item.documento_url }}
                             ">Download</a></td>

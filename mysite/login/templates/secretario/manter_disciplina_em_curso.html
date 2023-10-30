@@ -87,7 +87,7 @@
                     {% for item in resultados %}
                     <tr class="table-row-non-clickabe">
                         <td>{{ item.nome }}</td>
-                        <td class="doc_btn_download last-table-item" onclick="remover_disicplina(`{% url 'secretario:disciplina_em_curso_apagar' %}`, `{{ item.id }}`, `{{ item.id_curso }}`)">Apagar</td>
+                        <td class="doc_btn_download last-table-item" onclick="remover_disicplina(`{% url 'secretario:disciplina_em_curso_apagar' %}`, `{{ item.id }}`, `{{ item.id_curso }}`)">Remover</td>
                     </tr>
                     {% endfor %}
                 </table>

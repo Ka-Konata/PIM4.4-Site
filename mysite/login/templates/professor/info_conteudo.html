@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área do Analista de RH</title>
+    <title>Área do Professor</title>
     {% load static %}
     <link rel="shortcut icon" href="{% static 'icons/favicon.png'%}" type="image/x-icon">
     {% load static %}
@@ -30,10 +30,10 @@
         <!-- Título (h1) da página -->
         <div id="header-title">
             <h1>
-                <a href="{% url 'analistarh:index'%}">Área do Analista de RH</a>
-                <span class="subtitle"> / AnalistaRH</span>
+                <a href="{% url 'professor:index'%}">Área do Professor</a>
+                <span class="subtitle"> / Conteudo</span>
             </h1>
-            <p>Olá, {{analistarh.nome}}!</p>
+            <p>Olá, {{professor.nome}}!</p>
         </div>
 
         <!-- Botões do cabeçalho-->
@@ -65,11 +65,11 @@
                     {% if status.418 %} <div class="block-erro">Este cadastro não pode ser deletado pois está relacionado à outros.</div> {% endif %}
                     {% if status.500 %} <div class="block-erro">Ocorreu um erro com o servidor.</div> {% endif %}
                 </div>
-                <form action="{% url 'analistarh:analistarh_salvar'  %}" method="get">
-
+                <form action="{% url 'professor:conteudo_salvar'  %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <div>
                         {% if cadastro != None %}
-                        <button type="button" onclick="redirect_to_cad(`{% url 'analistarh:analistarh_apagar' %}`,
+                        <button type="button" onclick="redirect_to_cad(`{% url 'professor:conteudo_apagar' %}`,
                         `{{ cadastro.id }}`)">
                             <img src="{% static 'icons/apagar.png' %}" alt="">
                             <span>Apagar</span>
@@ -83,32 +83,20 @@
                         <div style="clear: both;"></div>
                     </div>
             
-                    <div class="form-input">
-                        <input class="input" type="text" name="nome" id="nome" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.nome }}" {% endif %}>
-                        <label for="nome">Nome</label>
+                    <div class="form-input" {% if cadastro != None %} style="display: none;" {% endif %}>
+                        <input class="input" type="text" name="nome_turma" id="nome_turma" placeholder="Insira o nome da turma aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.disciplina_ministrada.turma.nome }}" {% endif %}>
+                        <label for="nome_turma">Turma</label>
                     </div>
-                    <div class="form-input">
-                        <input class="input" type="text" name="rg" id="rg" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.rg }}" {% endif %}>
-                        <label for="rg">RG</label>
+                    <div class="form-input" {% if cadastro != None %} style="display: none;" {% endif %}>
+                        <input class="input" type="text" name="nome_disciplina" id="nome_disciplina" placeholder="Insira o nome da disciplina aqui" required
+                        {% if cadastro != None %} value="{{ cadastro.disciplina_ministrada.disciplina.nome }}" {% endif %}>
+                        <label for="nome_disciplina">Disciplina</label>
                     </div>
-            
-                    <div class="form-input">
-                        <input class="input" type="text" name="cpf" id="cpf" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.cpf }}" {% endif %}>
-                        <label for="cpf">CPF</label>
-                    </div>
-            
-                    <div class="form-input">
-                        <input class="input" type="text" name="telefone" id="telefone" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.telefone }}" {% endif %}>
-                        <label for="telefone">Telefone</label>
-                    </div>
-                    <div class="form-input">
-                        <input class="input" type="text" name="email" id="email" placeholder="Insira o valor aqui" required
-                        {% if cadastro != None %} value="{{ cadastro.email }}" {% endif %}>
-                        <label for="E-mail">E-mail</label>
+
+                    <div class="form-input-file">
+                        <input class="input-file" type="file" name="documento" id="documento" accept=".pdf" required>
+                        <label for="documento">Documento</label>
                     </div>
                     <div style="clear: both;"></div>
                 </form>
