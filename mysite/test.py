@@ -1,5 +1,0 @@
-from api_integration import api, utils
-conn = api.Connection("https://pim44-api.victorgrferreir.repl.co/api")
-token = "eyJhbGciOiJIUzI1NiIsInR5cCI6ImF0K2p3dCJ9.eyJlbWFpbCI6IjM0NUBnbWFpbC5jb20iLCJyb2xlIjoiUHJvZmVzc29yIiwiaWQiOiIxMDAwNCIsImp0aSI6Ijk2MDJmY2M0LWNiNzAtNDRhYy1hNGRlLWEzMDYwMTliZDJhNCIsIm5iZiI6MTY5ODQzMDAxMSwiZXhwIjoxNjk4NDMzNjExLCJpYXQiOjE2OTg0MzAwMTEsImlzcyI6ImxvY2FsaG9zdDo3MjQ2IiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzI0NiJ9.IYzub8UyR42m_MWVEZAitBu8m09_I1A4GrhFnNKjTzs"
-response, curso = conn.consultar.curso(token, 10002)
-print(response.status_code, curso.disciplinas, response)
